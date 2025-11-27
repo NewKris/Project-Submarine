@@ -1,4 +1,5 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 using Werehorse.Runtime.Utility;
 
@@ -10,6 +11,14 @@ namespace WereHorse.Runtime.Common {
             GUILayout.BeginArea(new Rect(10, 10, 300, 300));
             
             GUILayout.Label($"Playing as: {GameManager.clientType}");
+
+            if (NetworkManager.Singleton) {
+                GUILayout.Label("Connected Players:");
+
+                foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
+                    GUILayout.Label(clientId.ToString());
+                }
+            }
             
             GUILayout.EndArea();
         }
