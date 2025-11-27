@@ -2381,6 +2381,10 @@ PrefabInstance:
       value: Menu Button
       objectReference: {fileID: 0}
     - target: {fileID: 6746093864542515497, guid: 50070351682257b42b3909c617a5f4bc, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6746093864542515497, guid: 50070351682257b42b3909c617a5f4bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
