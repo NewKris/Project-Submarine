@@ -1,20 +1,19 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace WereHorse.Runtime.Utility {
+namespace Werehorse.Runtime.Utility {
     public static class Singleton {
-        public static bool MakeSingleton<T>(ref T singleton, T instance) where T : MonoBehaviour {
-            if (singleton) {
-                Object.Destroy(instance.gameObject);
-                return false;
-            }
-            else {
-                Object.DontDestroyOnLoad(instance.gameObject);
+        public static bool SetSingleton<T>(ref T singleton, T instance) where T : MonoBehaviour {
+            if (singleton == null) {
                 singleton = instance;
+                Object.DontDestroyOnLoad(instance.gameObject);
                 return true;
             }
+
+            Object.Destroy(instance.gameObject);
+            return false;
         }
 
-        public static bool RemoveSingleton<T>(ref T singleton, T instance) where T : MonoBehaviour {
+        public static bool UnsetSingleton<T>(ref T singleton, T instance) where T : MonoBehaviour {
             if (singleton == instance) {
                 singleton = null;
                 return true;

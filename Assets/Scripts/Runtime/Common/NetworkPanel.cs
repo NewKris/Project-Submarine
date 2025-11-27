@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using WereHorse.Runtime.Utility;
+using Werehorse.Runtime.Utility;
 
 namespace WereHorse.Runtime.Common {
     public class NetworkPanel : MonoBehaviour {
@@ -15,11 +15,11 @@ namespace WereHorse.Runtime.Common {
         }
 
         private void Awake() {
-            Singleton.MakeSingleton(ref Instance, this);
+            Singleton.SetSingleton(ref Instance, this);
         }
 
         private void OnDestroy() {
-            Singleton.RemoveSingleton(ref Instance, this);
+            Singleton.UnsetSingleton(ref Instance, this);
         }
     }
 }
