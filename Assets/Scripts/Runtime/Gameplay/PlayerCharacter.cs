@@ -10,7 +10,15 @@ namespace WereHorse.Runtime.Gameplay {
         public PlayerCamera playerCamera;
         public GameObject thirdPersonModel;
 
+        private bool _freeMouse;
         private CharacterController _character;
+
+        public void SetPositionAndRotation(Vector3 position, Quaternion rotation) {
+            GetComponent<CharacterController>().enabled = false;
+            transform.position = position;
+            transform.rotation = rotation;
+            GetComponent<CharacterController>().enabled = true;
+        }
         
         private void Start() {
             DoOnNonOwners(() => {
@@ -20,9 +28,18 @@ namespace WereHorse.Runtime.Gameplay {
             
             DoOnOwner(() => {
                 _character = GetComponent<CharacterController>();
+                _freeMouse = false;
+
+                InputListener.OnToggleMouse += ToggleMouse;
             });
             
             Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        private void OnDisable() {
+            DoOnOwner(() => {
+                InputListener.OnToggleMouse -= ToggleMouse;
+            });
         }
 
         private void Update() {
@@ -36,7 +53,18 @@ namespace WereHorse.Runtime.Gameplay {
         }
 
         private void Look() {
-            playerCamera.Look(InputListener.Look);
+            if (!_freeMouse) {
+                playerCamera.Look(InputListener.Look);
+            }
+        }
+
+        private void ToggleMouse() {
+            _freeMouse = !_freeMouse;
+            Cursor.lockState = _freeMouse ? CursorLockMode.None : CursorLockMode.Locked;
+        }
+
+        private void PositionToSpawnPoint() {
+            
         }
     }
 }

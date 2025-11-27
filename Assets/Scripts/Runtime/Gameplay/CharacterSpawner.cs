@@ -26,11 +26,13 @@ namespace WereHorse.Runtime.Gameplay {
             NetworkObject networkPrefab = NetworkManager.GetNetworkPrefabOverride(playerCharacterPrefab)
                 .GetComponent<NetworkObject>();
 
-            NetworkObject instance = NetworkManager.SpawnManager
-                .InstantiateAndSpawn(networkPrefab, clientId, true, true);
+            PlayerCharacter instance = NetworkManager.SpawnManager
+                .InstantiateAndSpawn(networkPrefab, clientId, false, true)
+                .GetComponent<PlayerCharacter>();
+
+            instance.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
             
-            instance.transform.position = spawnPoint.position;
-            instance.transform.rotation = spawnPoint.rotation;
+            Debug.Log($"Spawned character for client {clientId}");
         }
     }
 }
