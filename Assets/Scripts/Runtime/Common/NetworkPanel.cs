@@ -9,14 +9,18 @@ namespace WereHorse.Runtime.Common {
 
         private void OnGUI() {
             GUILayout.BeginArea(new Rect(10, 10, 300, 300));
-            
-            GUILayout.Label($"Playing as: {GameManager.clientType}");
 
             if (NetworkManager.Singleton) {
-                GUILayout.Label("Connected Players:");
+                if (IsConnected()) {
+                    GUILayout.Label($"Playing as: {ConnectionType()}");
+                }
 
-                foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
-                    GUILayout.Label(clientId.ToString());
+                if (NetworkManager.Singleton.IsServer) {
+                    GUILayout.Label("Connected Players:");
+
+                    foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
+                        GUILayout.Label(clientId.ToString());
+                    }
                 }
             }
             
@@ -29,6 +33,14 @@ namespace WereHorse.Runtime.Common {
 
         private void OnDestroy() {
             Singleton.UnsetSingleton(ref Instance, this);
+        }
+
+        private bool IsConnected() {
+            return NetworkManager.Singleton.IsConnectedClient || NetworkManager.Singleton.IsServer;
+        }
+        
+        private string ConnectionType() {
+            return NetworkManager.Singleton.IsServer ? "Host" : "Client";
         }
     }
 }

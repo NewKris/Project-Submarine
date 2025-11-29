@@ -1,38 +1,72 @@
 using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using WereHorse.Runtime.Common;
 using Werehorse.Runtime.Utility.Extensions;
 
 namespace WereHorse.Runtime.Gameplay {
-    public class CharacterSpawner : NetworkBehaviourExtended {
+    public class CharacterSpawner : MonoBehaviour {
         public GameObject playerCharacterPrefab;
         public Transform spawnPoint;
         
+        private Dictionary<ulong, PlayerCharacter> _spawnedCharacters;
+
+        private bool IsServer => NetworkManager.Singleton && NetworkManager.Singleton.IsServer;
+        
         private void Start() {
-            DoOnServer(() => {
-                NetworkManager.ConnectedClientsIds.ForEach(SpawnPlayerCharacter);
-                NetworkManager.OnClientConnectedCallback += SpawnPlayerCharacter;
-            });
+            if (IsServer) {
+                Debug.Log("Initializing CharacterSpawner");
+                _spawnedCharacters = new Dictionary<ulong, PlayerCharacter>(8);
+                
+                NetworkManager.Singleton.ConnectedClientsIds.ForEach(SpawnPlayerCharacter);
+                NetworkManager.Singleton.OnClientConnectedCallback += SpawnPlayerCharacter;
+                NetworkManager.Singleton.OnClientDisconnectCallback += DespawnPlayerCharacter;
+
+                NetworkManager.Singleton.OnServerStopped += DisposeCharacterSpawner;
+            }
         }
 
-        private void OnDisable() {
-            DoOnServer(() => {
-                NetworkManager.OnClientConnectedCallback -= SpawnPlayerCharacter;
-            });
+        private void OnDestroy() {
+            if (IsServer) {
+                DisposeCharacterSpawner(false);
+            }
         }
 
+        private void DisposeCharacterSpawner(bool _) {
+            Debug.Log("Disposing CharacterSpawner");
+            NetworkManager.Singleton.OnClientConnectedCallback -= SpawnPlayerCharacter;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= DespawnPlayerCharacter;
+            NetworkManager.Singleton.OnServerStopped -= DisposeCharacterSpawner;
+        }
+        
+        private void PlaceCharacter(PlayerCharacter playerCharacter) {
+            playerCharacter.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
+        }
+        
         private void SpawnPlayerCharacter(ulong clientId) {
-            NetworkObject networkPrefab = NetworkManager.GetNetworkPrefabOverride(playerCharacterPrefab)
+            NetworkObject networkPrefab = NetworkManager.Singleton
+                .GetNetworkPrefabOverride(playerCharacterPrefab)
                 .GetComponent<NetworkObject>();
 
-            PlayerCharacter instance = NetworkManager.SpawnManager
-                .InstantiateAndSpawn(networkPrefab, clientId, false, true)
+            PlayerCharacter character = NetworkManager.Singleton.SpawnManager
+                .InstantiateAndSpawn(networkPrefab, clientId, true, true)
                 .GetComponent<PlayerCharacter>();
-
-            instance.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
+                
+            _spawnedCharacters.Add(clientId, character);
+            
+            PlaceCharacter(character);
             
             Debug.Log($"Spawned character for client {clientId}");
+        }
+
+        private void DespawnPlayerCharacter(ulong clientId) {
+            if (_spawnedCharacters.TryGetValue(clientId, out PlayerCharacter character)) {
+                Destroy(character.gameObject);
+                _spawnedCharacters.Remove(clientId);
+                
+                Debug.Log($"Despawned character for client {clientId}");
+            }
         }
     }
 }

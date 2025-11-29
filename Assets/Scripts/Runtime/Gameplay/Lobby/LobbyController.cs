@@ -13,6 +13,10 @@ namespace WereHorse.Runtime.Gameplay.Lobby {
                 StartExpedition();
             }
             
+            if (GUILayout.Button("Exit Lobby")) {
+                ClientManager.DisconnectFromGame();
+            }
+            
             GUILayout.EndArea();
         }
 
