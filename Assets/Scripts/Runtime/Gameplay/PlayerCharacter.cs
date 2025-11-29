@@ -2,12 +2,16 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 using WereHorse.Runtime.Common;
+using WereHorse.Runtime.Gameplay.Hud;
+using WereHorse.Runtime.Gameplay.Interaction;
 using Werehorse.Runtime.Utility.Extensions;
 
 namespace WereHorse.Runtime.Gameplay {
     public class PlayerCharacter : NetworkBehaviourExtended {
         public float maxMoveSpeed;
         public PlayerCamera playerCamera;
+        public InteractionController interactionController;
+        public PlayerHud hud;
         public GameObject thirdPersonModel;
 
         private bool _freeMouse;
@@ -24,13 +28,18 @@ namespace WereHorse.Runtime.Gameplay {
             DoOnNonOwners(() => {
                 enabled = false;
                 playerCamera.gameObject.SetActive(false);
+                interactionController.gameObject.SetActive(false);
+                hud.gameObject.SetActive(false);
             });
             
             DoOnOwner(() => {
                 _character = GetComponent<CharacterController>();
                 _freeMouse = false;
+                
+                thirdPersonModel.gameObject.SetActive(false);
 
                 InputListener.OnToggleMouse += ToggleMouse;
+                InputListener.OnInteract += interactionController.TryInteract;
             });
             
             Cursor.lockState = CursorLockMode.Locked;
@@ -39,6 +48,7 @@ namespace WereHorse.Runtime.Gameplay {
         private void OnDisable() {
             DoOnOwner(() => {
                 InputListener.OnToggleMouse -= ToggleMouse;
+                InputListener.OnInteract -= interactionController.TryInteract;
             });
         }
 

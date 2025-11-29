@@ -9,6 +9,7 @@ namespace WereHorse.Runtime.Gameplay {
         public static event Action OnCrouchStart;
         public static event Action OnCrouchEnd;
         public static event Action OnToggleMouse;
+        public static event Action OnInteract;
 
         private InputAction _moveAction;
         private InputAction _lookAction;
@@ -23,6 +24,7 @@ namespace WereHorse.Runtime.Gameplay {
             ActionMap["Crouch"].started += _ => OnCrouchStart?.Invoke();
             ActionMap["Crouch"].canceled += _ => OnCrouchEnd?.Invoke();
             ActionMap["Toggle Mouse"].performed += _ => OnToggleMouse?.Invoke();
+            ActionMap["Interact"].performed += _ => OnInteract?.Invoke();
             
             _moveAction = ActionMap["Move"];
             _lookAction = ActionMap["Look"];

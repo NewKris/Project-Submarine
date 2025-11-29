@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using Werehorse.Runtime.Utility.Extensions;
 
 namespace Werehorse.Runtime.Utility {
@@ -51,6 +50,19 @@ namespace Werehorse.Runtime.Utility {
             } 
             else {
                 UnityEditor.Handles.DrawLine(from, to, thickness);
+            }
+#endif
+        }
+        
+        public static void DrawRay(Vector3 origin, Vector3 direction, float thickness, bool dotted, Color color) {
+#if UNITY_EDITOR
+            UnityEditor.Handles.color = color;
+
+            if (dotted) {
+                UnityEditor.Handles.DrawDottedLine(origin, origin + direction, thickness);
+            } 
+            else {
+                UnityEditor.Handles.DrawLine(origin, origin + direction, thickness);
             }
 #endif
         }
@@ -239,7 +251,7 @@ namespace Werehorse.Runtime.Utility {
             Color color
         ) {
 #if UNITY_EDITOR
-            Handles.color = color;
+            UnityEditor.Handles.color = color;
             float startAngle = angle * -0.5f;
             float stepSize = angle / resolution;
 
@@ -250,11 +262,11 @@ namespace Werehorse.Runtime.Utility {
                 points[i] = position + q * forward * radius;
 
                 if (i == 0 || i == resolution) {
-                    Handles.DrawLine(position, points[i], thickness);
+                    UnityEditor.Handles.DrawLine(position, points[i], thickness);
                 }
                 
                 if (i > 0) {
-                    Handles.DrawLine(points[i - 1], points[i], thickness);
+                    UnityEditor.Handles.DrawLine(points[i - 1], points[i], thickness);
                 }
             }
 #endif
