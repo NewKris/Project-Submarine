@@ -16,13 +16,15 @@ namespace WereHorse.Runtime.Gameplay {
 
         private bool _freeMouse;
         private CharacterController _character;
-
-        public void SetPositionAndRotation(Vector3 position, Quaternion rotation) {
+        
+        [Rpc(SendTo.Owner)]
+        public void SetPositionAndRotationRpc(Vector3 position, Quaternion rotation) {
             GetComponent<CharacterController>().enabled = false;
             transform.position = position;
             transform.rotation = rotation;
             GetComponent<CharacterController>().enabled = true;
         }
+
         
         private void Start() {
             DoOnNonOwners(() => {
@@ -56,7 +58,7 @@ namespace WereHorse.Runtime.Gameplay {
             Look();
             Move();
         }
-
+        
         private void Move() {
             Vector3 velocity = transform.rotation * InputListener.Move.ProjectOnGround() * maxMoveSpeed;
             _character.SimpleMove(velocity);

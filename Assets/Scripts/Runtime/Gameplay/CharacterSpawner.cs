@@ -42,7 +42,7 @@ namespace WereHorse.Runtime.Gameplay {
         }
         
         private void PlaceCharacterOnSpawnPoint(PlayerCharacter playerCharacter) {
-            playerCharacter.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
+            playerCharacter.SetPositionAndRotationRpc(spawnPoint.position, spawnPoint.rotation);
         }
         
         private void SpawnPlayerCharacter(ulong clientId) {
