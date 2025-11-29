@@ -21,7 +21,9 @@ namespace WereHorse.Runtime.Gameplay.Lobby {
         }
 
         public void StartExpedition() {
-            NetworkManager.Singleton.SceneManager.LoadScene("Expedition", LoadSceneMode.Single);
+            if (NetworkManager.Singleton.IsServer) {
+                NetworkManager.Singleton.SceneManager.LoadScene("Expedition", LoadSceneMode.Single);
+            }
         }
     }
 }

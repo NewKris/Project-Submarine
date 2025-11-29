@@ -20,9 +20,9 @@ namespace WereHorse.Runtime.Gameplay {
                 _spawnedCharacters = new Dictionary<ulong, PlayerCharacter>(8);
                 
                 NetworkManager.Singleton.ConnectedClientsIds.ForEach(SpawnPlayerCharacter);
+                
                 NetworkManager.Singleton.OnClientConnectedCallback += SpawnPlayerCharacter;
                 NetworkManager.Singleton.OnClientDisconnectCallback += DespawnPlayerCharacter;
-
                 NetworkManager.Singleton.OnServerStopped += DisposeCharacterSpawner;
             }
         }
@@ -35,12 +35,13 @@ namespace WereHorse.Runtime.Gameplay {
 
         private void DisposeCharacterSpawner(bool _) {
             Debug.Log("Disposing CharacterSpawner");
+            
             NetworkManager.Singleton.OnClientConnectedCallback -= SpawnPlayerCharacter;
             NetworkManager.Singleton.OnClientDisconnectCallback -= DespawnPlayerCharacter;
             NetworkManager.Singleton.OnServerStopped -= DisposeCharacterSpawner;
         }
         
-        private void PlaceCharacter(PlayerCharacter playerCharacter) {
+        private void PlaceCharacterOnSpawnPoint(PlayerCharacter playerCharacter) {
             playerCharacter.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
         }
         
@@ -55,7 +56,7 @@ namespace WereHorse.Runtime.Gameplay {
                 
             _spawnedCharacters.Add(clientId, character);
             
-            PlaceCharacter(character);
+            PlaceCharacterOnSpawnPoint(character);
             
             Debug.Log($"Spawned character for client {clientId}");
         }
