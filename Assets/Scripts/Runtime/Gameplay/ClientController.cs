@@ -18,13 +18,24 @@ namespace WereHorse.Runtime.Gameplay {
         }
         
         private void Start() {
+            Debug.Log("Initializing ClientController");
+            
             Instance = this;
-
+            
             NetworkManager.OnClientConnectedCallback += LogConnection;
             NetworkManager.OnClientDisconnectCallback += SendClientHome;
+            NetworkManager.OnServerStopped += DisposeClientController;
         }
 
         private void OnDisable() {
+            if (NetworkManager) {
+                DisposeClientController(false);
+            }
+        }
+
+        private void DisposeClientController(bool _) {
+            Debug.Log("Disposing ClientController");
+            
             NetworkManager.OnClientConnectedCallback -= LogConnection;
             NetworkManager.OnClientDisconnectCallback -= SendClientHome;
         }

@@ -4,6 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using WereHorse.Runtime.Common;
 using WereHorse.Runtime.Gameplay.Player;
+using WereHorse.Runtime.Gameplay.Player.Character;
 using WereHorse.Runtime.Utility.Extensions;
 
 namespace WereHorse.Runtime.Gameplay {

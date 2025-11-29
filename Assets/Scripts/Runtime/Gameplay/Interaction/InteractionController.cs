@@ -8,24 +8,24 @@ namespace WereHorse.Runtime.Gameplay.Interaction {
         public LayerMask interactionMask;
         public GameObject prompt;
 
-        private Interaction _interaction;
+        private Interactable _interactable;
         
         public void TryInteract() {
-            if (_interaction) {
-                _interaction.Interact();
+            if (_interactable) {
+                _interactable.Interact();
             }
         }
 
         private void Update() {
-            _interaction = FindInteraction();
+            _interactable = FindInteraction();
         }
 
-        private Interaction FindInteraction() {
+        private Interactable FindInteraction() {
             Ray ray = new Ray(transform.position, transform.forward);
             
             if (Physics.Raycast(ray, out RaycastHit hit, range, interactionMask)) {
                 prompt.SetActive(true);
-                return hit.collider.GetComponent<Interaction>();
+                return hit.collider.GetComponent<Interactable>();
             }
 
             prompt.SetActive(false);

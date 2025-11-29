@@ -5,9 +5,9 @@ using WereHorse.Runtime.Gameplay.Hud;
 using WereHorse.Runtime.Gameplay.Interaction;
 using WereHorse.Runtime.Utility.Extensions;
 
-namespace WereHorse.Runtime.Gameplay.Player {
+namespace WereHorse.Runtime.Gameplay.Player.Character {
     public class PlayerCharacter : NetworkBehaviourExtended {
-        public static PlayerCharacter OwnedCharacter;
+        public static PlayerCharacter ownedCharacter;
         
         public float maxMoveSpeed;
         public PlayerCamera playerCamera;
@@ -16,7 +16,18 @@ namespace WereHorse.Runtime.Gameplay.Player {
         public GameObject thirdPersonModel;
 
         private bool _freeMouse;
+        private bool _usingStation;
         private CharacterController _character;
+        private Station _currentStation;
+
+        public void PossessStation(Station station) {
+            _currentStation = station;
+            _usingStation = true;
+            _character.enabled = false;
+            _currentStation.Activate();
+            
+            SetPositionAndRotationRpc(station.stationPivot.position, station.stationPivot.rotation);
+        }
         
         [Rpc(SendTo.Owner)]
         public void SetPositionAndRotationRpc(Vector3 position, Quaternion rotation) {
@@ -26,7 +37,6 @@ namespace WereHorse.Runtime.Gameplay.Player {
             GetComponent<CharacterController>().enabled = true;
         }
 
-        
         private void Start() {
             DoOnNonOwners(() => {
                 enabled = false;
@@ -41,10 +51,11 @@ namespace WereHorse.Runtime.Gameplay.Player {
                 
                 thirdPersonModel.gameObject.SetActive(false);
 
-                InputListener.OnToggleMouse += ToggleMouse;
-                InputListener.OnInteract += interactionController.TryInteract;
+                CharacterInputListener.OnToggleMouse += ToggleMouse;
+                CharacterInputListener.OnInteract += interactionController.TryInteract;
+                CharacterInputListener.OnExitStation += DePossessStation;
 
-                OwnedCharacter = this;
+                ownedCharacter = this;
             });
             
             Cursor.lockState = CursorLockMode.Locked;
@@ -52,34 +63,49 @@ namespace WereHorse.Runtime.Gameplay.Player {
 
         private void OnDisable() {
             DoOnOwner(() => {
-                InputListener.OnToggleMouse -= ToggleMouse;
-                InputListener.OnInteract -= interactionController.TryInteract;
+                CharacterInputListener.OnToggleMouse -= ToggleMouse;
+                CharacterInputListener.OnInteract -= interactionController.TryInteract;
+                CharacterInputListener.OnExitStation -= DePossessStation;
             });
         }
 
         private void Update() {
-            Look();
-            Move();
+            if (_freeMouse) {
+                return;
+            }
+
+            if (_usingStation) {
+                transform.position = _currentStation.stationPivot.position;
+                transform.rotation = _currentStation.stationPivot.rotation;
+            }
+            else {
+                Look();
+                Move();
+            }
+        }
+        
+        private void DePossessStation() {
+            if (_currentStation) {
+                _currentStation.Deactivate();
+                _currentStation = null;
+            }
+            
+            _usingStation = false;
+            _character.enabled = true;
         }
         
         private void Move() {
-            Vector3 velocity = transform.rotation * InputListener.Move.ProjectOnGround() * maxMoveSpeed;
+            Vector3 velocity = transform.rotation * CharacterInputListener.Move.ProjectOnGround() * maxMoveSpeed;
             _character.SimpleMove(velocity);
         }
 
         private void Look() {
-            if (!_freeMouse) {
-                playerCamera.Look(InputListener.Look);
-            }
+            playerCamera.Look(CharacterInputListener.Look);
         }
 
         private void ToggleMouse() {
             _freeMouse = !_freeMouse;
             Cursor.lockState = _freeMouse ? CursorLockMode.None : CursorLockMode.Locked;
-        }
-
-        private void PositionToSpawnPoint() {
-            
         }
     }
 }

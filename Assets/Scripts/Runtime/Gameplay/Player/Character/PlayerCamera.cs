@@ -1,7 +1,7 @@
 using UnityEngine;
 using WereHorse.Runtime.Utility.CommonObjects;
 
-namespace WereHorse.Runtime.Gameplay.Player {
+namespace WereHorse.Runtime.Gameplay.Player.Character {
     public class PlayerCamera : MonoBehaviour {
         [Range(0, 1)] public float sensitivity;
         public Transform yawPivot;
@@ -23,27 +23,24 @@ namespace WereHorse.Runtime.Gameplay.Player {
         private DampedAngle _yaw;
 
         public float LookPitch => _pitch.Current;
-
+        
         public void Look(Vector2 deltaMouse) {
             _pitch.Target -= deltaMouse.y * maxRotateSpeed * pitchScale * sensitivity;
             _pitch.Target = Mathf.Clamp(_pitch.Target, minPitch, maxPitch);
             
             _yaw.Target += deltaMouse.x * maxRotateSpeed * yawScale * sensitivity;
             _yaw.Target %= 360f;
+            
+            yawPivot.rotation = Quaternion.Euler(0, _yaw.Tick(yawDamping), 0);
+            transform.localRotation = Quaternion.Euler(_pitch.Tick(pitchDamping), 0, 0);
         }
 
         private void Awake() {
             _pitch = new DampedAngle(0);
             _yaw = new DampedAngle(0);
-
-
+            
             yawPivot.rotation = Quaternion.Euler(0, _yaw.Current, 0);
             transform.localRotation = Quaternion.Euler(_pitch.Current, 0, 0);
-        }
-
-        private void Update() {
-            yawPivot.rotation = Quaternion.Euler(0, _yaw.Tick(yawDamping), 0);
-            transform.localRotation = Quaternion.Euler(_pitch.Tick(pitchDamping), 0, 0);
         }
     }
 }
