@@ -6,6 +6,7 @@ using WereHorse.Runtime.Common;
 using Werehorse.Runtime.Utility.Extensions;
 
 namespace WereHorse.Runtime.Gameplay {
+    // Server only
     public class CharacterSpawner : MonoBehaviour {
         public GameObject playerCharacterPrefab;
         public Transform spawnPoint;
@@ -24,6 +25,9 @@ namespace WereHorse.Runtime.Gameplay {
                 NetworkManager.Singleton.OnClientConnectedCallback += SpawnPlayerCharacter;
                 NetworkManager.Singleton.OnClientDisconnectCallback += DespawnPlayerCharacter;
                 NetworkManager.Singleton.OnServerStopped += DisposeCharacterSpawner;
+            }
+            else {
+                Destroy(gameObject);
             }
         }
 

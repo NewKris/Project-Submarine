@@ -14,7 +14,7 @@ namespace WereHorse.Runtime.Gameplay.Lobby {
             }
             
             if (GUILayout.Button("Exit Lobby")) {
-                ClientManager.DisconnectFromGame();
+                ClientController.DisconnectFromGame();
             }
             
             GUILayout.EndArea();

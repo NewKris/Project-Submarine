@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 using WereHorse.Runtime.Common;
 
 namespace WereHorse.Runtime.Gameplay {
-    public class ClientManager : NetworkBehaviourExtended {
-        private static ClientManager Instance;
+    public class ClientController : NetworkBehaviourExtended {
+        private static ClientController Instance;
 
         public static void DisconnectFromGame() {
-            if (Instance.IsHost) {
+            if (Instance.IsServer) {
                 Instance.ShutDownServer();
             }
             else {
@@ -50,7 +50,7 @@ namespace WereHorse.Runtime.Gameplay {
         }
         
         private void DisconnectSelf() {
-            DisconnectClientRpc(Instance.NetworkManager.LocalClientId, "Manual client disconnected");
+            DisconnectClientRpc(Instance.NetworkManager.LocalClientId, "Client disconnected manually");
         }
 
         private void ShutDownServer() {
