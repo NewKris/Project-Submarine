@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Werehorse.Runtime.Utility {
+namespace WereHorse.Runtime.Utility {
     public static class MathU {
         /// <summary>
         /// Returns 1 for all positive values and -1 for all negative values

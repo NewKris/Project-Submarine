@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Werehorse.Runtime.Utility.CommonBehaviours {
+namespace WereHorse.Runtime.Utility.CommonBehaviours {
     public class CharacterControllerPush : MonoBehaviour {
         public float pushForce;
         

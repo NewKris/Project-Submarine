@@ -1,8 +1,7 @@
-using System;
 using UnityEngine;
-using Werehorse.Runtime.Utility.CommonObjects;
+using WereHorse.Runtime.Utility.CommonObjects;
 
-namespace WereHorse.Runtime.Gameplay {
+namespace WereHorse.Runtime.Gameplay.Player {
     public class PlayerCamera : MonoBehaviour {
         [Range(0, 1)] public float sensitivity;
         public Transform yawPivot;

@@ -1,7 +1,7 @@
 using System;
 using Unity.Netcode;
 using UnityEngine;
-using Werehorse.Runtime.Utility;
+using WereHorse.Runtime.Utility;
 
 namespace WereHorse.Runtime.Common {
     public class NetworkPanel : MonoBehaviour {

@@ -1,13 +1,14 @@
-using System;
 using Unity.Netcode;
 using UnityEngine;
 using WereHorse.Runtime.Common;
 using WereHorse.Runtime.Gameplay.Hud;
 using WereHorse.Runtime.Gameplay.Interaction;
-using Werehorse.Runtime.Utility.Extensions;
+using WereHorse.Runtime.Utility.Extensions;
 
-namespace WereHorse.Runtime.Gameplay {
+namespace WereHorse.Runtime.Gameplay.Player {
     public class PlayerCharacter : NetworkBehaviourExtended {
+        public static PlayerCharacter OwnedCharacter;
+        
         public float maxMoveSpeed;
         public PlayerCamera playerCamera;
         public InteractionController interactionController;
@@ -42,6 +43,8 @@ namespace WereHorse.Runtime.Gameplay {
 
                 InputListener.OnToggleMouse += ToggleMouse;
                 InputListener.OnInteract += interactionController.TryInteract;
+
+                OwnedCharacter = this;
             });
             
             Cursor.lockState = CursorLockMode.Locked;

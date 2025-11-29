@@ -1,7 +1,7 @@
 using UnityEngine;
-using Werehorse.Runtime.Utility.CommonObjects;
+using WereHorse.Runtime.Utility.CommonObjects;
 
-namespace Werehorse.Runtime.Utility.CommonBehaviours {
+namespace WereHorse.Runtime.Utility.CommonBehaviours {
     /// <summary>
     /// Follows a target with soft damping.
     /// </summary>

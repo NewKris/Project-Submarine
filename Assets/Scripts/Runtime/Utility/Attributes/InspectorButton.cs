@@ -1,7 +1,6 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Werehorse.Runtime.Utility.Attributes {
+namespace WereHorse.Runtime.Utility.Attributes {
     public class InspectorButton : PropertyAttribute {
         public string methodName;
         public string displayName;

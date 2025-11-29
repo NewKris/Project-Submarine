@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Werehorse.Runtime.Utility.CommonObjects {
+namespace WereHorse.Runtime.Utility.CommonObjects {
     public struct DampedRotation {
         private float _velocity;
 

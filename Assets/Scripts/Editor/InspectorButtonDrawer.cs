@@ -2,7 +2,7 @@
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using Werehorse.Runtime.Utility.Attributes;
+using WereHorse.Runtime.Utility.Attributes;
 using Object = UnityEngine.Object;
 
 namespace Werehorse.Editor {

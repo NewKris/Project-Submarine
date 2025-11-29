@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using WereHorse.Runtime.Common;
-using Werehorse.Runtime.Utility.Extensions;
+using WereHorse.Runtime.Gameplay.Player;
+using WereHorse.Runtime.Utility.Extensions;
 
 namespace WereHorse.Runtime.Gameplay {
     // Server only

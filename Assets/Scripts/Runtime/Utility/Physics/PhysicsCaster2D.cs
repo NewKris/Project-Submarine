@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Werehorse.Runtime.Utility.Physics {
+namespace WereHorse.Runtime.Utility.Physics {
     public abstract class PhysicsCaster2D : MonoBehaviour {
         [Header("Debug")] 
         public float thickness = 1;

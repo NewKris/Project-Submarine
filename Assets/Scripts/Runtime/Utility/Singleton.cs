@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Werehorse.Runtime.Utility {
+namespace WereHorse.Runtime.Utility {
     public static class Singleton {
         public static bool SetSingleton<T>(ref T singleton, T instance) where T : MonoBehaviour {
             if (singleton == null) {

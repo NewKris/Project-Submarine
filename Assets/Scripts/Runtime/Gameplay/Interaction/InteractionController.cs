@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using Werehorse.Runtime.Utility;
+using WereHorse.Runtime.Utility;
 
 namespace WereHorse.Runtime.Gameplay.Interaction {
     public class InteractionController : MonoBehaviour {

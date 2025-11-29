@@ -1,9 +1,8 @@
 using System;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace WereHorse.Runtime.Gameplay {
+namespace WereHorse.Runtime.Gameplay.Player {
     public class InputListener : MonoBehaviour {
         public static event Action OnJump;
         public static event Action OnCrouchStart;

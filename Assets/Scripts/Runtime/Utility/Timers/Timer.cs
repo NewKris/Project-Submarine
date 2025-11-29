@@ -1,4 +1,4 @@
-﻿namespace Werehorse.Runtime.Utility.Timers {
+﻿namespace WereHorse.Runtime.Utility.Timers {
     public class Timer {
         private float _time;
 
