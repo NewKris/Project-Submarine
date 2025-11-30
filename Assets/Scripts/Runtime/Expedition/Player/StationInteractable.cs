@@ -1,7 +1,7 @@
-using WereHorse.Runtime.Gameplay.Interaction;
-using WereHorse.Runtime.Gameplay.Player.Character;
+using WereHorse.Runtime.Expedition.Interaction;
+using WereHorse.Runtime.Expedition.Player.Character;
 
-namespace WereHorse.Runtime.Gameplay.Player {
+namespace WereHorse.Runtime.Expedition.Player {
     public class StationInteractable : Interactable {
         public Station station;
         

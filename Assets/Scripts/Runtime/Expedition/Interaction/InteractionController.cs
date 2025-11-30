@@ -1,8 +1,7 @@
-using System;
 using UnityEngine;
 using WereHorse.Runtime.Utility;
 
-namespace WereHorse.Runtime.Gameplay.Interaction {
+namespace WereHorse.Runtime.Expedition.Interaction {
     public class InteractionController : MonoBehaviour {
         public float range;
         public LayerMask interactionMask;

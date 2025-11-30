@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace WereHorse.Runtime.Gameplay.Player.Character {
+namespace WereHorse.Runtime.Expedition.Player.Character {
     public class CharacterInputListener : MonoBehaviour {
         public static event Action OnJump;
         public static event Action OnCrouchStart;

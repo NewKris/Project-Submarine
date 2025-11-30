@@ -1,11 +1,11 @@
 using Unity.Netcode;
 using UnityEngine;
 using WereHorse.Runtime.Common;
-using WereHorse.Runtime.Gameplay.Hud;
-using WereHorse.Runtime.Gameplay.Interaction;
+using WereHorse.Runtime.Expedition.Hud;
+using WereHorse.Runtime.Expedition.Interaction;
 using WereHorse.Runtime.Utility.Extensions;
 
-namespace WereHorse.Runtime.Gameplay.Player.Character {
+namespace WereHorse.Runtime.Expedition.Player.Character {
     public class PlayerCharacter : NetworkBehaviourExtended {
         public static PlayerCharacter ownedCharacter;
         

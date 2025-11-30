@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
-using WereHorse.Runtime.Gameplay.Interaction;
-using WereHorse.Runtime.Gameplay.Player.Character;
+using WereHorse.Runtime.Expedition.Interaction;
+using WereHorse.Runtime.Expedition.Player.Character;
 using WereHorse.Runtime.Utility;
 
-namespace WereHorse.Runtime.Gameplay.Player {
+namespace WereHorse.Runtime.Expedition.Player {
     public class Portal : Interactable {
         public Transform toPoint;
         

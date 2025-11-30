@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WereHorse.Runtime.Gameplay.Interaction {
+namespace WereHorse.Runtime.Expedition.Interaction {
     public class TestInteractable : Interactable {
         public override void Interact() {
             Debug.Log("!");
