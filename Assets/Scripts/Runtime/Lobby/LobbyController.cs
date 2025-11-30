@@ -10,14 +10,14 @@ namespace WereHorse.Runtime.Lobby {
     public class LobbyController : NetworkBehaviourExtended {
         public Transform clientList;
         public GameObject listItemPrefab;
-        public ConnectionManager connectionManager;
+        public ServerManager serverManager;
 
         public void ExitLobby() {
             if (IsServer) {
-                connectionManager.ShutDownServer();
+                serverManager.ShutDownServer();
             }
             else {
-                connectionManager.LeaveServer();
+                serverManager.LeaveServer();
             }
         }
 
@@ -28,14 +28,14 @@ namespace WereHorse.Runtime.Lobby {
         }
         
         private void Start() {
-            connectionManager.OnClientConnected += ClientConnected;
-            connectionManager.OnClientDisconnected += ClientDisconnected;
+            serverManager.OnClientConnected += ClientConnected;
+            serverManager.OnClientDisconnected += ClientDisconnected;
             DoOnAll(DrawConnectedClients);
         }
 
         private void OnDisable() {
-            connectionManager.OnClientConnected -= ClientConnected;
-            connectionManager.OnClientDisconnected -= ClientDisconnected;
+            serverManager.OnClientConnected -= ClientConnected;
+            serverManager.OnClientDisconnected -= ClientDisconnected;
         }
 
         private void ClientDisconnected(ulong clientId) {

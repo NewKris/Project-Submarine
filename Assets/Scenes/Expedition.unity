@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 212374717}
   - component: {fileID: 212374718}
   - component: {fileID: 212374719}
+  - component: {fileID: 212374720}
   m_Layer: 0
   m_Name: Expedition Controller
   m_TagString: Untagged
@@ -223,6 +224,20 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   playerCharacterPrefab: {fileID: 8796553189490587049, guid: 215e198249cd1a34fa5a7d30c26c0709, type: 3}
   spawnPoint: {fileID: 1572470793}
+  serverManager: {fileID: 212374720}
+--- !u!114 &212374720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212374716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe0db0515cc458c9bad100993d6ff0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Common.ConnectionManager
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &292710063
 GameObject:
   m_ObjectHideFlags: 0

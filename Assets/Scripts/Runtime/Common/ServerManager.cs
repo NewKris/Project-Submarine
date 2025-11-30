@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace WereHorse.Runtime.Common {
-    public class ConnectionManager : NetworkBehaviourExtended {
+    public class ServerManager : NetworkBehaviourExtended {
         public event Action<ulong> OnClientConnected;
         public event Action<ulong> OnClientDisconnected;
         

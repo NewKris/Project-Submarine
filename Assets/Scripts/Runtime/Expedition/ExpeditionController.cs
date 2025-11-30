@@ -10,7 +10,7 @@ namespace WereHorse.Runtime.Expedition {
     public class ExpeditionController : NetworkBehaviourExtended {
         public GameObject playerCharacterPrefab;
         public Transform spawnPoint;
-        public ConnectionManager connectionManager;
+        public ServerManager serverManager;
 
         private void OnGUI() {
             GUILayout.BeginArea(new Rect(300, 10, 100, 100));
