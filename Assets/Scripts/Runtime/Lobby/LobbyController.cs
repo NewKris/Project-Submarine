@@ -22,7 +22,7 @@ namespace WereHorse.Runtime.Lobby {
 
         public void StartExpedition() {
             if (IsServer) {
-                NetworkManager.SceneManager.LoadScene("Expedition", LoadSceneMode.Additive);
+                NetworkManager.SceneManager.LoadScene("Expedition", LoadSceneMode.Single);
             }
         }
         
@@ -70,7 +70,7 @@ namespace WereHorse.Runtime.Lobby {
         }
 
         private void ReturnToTitle() {
-            SceneManager.LoadScene("Main Menu");
+            SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
         }
         
         private void ClientDisconnected(ulong clientId) {

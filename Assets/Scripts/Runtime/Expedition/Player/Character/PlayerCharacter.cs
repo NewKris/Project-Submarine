@@ -14,6 +14,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public InteractionController interactionController;
         public PlayerHud hud;
         public GameObject thirdPersonModel;
+        public CharacterAnimator thirdPersonAnimator;
 
         private bool _freeMouse;
         private bool _usingStation;
@@ -49,7 +50,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 _character = GetComponent<CharacterController>();
                 _freeMouse = false;
                 
-                thirdPersonModel.gameObject.SetActive(false);
+                //thirdPersonModel.gameObject.SetActive(false);
 
                 CharacterInputListener.OnToggleMouse += ToggleMouse;
                 CharacterInputListener.OnInteract += interactionController.TryInteract;
@@ -95,6 +96,9 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         }
         
         private void Move() {
+            thirdPersonAnimator.MovementInput = CharacterInputListener.Move;
+            thirdPersonAnimator.Moving = CharacterInputListener.Move != Vector2.zero;
+            
             Vector3 velocity = transform.rotation * CharacterInputListener.Move.ProjectOnGround() * maxMoveSpeed;
             _character.SimpleMove(velocity);
         }
