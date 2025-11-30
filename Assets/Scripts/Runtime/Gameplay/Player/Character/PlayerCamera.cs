@@ -22,8 +22,6 @@ namespace WereHorse.Runtime.Gameplay.Player.Character {
         private DampedAngle _pitch;
         private DampedAngle _yaw;
 
-        public float LookPitch => _pitch.Current;
-        
         public void Look(Vector2 deltaMouse) {
             _pitch.Target -= deltaMouse.y * maxRotateSpeed * pitchScale * sensitivity;
             _pitch.Target = Mathf.Clamp(_pitch.Target, minPitch, maxPitch);
