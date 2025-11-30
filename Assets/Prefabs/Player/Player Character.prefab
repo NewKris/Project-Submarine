@@ -211,7 +211,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 174626907
+  GlobalObjectIdHash: 1374436196
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -508,7 +508,7 @@ MonoBehaviour:
   playerCamera: {fileID: 8682503166160888684}
   interactionController: {fileID: 4935540649968059152}
   hud: {fileID: 8095000931969124376}
-  thirdPersonModel: {fileID: 8242430447676619327}
+  thirdPersonModel: {fileID: 589708559179672936}
   thirdPersonAnimator: {fileID: 2692992502106444861}
 --- !u!114 &851492358398633188
 MonoBehaviour:
@@ -723,6 +723,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2692992502106444861}
   m_SourcePrefab: {fileID: 100100000, guid: a2bf679d89a8c0a40a789ae828e23d52, type: 3}
+--- !u!137 &589708559179672936 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -681020129550226938, guid: a2bf679d89a8c0a40a789ae828e23d52, type: 3}
+  m_PrefabInstance: {fileID: 9125303311332657006}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8242430447676619327 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a2bf679d89a8c0a40a789ae828e23d52, type: 3}

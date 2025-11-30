@@ -6,7 +6,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
     public class CharacterAnimator : MonoBehaviour {
         public Animator animator;
         public float damping;
-
+        
         public bool Moving {
             set => animator.SetBool("Moving", value);
         }

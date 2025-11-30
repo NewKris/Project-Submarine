@@ -13,7 +13,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public PlayerCamera playerCamera;
         public InteractionController interactionController;
         public PlayerHud hud;
-        public GameObject thirdPersonModel;
+        public SkinnedMeshRenderer thirdPersonModel;
         public CharacterAnimator thirdPersonAnimator;
 
         private bool _freeMouse;
@@ -50,7 +50,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 _character = GetComponent<CharacterController>();
                 _freeMouse = false;
                 
-                //thirdPersonModel.gameObject.SetActive(false);
+                thirdPersonModel.gameObject.layer = LayerMask.NameToLayer("Owner Hidden");
 
                 CharacterInputListener.OnToggleMouse += ToggleMouse;
                 CharacterInputListener.OnInteract += interactionController.TryInteract;
