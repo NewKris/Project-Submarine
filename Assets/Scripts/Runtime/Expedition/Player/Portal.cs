@@ -14,6 +14,7 @@ namespace WereHorse.Runtime.Expedition.Player {
         private void OnDrawGizmos() {
             if (toPoint) {
                 HandlesProxy.DrawLine(transform.position, toPoint.position, 1, true, Color.red);
+                HandlesProxy.DrawDisc(toPoint.position, Vector3.up, 0.5f, true, Color.red, 3);
             }
         }
     }

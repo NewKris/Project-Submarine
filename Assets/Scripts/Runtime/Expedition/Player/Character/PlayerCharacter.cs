@@ -3,6 +3,7 @@ using UnityEngine;
 using WereHorse.Runtime.Common;
 using WereHorse.Runtime.Expedition.Hud;
 using WereHorse.Runtime.Expedition.Interaction;
+using WereHorse.Runtime.Expedition.Player.Stations;
 using WereHorse.Runtime.Utility.Extensions;
 
 namespace WereHorse.Runtime.Expedition.Player.Character {
@@ -16,18 +17,35 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public SkinnedMeshRenderer thirdPersonModel;
         public CharacterAnimator thirdPersonAnimator;
 
-        private bool _freeMouse;
         private bool _usingStation;
         private CharacterController _character;
         private Station _currentStation;
 
         public void PossessStation(Station station) {
+            if (!station) {
+                Debug.LogError("[!] Cannot possess a null station!");
+                return;
+            }
+            
             _currentStation = station;
             _usingStation = true;
             _character.enabled = false;
-            _currentStation.Activate();
+            hud.gameObject.SetActive(false);
+            CharacterInputListener.SetActive(false);
             
-            SetPositionAndRotationRpc(station.stationPivot.position, station.stationPivot.rotation);
+            _currentStation.Activate();
+        }
+        
+        public void DePossessStation() {
+            if (_currentStation) {
+                _currentStation.Deactivate();
+                _currentStation = null;
+            }
+            
+            _usingStation = false;
+            _character.enabled = true;
+            hud.gameObject.SetActive(true);
+            CharacterInputListener.SetActive(true);
         }
         
         [Rpc(SendTo.Owner)]
@@ -48,13 +66,10 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             
             DoOnOwner(() => {
                 _character = GetComponent<CharacterController>();
-                _freeMouse = false;
                 
                 thirdPersonModel.gameObject.layer = LayerMask.NameToLayer("Owner Hidden");
 
-                CharacterInputListener.OnToggleMouse += ToggleMouse;
                 CharacterInputListener.OnInteract += interactionController.TryInteract;
-                CharacterInputListener.OnExitStation += DePossessStation;
 
                 ownedCharacter = this;
             });
@@ -64,17 +79,11 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
         private void OnDisable() {
             DoOnOwner(() => {
-                CharacterInputListener.OnToggleMouse -= ToggleMouse;
                 CharacterInputListener.OnInteract -= interactionController.TryInteract;
-                CharacterInputListener.OnExitStation -= DePossessStation;
             });
         }
 
         private void Update() {
-            if (_freeMouse) {
-                return;
-            }
-
             if (_usingStation) {
                 transform.position = _currentStation.stationPivot.position;
                 transform.rotation = _currentStation.stationPivot.rotation;
@@ -83,16 +92,6 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 Look();
                 Move();
             }
-        }
-        
-        private void DePossessStation() {
-            if (_currentStation) {
-                _currentStation.Deactivate();
-                _currentStation = null;
-            }
-            
-            _usingStation = false;
-            _character.enabled = true;
         }
         
         private void Move() {
@@ -105,11 +104,6 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
         private void Look() {
             playerCamera.Look(CharacterInputListener.Look);
-        }
-
-        private void ToggleMouse() {
-            _freeMouse = !_freeMouse;
-            Cursor.lockState = _freeMouse ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
 }
