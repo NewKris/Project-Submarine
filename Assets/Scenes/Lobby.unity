@@ -1088,7 +1088,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   clientList: {fileID: 1362793326}
   listItemPrefab: {fileID: 1146470936406859107, guid: aaded9f289d94964482fa29803e27d78, type: 3}
-  clientManager: {fileID: 927622595}
+  connectionManager: {fileID: 927622595}
 --- !u!4 &1852728855
 Transform:
   m_ObjectHideFlags: 0

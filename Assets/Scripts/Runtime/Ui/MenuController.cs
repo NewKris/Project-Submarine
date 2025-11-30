@@ -9,6 +9,7 @@ namespace WereHorse.Runtime.Ui {
         }
         
         public void JoinLobbyAsClient() {
+            Debug.Log("Joining Lobby");
             NetworkManager.Singleton.StartClient();
         }
         

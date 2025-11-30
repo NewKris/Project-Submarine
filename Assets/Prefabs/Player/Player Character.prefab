@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1374436196
+  GlobalObjectIdHash: 174626907
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -509,7 +509,7 @@ MonoBehaviour:
   interactionController: {fileID: 4935540649968059152}
   hud: {fileID: 8095000931969124376}
   thirdPersonModel: {fileID: 589708559179672936}
-  thirdPersonAnimator: {fileID: 2692992502106444861}
+  thirdPersonAnimator: {fileID: 3665977801311825091}
 --- !u!114 &851492358398633188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,7 +721,7 @@ PrefabInstance:
       addedObject: {fileID: 7024313130438093712}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a2bf679d89a8c0a40a789ae828e23d52, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2692992502106444861}
+      addedObject: {fileID: 3665977801311825091}
   m_SourcePrefab: {fileID: 100100000, guid: a2bf679d89a8c0a40a789ae828e23d52, type: 3}
 --- !u!137 &589708559179672936 stripped
 SkinnedMeshRenderer:
@@ -770,7 +770,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   TransitionStateInfoList: []
   m_Animator: {fileID: 6110106234115375268}
---- !u!114 &2692992502106444861
+--- !u!114 &3665977801311825091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -782,8 +782,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c99d24698b5402395cf47b6ad55556d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Player.Character.CharacterAnimator
+  ShowTopMostFoldoutHeaderGroup: 1
   animator: {fileID: 6110106234115375268}
-  damping: 10
+  damping: 50
 --- !u!4 &8730560475580899461 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a2bf679d89a8c0a40a789ae828e23d52, type: 3}
