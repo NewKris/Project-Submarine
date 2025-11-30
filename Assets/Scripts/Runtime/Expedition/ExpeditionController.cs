@@ -12,16 +12,19 @@ namespace WereHorse.Runtime.Expedition {
         public Transform spawnPoint;
         public ServerManager serverManager;
 
-        private void OnGUI() {
-            GUILayout.BeginArea(new Rect(300, 10, 100, 100));
+        public void ReturnToLobby() {
+            if (IsHost) {
+                NetworkManager.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+            }
+        }
 
-            if (GUILayout.Button("Return to Lobby") && IsHost) {
+        public void ExitGame() {
+            if (IsHost) {
+                serverManager.ShutDownServer();
             }
-            
-            if (GUILayout.Button("Return to Title")) {
+            else {
+                serverManager.LeaveServer();
             }
-            
-            GUILayout.EndArea();
         }
         
         private void Start() {

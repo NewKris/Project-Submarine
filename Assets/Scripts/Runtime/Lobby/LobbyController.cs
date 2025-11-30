@@ -31,6 +31,7 @@ namespace WereHorse.Runtime.Lobby {
             serverManager.OnClientConnected += ClientConnected;
             serverManager.OnClientDisconnected += ClientDisconnected;
             DoOnAll(DrawConnectedClients);
+            Cursor.lockState = CursorLockMode.None;
         }
 
         private void OnDisable() {

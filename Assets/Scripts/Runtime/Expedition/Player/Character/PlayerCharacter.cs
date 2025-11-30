@@ -22,11 +22,6 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         private Station _currentStation;
 
         public void PossessStation(Station station) {
-            if (!station) {
-                Debug.LogError("[!] Cannot possess a null station!");
-                return;
-            }
-            
             _currentStation = station;
             _usingStation = true;
             _character.enabled = false;
@@ -70,6 +65,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 thirdPersonModel.gameObject.layer = LayerMask.NameToLayer("Owner Hidden");
 
                 CharacterInputListener.OnInteract += interactionController.TryInteract;
+                PauseManager.OnPauseStateChanged += SetPauseState;
 
                 ownedCharacter = this;
             });
@@ -80,6 +76,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         private void OnDisable() {
             DoOnOwner(() => {
                 CharacterInputListener.OnInteract -= interactionController.TryInteract;
+                PauseManager.OnPauseStateChanged -= SetPauseState;
             });
         }
 
@@ -104,6 +101,13 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
         private void Look() {
             playerCamera.Look(CharacterInputListener.Look);
+        }
+
+        private void SetPauseState(bool isPaused) {
+            if (!_usingStation) {
+                CharacterInputListener.SetActive(!isPaused);
+                Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
+            }
         }
     }
 }

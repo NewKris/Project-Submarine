@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,10 @@ namespace WereHorse.Runtime.Ui {
         
         public void ExitGame() {
             GameManager.ExitGame();
+        }
+
+        private void Awake() {
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }

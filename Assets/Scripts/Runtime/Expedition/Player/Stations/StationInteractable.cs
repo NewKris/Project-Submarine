@@ -1,3 +1,4 @@
+using UnityEngine;
 using WereHorse.Runtime.Expedition.Interaction;
 using WereHorse.Runtime.Expedition.Player.Character;
 
@@ -6,7 +7,14 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
         public Station station;
         
         public override void Interact() {
-            PlayerCharacter.ownedCharacter.PossessStation(station);
+            if (!station) {
+                Debug.LogError("[!] Cannot possess a null station!");
+                return;
+            }
+            
+            if (!station.occupied) {
+                PlayerCharacter.ownedCharacter.PossessStation(station);
+            }
         }
     }
 }
