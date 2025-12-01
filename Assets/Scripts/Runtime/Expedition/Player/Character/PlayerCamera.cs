@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using WereHorse.Runtime.Utility.CommonObjects;
 
 namespace WereHorse.Runtime.Expedition.Player.Character {
     public class PlayerCamera : MonoBehaviour {
+        public Transform followPosition;
         [Range(0, 1)] public float sensitivity;
         public Transform yawPivot;
         
@@ -44,6 +46,10 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             
             yawPivot.rotation = Quaternion.Euler(0, _yaw.Current, 0);
             transform.localRotation = Quaternion.Euler(_pitch.Current, 0, 0);
+        }
+
+        private void Update() {
+            yawPivot.position = followPosition.position;
         }
     }
 }

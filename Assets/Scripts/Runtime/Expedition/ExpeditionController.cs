@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,7 @@ using WereHorse.Runtime.Expedition.Player.Character;
 namespace WereHorse.Runtime.Expedition {
     public class ExpeditionController : NetworkBehaviourExtended {
         public GameObject playerCharacterPrefab;
-        public Transform spawnPoint;
+        public Transform[] spawnPoints;
         public ServerManager serverManager;
 
         public void ReturnToLobby() {
@@ -41,15 +42,31 @@ namespace WereHorse.Runtime.Expedition {
         private void SpawnCharacterRpc(ulong clientId) {
             NetworkObject prefab = NetworkManager.GetNetworkPrefabOverride(playerCharacterPrefab)
                 .GetComponent<NetworkObject>();
+
+            Transform spawn = spawnPoints[GetClientIndex(clientId)];
             
-            PlayerCharacter instance = NetworkManager.SpawnManager.InstantiateAndSpawn(
+            NetworkManager.SpawnManager.InstantiateAndSpawn(
                 networkPrefab: prefab, 
                 ownerClientId: clientId, 
                 destroyWithScene: true, 
-                isPlayerObject: true
-            ).GetComponent<PlayerCharacter>();
+                isPlayerObject: true,
+                position: spawn.position,
+                rotation: spawn.rotation
+            ).GetComponentInChildren<PlayerCharacter>();
+        }
+
+        private int GetClientIndex(ulong clientId) {
+            int index = 0;
             
-            instance.SetPositionAndRotationRpc(spawnPoint.position, spawnPoint.rotation);
+            foreach (ulong id in NetworkManager.ConnectedClientsIds) {
+                if (id == clientId) {
+                    return index;
+                }
+                
+                index++;
+            }
+
+            return 0;
         }
     }
 }
