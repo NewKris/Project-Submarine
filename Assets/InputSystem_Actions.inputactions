@@ -255,7 +255,7 @@
             "id": "3d3ffcd4-2ce3-4cab-b963-3a0c79107b8e",
             "actions": [
                 {
-                    "name": "Thrust",
+                    "name": "Forward",
                     "type": "Value",
                     "id": "bd13f15d-abe0-4cba-89c9-b78f64d5801a",
                     "expectedControlType": "Axis",
@@ -264,7 +264,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Yaw",
+                    "name": "Right",
                     "type": "Value",
                     "id": "29a5b488-2166-4306-bcb9-9dbf603163b3",
                     "expectedControlType": "Axis",
@@ -273,7 +273,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Lift",
+                    "name": "Up",
                     "type": "Value",
                     "id": "d3cde8ef-f76c-4f9b-b80e-ce137dcaad95",
                     "expectedControlType": "Axis",
@@ -299,7 +299,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Thrust",
+                    "action": "Forward",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -310,7 +310,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Thrust",
+                    "action": "Forward",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -321,7 +321,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Thrust",
+                    "action": "Forward",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -332,7 +332,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Yaw",
+                    "action": "Right",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -343,7 +343,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Yaw",
+                    "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -354,7 +354,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Yaw",
+                    "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -365,7 +365,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lift",
+                    "action": "Up",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -376,7 +376,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lift",
+                    "action": "Up",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -387,7 +387,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lift",
+                    "action": "Up",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -401,98 +401,6 @@
                     "action": "Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Telescope",
-            "id": "2b0e3967-930f-4587-9ae5-065348f94504",
-            "actions": [
-                {
-                    "name": "Yaw",
-                    "type": "Value",
-                    "id": "060d9bfe-4649-4c7f-beec-d53ed7dfe2dd",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Pitch",
-                    "type": "Value",
-                    "id": "d095777c-3726-455b-b909-e2e511b125a6",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "1D Axis",
-                    "id": "f23d9e50-6dd7-43e9-9f15-2fd6dae7a32e",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Yaw",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "6c3e2ebc-edbb-4425-9cfb-bfb0de08517c",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Yaw",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "eba3efc9-f5cc-4e03-97e5-cbe5d95dc56d",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Yaw",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "f74229d4-5dd5-400c-a4b8-2dae53294685",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pitch",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "f1f27070-383c-4c38-a8e8-bff69939d991",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pitch",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "814c3e5d-fad5-4bae-a77d-8a8597ed8ddf",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pitch",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         },

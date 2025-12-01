@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using WereHorse.Runtime.Common;
@@ -107,7 +108,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             
             if (_underWater) {
                 velocity.y = CharacterInputListener.Lift;
-                velocity = velocity.normalized * maxMoveSpeed;
+                velocity = velocity.normalized * maxSwimSpeed;
                 _character.Move(velocity * Time.deltaTime);
             }
             else {

@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace WereHorse.Runtime.Expedition.Player.Stations {
-    public class PilotSeatInputListener : MonoBehaviour {
+    public class StationInputListener : MonoBehaviour {
         public static event Action OnExit;
         
-        public static float Thrust { get; private set; }
-        public static float Yaw { get; private set; }
-        public static float Lift { get; private set; }
+        public static float Forward { get; private set; }
+        public static float Right { get; private set; }
+        public static float Up { get; private set; }
 
         private InputAction _thrustAction;
         private InputAction _yawAction;
@@ -28,9 +28,9 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
         private void Awake() {
             ActionMap["Exit"].performed += _ => OnExit?.Invoke();
 
-            _thrustAction = ActionMap["Thrust"];
-            _yawAction = ActionMap["Yaw"];
-            _liftAction = ActionMap["Lift"];
+            _thrustAction = ActionMap["Forward"];
+            _yawAction = ActionMap["Right"];
+            _liftAction = ActionMap["Up"];
             
             ActionMap.Disable();
         }
@@ -40,9 +40,9 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
         }
 
         private void Update() {
-            Thrust = _thrustAction.ReadValue<float>();
-            Yaw = _yawAction.ReadValue<float>();
-            Lift = _liftAction.ReadValue<float>();
+            Forward = _thrustAction.ReadValue<float>();
+            Right = _yawAction.ReadValue<float>();
+            Up = _liftAction.ReadValue<float>();
         }
     }
 }
