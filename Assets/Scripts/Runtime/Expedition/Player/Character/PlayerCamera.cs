@@ -22,6 +22,11 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         private DampedAngle _pitch;
         private DampedAngle _yaw;
 
+        public void SetYaw(float yaw) {
+            _yaw = new DampedAngle(yaw);
+            yawPivot.rotation = Quaternion.Euler(0, yaw, 0);
+        }
+        
         public void Look(Vector2 deltaMouse) {
             _pitch.Target -= deltaMouse.y * maxRotateSpeed * pitchScale * sensitivity;
             _pitch.Target = Mathf.Clamp(_pitch.Target, minPitch, maxPitch);

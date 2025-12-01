@@ -47,7 +47,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public void SetPositionAndRotationRpc(Vector3 position, Quaternion rotation) {
             GetComponent<CharacterController>().enabled = false;
             transform.position = position;
-            transform.rotation = rotation;
+            playerCamera.SetYaw(rotation.eulerAngles.y);
             GetComponent<CharacterController>().enabled = true;
         }
 

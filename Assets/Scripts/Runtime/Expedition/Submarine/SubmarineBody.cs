@@ -18,6 +18,8 @@ namespace WereHorse.Runtime.Expedition.Submarine {
         private float _thrust;
         private float _yaw;
         private float _lift;
+
+        public bool Accelerating => Mathf.Abs(_thrust) + Mathf.Abs(_yaw) + Mathf.Abs(_lift) > 0;
         
         [Rpc(SendTo.Server)]
         public void SendSteerValuesRpc(float thrust, float yaw, float lift) {
