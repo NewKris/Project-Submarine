@@ -18,6 +18,8 @@ namespace WereHorse.Runtime.Expedition.Submarine {
         private float _thrust;
         private float _yaw;
         private float _lift;
+        private float _currentTorque;
+        private float _targetTorque;
 
         public bool Accelerating => Mathf.Abs(_thrust) + Mathf.Abs(_yaw) + Mathf.Abs(_lift) > 0;
         
@@ -36,10 +38,9 @@ namespace WereHorse.Runtime.Expedition.Submarine {
                 Vector3 delta = nextVel - rigidBody.linearVelocity;
                 rigidBody.AddForce(delta, ForceMode.VelocityChange);
 
-                Vector3 targetTorque = new Vector3(0, _yaw * maxAngularSpeed, 0);
-                Vector3 nextTorque = Vector3.MoveTowards(rigidBody.angularVelocity, targetTorque, maxAngularAcceleration * Time.fixedDeltaTime);
-                Vector3 deltaTorque = nextTorque - rigidBody.angularVelocity;
-                rigidBody.AddTorque(deltaTorque, ForceMode.VelocityChange);
+                _targetTorque = _yaw * maxAngularSpeed;
+                _currentTorque = Mathf.MoveTowards(_currentTorque, _targetTorque, maxAngularAcceleration * Time.fixedDeltaTime);
+                transform.Rotate(Vector3.up, _currentTorque * Time.fixedDeltaTime);
             });
         }
     }

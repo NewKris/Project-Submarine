@@ -2306,7 +2306,7 @@ MonoBehaviour:
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
-  SyncRotAngleX: 1
+  SyncRotAngleX: 0
   SyncRotAngleY: 1
   SyncRotAngleZ: 0
   SyncScaleX: 0
@@ -2330,7 +2330,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465881498}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2390,8 +2390,8 @@ MonoBehaviour:
   rigidBody: {fileID: 1465881502}
   maxMoveSpeed: 5
   maxAcceleration: 5
-  maxAngularSpeed: 1
-  maxAngularAcceleration: 5
+  maxAngularSpeed: 10
+  maxAngularAcceleration: 10
 --- !u!1 &1470525501
 GameObject:
   m_ObjectHideFlags: 0
