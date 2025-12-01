@@ -20,14 +20,17 @@ namespace WereHorse.Runtime.Expedition.Submarine {
         private float _lift;
         private float _currentTorque;
         private float _targetTorque;
+        private NetworkVariable<bool> _accelerating = new ();
 
-        public bool Accelerating => Mathf.Abs(_thrust) + Mathf.Abs(_yaw) + Mathf.Abs(_lift) > 0;
+        public bool Accelerating => _accelerating.Value;
         
         [Rpc(SendTo.Server)]
         public void SendSteerValuesRpc(float thrust, float yaw, float lift) {
             _thrust = thrust;
             _yaw = yaw;
             _lift = lift;
+            
+            _accelerating.Value = Mathf.Abs(_thrust) + Mathf.Abs(_yaw) + Mathf.Abs(_lift) > 0;
         }
 
         private void FixedUpdate() {

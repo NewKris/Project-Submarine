@@ -8,7 +8,7 @@ namespace WereHorse.Runtime.Expedition.Player {
         public Transform toPoint;
         
         public override void Interact() {
-            PlayerCharacter.ownedCharacter.SetPositionAndRotationRpc(toPoint.position, toPoint.rotation);
+            PlayerCharacter.ownedCharacter.SetPositionAndRotation(toPoint.position, toPoint.rotation);
         }
 
         private void OnDrawGizmos() {

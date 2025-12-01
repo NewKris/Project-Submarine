@@ -26,6 +26,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
         private bool _underWater;
         private bool _usingStation;
+        private Vector3 _previousPosition;
         private Rigidbody _rigidbody;
         private Station _currentStation;
 
@@ -49,9 +50,10 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             CharacterInputListener.SetActive(true);
         }
         
-        [Rpc(SendTo.Owner)]
-        public void SetPositionAndRotationRpc(Vector3 position, Quaternion rotation) {
+        public void SetPositionAndRotation(Vector3 position, Quaternion rotation) {
             transform.position = position;
+            _rigidbody.position = position;
+            _previousPosition = position;
             playerCamera.SetYaw(rotation.eulerAngles.y);
             GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
             GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
@@ -109,7 +111,8 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             thirdPersonAnimator.Swimming = _underWater;
             thirdPersonAnimator.MovementInput = CharacterInputListener.Move;
             thirdPersonAnimator.Moving = CharacterInputListener.Move != Vector2.zero;
-            
+
+            Vector3 currentVel = (_rigidbody.position - _previousPosition) / Time.fixedDeltaTime;
             Vector3 targetVel = transform.rotation * CharacterInputListener.Move.ProjectOnGround();
             Vector3 vel;
             
@@ -117,7 +120,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 targetVel.y = CharacterInputListener.Lift;
                 targetVel = targetVel.normalized * maxSwimSpeed;
                 vel = Vector3.MoveTowards(
-                    _rigidbody.linearVelocity, 
+                    currentVel, 
                     targetVel, 
                     maxSwimAcceleration * Time.fixedDeltaTime
                 );
@@ -129,6 +132,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             }
 
             Vector3 delta = vel - _rigidbody.linearVelocity;
+            _previousPosition = _rigidbody.position;
             _rigidbody.AddForce(delta, ForceMode.VelocityChange);
         }
 
