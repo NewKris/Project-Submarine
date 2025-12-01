@@ -11,12 +11,17 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public static PlayerCharacter ownedCharacter;
         
         public float maxMoveSpeed;
+        public float maxSwimSpeed;
+        public float waterLevel;
+        
+        [Header("References")]
         public PlayerCamera playerCamera;
         public InteractionController interactionController;
         public PlayerHud hud;
         public SkinnedMeshRenderer thirdPersonModel;
         public CharacterAnimator thirdPersonAnimator;
 
+        private bool _underWater;
         private bool _usingStation;
         private CharacterController _character;
         private Station _currentStation;
@@ -81,6 +86,8 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         }
 
         private void Update() {
+            _underWater = transform.position.y > waterLevel;
+            
             if (_usingStation) {
                 transform.position = _currentStation.stationPivot.position;
                 transform.rotation = _currentStation.stationPivot.rotation;
@@ -92,11 +99,21 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         }
         
         private void Move() {
+            thirdPersonAnimator.Swimming = _underWater;
             thirdPersonAnimator.MovementInput = CharacterInputListener.Move;
             thirdPersonAnimator.Moving = CharacterInputListener.Move != Vector2.zero;
             
-            Vector3 velocity = transform.rotation * CharacterInputListener.Move.ProjectOnGround() * maxMoveSpeed;
-            _character.SimpleMove(velocity);
+            Vector3 velocity = transform.rotation * CharacterInputListener.Move.ProjectOnGround();
+            
+            if (_underWater) {
+                velocity.y = CharacterInputListener.Lift;
+                velocity = velocity.normalized * maxMoveSpeed;
+                _character.Move(velocity * Time.deltaTime);
+            }
+            else {
+                velocity = velocity.normalized * maxMoveSpeed;
+                _character.SimpleMove(velocity);
+            }
         }
 
         private void Look() {

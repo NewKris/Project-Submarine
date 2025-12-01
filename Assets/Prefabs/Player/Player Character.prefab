@@ -505,6 +505,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Gameplay.PlayerCharacter
   ShowTopMostFoldoutHeaderGroup: 1
   maxMoveSpeed: 5
+  maxSwimSpeed: 5
+  waterLevel: -10
   playerCamera: {fileID: 8682503166160888684}
   interactionController: {fileID: 4935540649968059152}
   hud: {fileID: 8095000931969124376}

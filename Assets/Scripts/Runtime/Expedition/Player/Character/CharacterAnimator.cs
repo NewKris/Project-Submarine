@@ -8,8 +8,13 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public Animator animator;
         public float damping;
 
-        private readonly NetworkVariable<bool> _moving = new (writePerm: NetworkVariableWritePermission.Owner);
-        private readonly NetworkVariable<Vector2> _movement = new (writePerm: NetworkVariableWritePermission.Owner);
+        private readonly NetworkVariable<bool> _swimming = new(writePerm: NetworkVariableWritePermission.Owner);
+        private readonly NetworkVariable<bool> _moving = new(writePerm: NetworkVariableWritePermission.Owner);
+        private readonly NetworkVariable<Vector2> _movement = new(writePerm: NetworkVariableWritePermission.Owner);
+
+        public bool Swimming {
+            set => _swimming.Value = value;
+        }
         
         public bool Moving {
             set => _moving.Value = value;
@@ -27,6 +32,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             animator.SetBool("Moving", _moving.Value);
             animator.SetFloat("Move X", _movement.Value.x);
             animator.SetFloat("Move Y", _movement.Value.y);
+            animator.SetBool("Swimming", _swimming.Value);
         }
     }
 }

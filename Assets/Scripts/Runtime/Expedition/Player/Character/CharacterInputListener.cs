@@ -4,15 +4,13 @@ using UnityEngine.InputSystem;
 
 namespace WereHorse.Runtime.Expedition.Player.Character {
     public class CharacterInputListener : MonoBehaviour {
-        public static event Action OnJump;
-        public static event Action OnCrouchStart;
-        public static event Action OnCrouchEnd;
-        public static event Action OnToggleMouse;
         public static event Action OnInteract;
 
+        private InputAction _liftAction;
         private InputAction _moveAction;
         private InputAction _lookAction;
 
+        public static float Lift { get; private set; }
         public static Vector2 Move { get; private set; }
         public static Vector2 Look { get; private set; }
         
@@ -28,12 +26,9 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         }
         
         private void Awake() {
-            ActionMap["Jump"].performed += _ => OnJump?.Invoke();
-            ActionMap["Crouch"].started += _ => OnCrouchStart?.Invoke();
-            ActionMap["Crouch"].canceled += _ => OnCrouchEnd?.Invoke();
-            ActionMap["Toggle Mouse"].performed += _ => OnToggleMouse?.Invoke();
             ActionMap["Interact"].performed += _ => OnInteract?.Invoke();
             
+            _liftAction = ActionMap["Lift"];
             _moveAction = ActionMap["Move"];
             _lookAction = ActionMap["Look"];
             
@@ -45,6 +40,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         }
 
         private void Update() {
+            Lift = _liftAction.ReadValue<float>();
             Move = _moveAction.ReadValue<Vector2>();
             Look = _lookAction.ReadValue<Vector2>();
         }
