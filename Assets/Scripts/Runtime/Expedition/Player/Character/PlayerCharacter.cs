@@ -89,7 +89,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         private void Update() {
             if (_usingStation) {
                 transform.position = _currentStation.stationPivot.position;
-                transform.rotation = _currentStation.stationPivot.rotation;
+                playerCamera.SetYaw(_currentStation.stationPivot.rotation.eulerAngles.y);
             }
             else {
                 Look();

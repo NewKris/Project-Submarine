@@ -1017,7 +1017,7 @@ GameObject:
   - component: {fileID: 548479354}
   - component: {fileID: 548479353}
   - component: {fileID: 548479352}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2233,7 +2233,7 @@ GameObject:
   - component: {fileID: 1465881501}
   - component: {fileID: 1465881500}
   - component: {fileID: 1465881504}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Submarine Exterior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
