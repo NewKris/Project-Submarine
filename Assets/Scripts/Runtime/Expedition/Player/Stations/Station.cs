@@ -5,22 +5,25 @@ using WereHorse.Runtime.Utility;
 using WereHorse.Runtime.Utility.Attributes;
 
 namespace WereHorse.Runtime.Expedition.Player.Stations {
-    public abstract class Station : MonoBehaviour {
+    public class Station : MonoBehaviour {
         public Transform stationPivot;
+        public float cameraDirection;
         [ReadOnly] public bool occupied;
 
-        public virtual void Activate() {
+        public void Activate() {
             StationInputListener.SetActive(true);
             StationInputListener.OnExit += Exit;
             PauseManager.OnPauseStateChanged += SetPauseState;
+            Cursor.lockState = CursorLockMode.None;
             enabled = true;
             occupied = true;
         }
 
-        public virtual void Deactivate() {
+        public void Deactivate() {
             StationInputListener.SetActive(false);
             StationInputListener.OnExit -= Exit;
             PauseManager.OnPauseStateChanged -= SetPauseState;
+            Cursor.lockState = CursorLockMode.Locked;
             enabled = false;
             occupied = false;
         }
@@ -37,7 +40,13 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
         }
 
         private void OnDrawGizmos() {
-            HandlesProxy.DrawDisc(stationPivot.position, Vector3.up, 0.5f, true, Color.yellow);
+            if (stationPivot) {
+                Vector3 cameraDir = Quaternion.AngleAxis(cameraDirection, Vector3.right) * Vector3.forward;
+                cameraDir = stationPivot.TransformDirection(cameraDir).normalized;
+                
+                HandlesProxy.DrawDisc(stationPivot.position, Vector3.up, 0.5f, true, Color.yellow);
+                HandlesProxy.DrawRay(stationPivot.position + Vector3.up, cameraDir, 3, false, Color.red);
+            }
         }
         
         private void SetPauseState(bool isPaused) {

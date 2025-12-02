@@ -43,6 +43,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             hud.gameObject.SetActive(false);
             CharacterInputListener.SetActive(false);
             
+            StickToStation();
             _currentStation.Activate();
         }
         
@@ -102,11 +103,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         }
 
         private void Update() {
-            if (_usingStation) {
-                transform.position = _currentStation.stationPivot.position;
-                playerCamera.SetYaw(_currentStation.stationPivot.rotation.eulerAngles.y);
-            }
-            else {
+            if (!_usingStation) {
                 Fall();
                 Look();
             }
@@ -118,6 +115,14 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             if (!_usingStation) {
                 Move();
             }
+        }
+
+        private void StickToStation() {
+            playerCamera.SetYaw(_currentStation.stationPivot.rotation.eulerAngles.y);
+            playerCamera.SetPitch(_currentStation.cameraDirection);
+            
+            _rigidbody.position = _currentStation.stationPivot.position;
+            transform.rotation = yawPivot.rotation;
         }
 
         private void Fall() {

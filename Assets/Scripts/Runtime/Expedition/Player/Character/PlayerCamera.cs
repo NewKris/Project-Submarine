@@ -28,6 +28,11 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             _yaw = new DampedAngle(yaw);
             yawPivot.rotation = Quaternion.Euler(0, yaw, 0);
         }
+
+        public void SetPitch(float pitch) {
+            _pitch = new DampedAngle(pitch);
+            transform.localRotation = Quaternion.Euler(pitch, 0, 0);
+        }
         
         public void Look(Vector2 deltaMouse) {
             _pitch.Target -= deltaMouse.y * maxRotateSpeed * pitchScale * sensitivity;
