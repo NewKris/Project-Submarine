@@ -15,6 +15,10 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public float maxSwimSpeed;
         public float maxSwimAcceleration;
         public float waterLevel;
+        
+        [Header("Jumping")]
+        public float jumpHeight;
+        public float jumpTime;
 
         [Header("References")] 
         public Transform yawPivot;
@@ -23,9 +27,12 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public PlayerHud hud;
         public SkinnedMeshRenderer thirdPersonModel;
         public CharacterAnimator thirdPersonAnimator;
+        public GroundChecker groundChecker;
 
         private bool _underWater;
         private bool _usingStation;
+        private float _gravity;
+        private float _jumpForce;
         private Vector3 _previousPosition;
         private Rigidbody _rigidbody;
         private Station _currentStation;
@@ -73,7 +80,12 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 thirdPersonModel.gameObject.layer = LayerMask.NameToLayer("Owner Hidden");
 
                 CharacterInputListener.OnInteract += interactionController.TryInteract;
+                CharacterInputListener.OnJump += Jump;
                 PauseManager.OnPauseStateChanged += SetPauseState;
+
+                float t = jumpTime * 0.5f;
+                _gravity = (-2 * jumpHeight) / (t * t);
+                _jumpForce = (2 * jumpHeight) / t;
 
                 ownedCharacter = this;
             });
@@ -84,6 +96,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         private void OnDisable() {
             DoOnOwner(() => {
                 CharacterInputListener.OnInteract -= interactionController.TryInteract;
+                CharacterInputListener.OnJump -= Jump;
                 PauseManager.OnPauseStateChanged -= SetPauseState;
             });
         }
@@ -94,16 +107,29 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 playerCamera.SetYaw(_currentStation.stationPivot.rotation.eulerAngles.y);
             }
             else {
+                Fall();
                 Look();
             }
         }
 
         private void FixedUpdate() {
             _underWater = transform.position.y > waterLevel;
-            _rigidbody.useGravity = !_underWater;
 
             if (!_usingStation) {
                 Move();
+            }
+        }
+
+        private void Fall() {
+            if (!_underWater) {
+                _rigidbody.AddForce(Vector3.up * _gravity, ForceMode.Acceleration);
+            }
+        }
+        
+        private void Jump() {
+            if (!_underWater && groundChecker.Evaluate()) {
+                float delta = _jumpForce - _rigidbody.linearVelocity.y;
+                _rigidbody.AddForce(Vector3.up * delta, ForceMode.VelocityChange);
             }
         }
 

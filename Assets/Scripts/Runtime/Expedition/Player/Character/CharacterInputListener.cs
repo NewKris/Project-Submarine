@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 namespace WereHorse.Runtime.Expedition.Player.Character {
     public class CharacterInputListener : MonoBehaviour {
         public static event Action OnInteract;
+        public static event Action OnJump;
 
         private InputAction _liftAction;
         private InputAction _moveAction;
@@ -27,6 +28,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         
         private void Awake() {
             ActionMap["Interact"].performed += _ => OnInteract?.Invoke();
+            ActionMap["Jump"].performed += _ => OnJump?.Invoke();
             
             _liftAction = ActionMap["Lift"];
             _moveAction = ActionMap["Move"];
