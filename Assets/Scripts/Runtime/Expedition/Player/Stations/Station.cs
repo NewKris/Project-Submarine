@@ -45,7 +45,7 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
                 cameraDir = stationPivot.TransformDirection(cameraDir).normalized;
                 
                 HandlesProxy.DrawDisc(stationPivot.position, Vector3.up, 0.5f, true, Color.yellow);
-                HandlesProxy.DrawRay(stationPivot.position + Vector3.up, cameraDir, 3, false, Color.red);
+                HandlesProxy.DrawRay(stationPivot.position + Vector3.up * 1.6f, cameraDir, 3, false, Color.red);
             }
         }
         
