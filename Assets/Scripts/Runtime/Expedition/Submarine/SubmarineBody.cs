@@ -6,21 +6,18 @@ using WereHorse.Runtime.Common;
 namespace WereHorse.Runtime.Expedition.Submarine {
     public class SubmarineBody : NetworkBehaviourExtended {
         public Rigidbody rigidBody;
+        public float thrustAcceleration;
+        public float liftAcceleration;
+        public float rotationAcceleration;
         
-        [Header("Moving")]
-        public float maxMoveSpeed;
-        public float maxAcceleration;
+        [Header("Thrusters")]
+        public Transform leftThruster;
+        public Transform rightThruster;
         
-        [Header("Rotating")]
-        public float maxAngularSpeed;
-        public float maxAngularAcceleration;
-
         private float _thrust;
         private float _yaw;
         private float _lift;
-        private float _currentTorque;
-        private float _targetTorque;
-        private NetworkVariable<bool> _accelerating = new ();
+        private readonly NetworkVariable<bool> _accelerating = new ();
 
         public bool Accelerating => _accelerating.Value;
         
@@ -35,15 +32,15 @@ namespace WereHorse.Runtime.Expedition.Submarine {
 
         private void FixedUpdate() {
             DoOnServer(() => {
-                Vector3 targetVel = new Vector3(0, _lift, _thrust).normalized * maxMoveSpeed;
-                targetVel = rigidBody.rotation * targetVel;
-                Vector3 nextVel = Vector3.MoveTowards(rigidBody.linearVelocity, targetVel, maxAcceleration * Time.fixedDeltaTime);
-                Vector3 delta = nextVel - rigidBody.linearVelocity;
-                rigidBody.AddForce(delta, ForceMode.VelocityChange);
-
-                _targetTorque = _yaw * maxAngularSpeed;
-                _currentTorque = Mathf.MoveTowards(_currentTorque, _targetTorque, maxAngularAcceleration * Time.fixedDeltaTime);
-                transform.Rotate(Vector3.up, _currentTorque * Time.fixedDeltaTime);
+                rigidBody.AddForce(transform.forward * (_thrust * thrustAcceleration), ForceMode.Acceleration);
+                rigidBody.AddForce(transform.up * (_lift * liftAcceleration), ForceMode.Acceleration);
+                
+                Transform activeThruster = _yaw < 0 ? rightThruster : leftThruster;
+                rigidBody.AddForceAtPosition(
+                    activeThruster.forward * Mathf.Abs(_yaw * rotationAcceleration), 
+                    activeThruster.position, 
+                    ForceMode.Acceleration
+                );
             });
         }
     }
