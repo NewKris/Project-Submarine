@@ -14,30 +14,18 @@ namespace WereHorse.Runtime.Expedition.Submarine {
         public Transform leftThruster;
         public Transform rightThruster;
         
-        private float _thrust;
-        private float _yaw;
-        private float _lift;
-        private readonly NetworkVariable<bool> _accelerating = new ();
-
-        public bool Accelerating => _accelerating.Value;
+        public float Thrust { get; set; }
+        public float Yaw { get; set; }
+        public float Lift { get; set; }
         
-        [Rpc(SendTo.Server)]
-        public void SendSteerValuesRpc(float thrust, float yaw, float lift) {
-            _thrust = thrust;
-            _yaw = yaw;
-            _lift = lift;
-            
-            _accelerating.Value = Mathf.Abs(_thrust) + Mathf.Abs(_yaw) + Mathf.Abs(_lift) > 0;
-        }
-
         private void FixedUpdate() {
             DoOnServer(() => {
-                rigidBody.AddForce(transform.forward * (_thrust * thrustAcceleration), ForceMode.Acceleration);
-                rigidBody.AddForce(transform.up * (_lift * liftAcceleration), ForceMode.Acceleration);
+                rigidBody.AddForce(transform.forward * (Thrust * thrustAcceleration), ForceMode.Acceleration);
+                rigidBody.AddForce(transform.up * (Lift * liftAcceleration), ForceMode.Acceleration);
                 
-                Transform activeThruster = _yaw < 0 ? rightThruster : leftThruster;
+                Transform activeThruster = Yaw < 0 ? rightThruster : leftThruster;
                 rigidBody.AddForceAtPosition(
-                    activeThruster.forward * Mathf.Abs(_yaw * rotationAcceleration), 
+                    activeThruster.forward * Mathf.Abs(Yaw * rotationAcceleration), 
                     activeThruster.position, 
                     ForceMode.Acceleration
                 );

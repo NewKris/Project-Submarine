@@ -11,9 +11,9 @@ namespace WereHorse.Runtime.Expedition.Submarine {
         private float _targetTorque;
         
         private void Update() {
-            _targetTorque = submarineBody.Accelerating ? rotationSpeed : 0;
+            /*_targetTorque = submarineBody.Accelerating ? rotationSpeed : 0;
             _torque = Mathf.MoveTowards(_torque, _targetTorque, acceleration * Time.deltaTime);
-            transform.Rotate(Vector3.forward * (_torque * Time.deltaTime), Space.Self);
+            transform.Rotate(Vector3.forward * (_torque * Time.deltaTime), Space.Self);*/
         }
     }
 }

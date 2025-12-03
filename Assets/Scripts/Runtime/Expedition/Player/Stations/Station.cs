@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using WereHorse.Runtime.Expedition.Player.Character;
+using WereHorse.Runtime.Expedition.Player.Stations.Interface;
 using WereHorse.Runtime.Utility;
 using WereHorse.Runtime.Utility.Attributes;
 
@@ -8,28 +9,40 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
     public class Station : MonoBehaviour {
         public Transform stationPivot;
         public float cameraDirection;
+        public InterfaceControl[] controls;
         [ReadOnly] public bool occupied;
+
+        private InterfaceHandle _grabbedHandle;
 
         public void Activate() {
             StationInputListener.SetActive(true);
             StationInputListener.OnExit += Exit;
+            StationInputListener.OnGrab += TryGrabHandle;
+            StationInputListener.OnRelease += ReleaseHandle;
             PauseManager.OnPauseStateChanged += SetPauseState;
             Cursor.lockState = CursorLockMode.None;
             enabled = true;
             occupied = true;
+            
+            ActivateControls();
         }
 
         public void Deactivate() {
             StationInputListener.SetActive(false);
             StationInputListener.OnExit -= Exit;
+            StationInputListener.OnGrab -= TryGrabHandle;
+            StationInputListener.OnRelease -= ReleaseHandle;
             PauseManager.OnPauseStateChanged -= SetPauseState;
             Cursor.lockState = CursorLockMode.Locked;
             enabled = false;
             occupied = false;
+            
+            DeactivateControls();
         }
         
         private void Awake() {
             enabled = false;
+            DeactivateControls();
         }
         
         private void OnDestroy() {
@@ -58,6 +71,33 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
         
         private void Exit() {
             PlayerCharacter.ownedCharacter.DePossessStation();
+        }
+
+        private void ActivateControls() {
+            foreach (InterfaceControl control in controls) {
+                control.Activate();
+            }
+        }
+        
+        private void DeactivateControls() {
+            foreach (InterfaceControl control in controls) {
+                control.Deactivate();
+            }
+        }
+
+        private void TryGrabHandle() {
+            Ray ray = Camera.main.ScreenPointToRay(StationInputListener.MousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit) && hit.collider.TryGetComponent(out InterfaceHandle handle)) {
+                _grabbedHandle = handle;
+                _grabbedHandle.Grab();
+            }
+        }
+
+        private void ReleaseHandle() {
+            if (_grabbedHandle) {
+                _grabbedHandle.Release();
+                _grabbedHandle = null;
+            }
         }
     }
 }

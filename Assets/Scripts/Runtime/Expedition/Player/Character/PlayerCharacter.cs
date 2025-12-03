@@ -39,12 +39,14 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
         public void PossessStation(Station station) {
             _currentStation = station;
+            _currentStation.Activate();
+            
+            _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             _usingStation = true;
             hud.gameObject.SetActive(false);
             CharacterInputListener.SetActive(false);
             
             StickToStation();
-            _currentStation.Activate();
         }
         
         public void DePossessStation() {
@@ -53,13 +55,13 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 _currentStation = null;
             }
             
+            _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             _usingStation = false;
             hud.gameObject.SetActive(true);
             CharacterInputListener.SetActive(true);
         }
         
         public void SetPositionAndRotation(Vector3 position, Quaternion rotation) {
-            transform.position = position;
             _rigidbody.position = position;
             _previousPosition = position;
             playerCamera.SetYaw(rotation.eulerAngles.y);
