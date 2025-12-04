@@ -9,8 +9,11 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
         public static event Action OnRelease;
 
         private InputAction _mousePositionAction;
+        private InputAction _deltaMouseAction;
         
         public static Vector2 MousePosition { get; private set; }
+        public static Vector2 DeltaMouse { get; private set; }
+        
         private static InputActionMap ActionMap => InputSystem.actions.actionMaps[2];
 
         public static void SetActive(bool active) {
@@ -28,6 +31,7 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
             ActionMap["Grab"].canceled += _ => OnRelease?.Invoke();
             
             _mousePositionAction = ActionMap["Mouse Position"];
+            _deltaMouseAction = ActionMap["Delta Mouse"];
             
             ActionMap.Disable();
         }
@@ -38,6 +42,7 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
 
         private void Update() {
             MousePosition = _mousePositionAction.ReadValue<Vector2>();
+            DeltaMouse = _deltaMouseAction.ReadValue<Vector2>();
         }
     }
 }

@@ -117,7 +117,7 @@ Transform:
   m_GameObject: {fileID: 7576521639901480832}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.17}
+  m_LocalPosition: {x: -0, y: -0, z: -0.17}
   m_LocalScale: {x: 0.14630416, y: 0.026939144, z: 0.06433215}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2909180394
+  GlobalObjectIdHash: 1683726924
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -273,13 +273,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Player.Stations.Interface.Slider
   ShowTopMostFoldoutHeaderGroup: 1
-  handle: {fileID: 4566726597523951885}
-  maxHandlePosition: 0.17
-  minHandlePosition: -0.17
   defaultValue: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
+  handle: {fileID: 4566726597523951885}
+  minTransform: -0.17
+  maxTransform: 0.17
   snapToValues: 0
   snapValues: []
   snapRange: 0

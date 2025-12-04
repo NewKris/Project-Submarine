@@ -6,103 +6,32 @@ using UnityEngine.EventSystems;
 using WereHorse.Runtime.Utility;
 
 namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
-    public class InterfaceSlider : InterfaceControl {
-        public Transform handle;
-        public float maxHandlePosition;
-        public float minHandlePosition;
-        [Range(0, 1)] public float defaultValue;
-        public UnityEvent<float> onValueChanged;
-
-        [Header("Snapping")] 
-        public bool snapToValues;
-        public float[] snapValues;
-        public float snapRange;
-        public bool allowLiminalValues;
-
-        private bool _isDragging;
+    public class InterfaceSlider : FloatControl {
         private Vector3 _offsetDrag;
         private Plane _handlePlane;
-        private readonly NetworkVariable<float> _value = new ();
 
         public override void OnHandleStart() {
-            _isDragging = true;
+            isDragging = true;
             _offsetDrag = ProjectMouse() - handle.localPosition;
         }
         
         public override void OnHandleStop() {
-            _isDragging = false;
+            isDragging = false;
         }
 
-        private void Start() {
-            DoOnServer(() => {
-                SetValueRpc(defaultValue);
-            });
-            
-            DoOnAll(() => {
-                _handlePlane = new Plane(transform.up, transform.position);
-                SetHandleTransform(defaultValue, defaultValue);
-                _value.OnValueChanged += SetHandleTransform;
-                enabled = false;
-            });
+        protected override void Start() {
+            base.Start();
+            _handlePlane = new Plane(transform.up, transform.position);
         }
 
-        private void OnValidate() {
-            if (handle) {
-                handle.localPosition = Vector3.Lerp(
-                    Vector3.forward * minHandlePosition, 
-                    Vector3.forward * maxHandlePosition, 
-                    defaultValue
-                );
-            }
+        protected override void SetHandleTransform(float newValue) {
+            handle.localPosition = Vector3.forward * CalculateTransformAmount(newValue);
         }
 
-        private void Update() {
-            if (_isDragging) {
-                Vector3 currentDrag = ProjectMouse();
-                Vector3 pos = currentDrag - _offsetDrag;
-                float handlePos = Mathf.Clamp(pos.z, minHandlePosition, maxHandlePosition);
-                
-                float newValue = CalculateValue(handlePos);
-                newValue = SnapValue(newValue);
-                
-                SetValueRpc(newValue);
-            }
-        }
-        
-        [Rpc(SendTo.Server)]
-        private void SetValueRpc(float newValue) {
-            _value.Value = newValue;
-            onValueChanged.Invoke(newValue);
-        }
-
-        private void SetHandleTransform(float oldValue, float newValue) {
-            handle.localPosition = Vector3.forward * CalculateHandlePosition(newValue);
-        }
-
-        private float SnapValue(float realValue) {
-            if (!snapToValues) {
-                return realValue;
-            }
-            
-            foreach (float snapValue in snapValues) {
-                if (Mathf.Abs(realValue - snapValue) < snapRange) {
-                    return snapValue;
-                }
-            }
-
-            if (!allowLiminalValues) {
-                return _value.Value;
-            }
-
-            return realValue;
-        }
-        
-        private float CalculateValue(float handlePosition) {
-            return Mathf.InverseLerp(minHandlePosition, maxHandlePosition, handlePosition);
-        }
-
-        private float CalculateHandlePosition(float value) {
-            return Mathf.Lerp(minHandlePosition, maxHandlePosition, value);
+        protected override float IntegrateTransform() {
+            Vector3 currentDrag = ProjectMouse();
+            Vector3 pos = currentDrag - _offsetDrag;
+            return Mathf.Clamp(pos.z, minTransform, maxTransform);
         }
 
         private Vector3 ProjectMouse() {
