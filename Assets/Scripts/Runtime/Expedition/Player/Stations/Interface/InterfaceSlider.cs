@@ -3,6 +3,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using WereHorse.Runtime.Utility;
 
 namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
     public class InterfaceSlider : InterfaceControl {
@@ -14,7 +15,6 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
 
         private bool _isDragging;
         private Vector3 _offsetDrag;
-        private Vector3 _currentDrag;
         private Plane _handlePlane;
         private readonly NetworkVariable<float> _value = new ();
 
@@ -28,11 +28,9 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
         }
 
         private void Start() {
-            DoOnServer(() => {
-            });
-            
             DoOnAll(() => {
                 _handlePlane = new Plane(transform.up, transform.position);
+                handle.localPosition = Vector3.forward * CalculateHandlePosition(_value.Value);
             });
         }
 
@@ -48,8 +46,8 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
 
         private void Update() {
             if (_isDragging) {
-                _currentDrag = ProjectMouse();
-                Vector3 pos = _currentDrag - _offsetDrag;
+                Vector3 currentDrag = ProjectMouse();
+                Vector3 pos = currentDrag - _offsetDrag;
                 float handlePos = Mathf.Clamp(pos.z, minHandlePosition, maxHandlePosition);
                 SetValueRpc(CalculateValue(handlePos));
             }
@@ -73,7 +71,7 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
         private Vector3 ProjectMouse() {
             Ray ray = Camera.main.ScreenPointToRay(StationInputListener.MousePosition);
             _handlePlane.Raycast(ray, out float enter);
-            return transform.TransformPoint(ray.GetPoint(enter));
+            return transform.InverseTransformPoint(ray.GetPoint(enter));
         }
     }
 }

@@ -9,10 +9,10 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
     public class Station : MonoBehaviour {
         public Transform stationPivot;
         public float cameraDirection;
-        public InterfaceControl[] controls;
         [ReadOnly] public bool occupied;
 
         private InterfaceHandle _grabbedHandle;
+        private InterfaceControl[] _controls;
 
         public void Activate() {
             StationInputListener.SetActive(true);
@@ -42,6 +42,7 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
         
         private void Awake() {
             enabled = false;
+            _controls = GetComponentsInChildren<InterfaceControl>();
             DeactivateControls();
         }
         
@@ -74,13 +75,13 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
         }
 
         private void ActivateControls() {
-            foreach (InterfaceControl control in controls) {
+            foreach (InterfaceControl control in _controls) {
                 control.Activate();
             }
         }
         
         private void DeactivateControls() {
-            foreach (InterfaceControl control in controls) {
+            foreach (InterfaceControl control in _controls) {
                 control.Deactivate();
             }
         }
