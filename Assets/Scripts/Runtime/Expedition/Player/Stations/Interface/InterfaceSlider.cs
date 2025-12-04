@@ -13,6 +13,12 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
         [Range(0, 1)] public float defaultValue;
         public UnityEvent<float> onValueChanged;
 
+        [Header("Snapping")] 
+        public bool snapToValues;
+        public float[] snapValues;
+        public float snapRange;
+        public bool allowLiminalValues;
+
         private bool _isDragging;
         private Vector3 _offsetDrag;
         private Plane _handlePlane;
@@ -52,20 +58,38 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
                 SetValueRpc(CalculateValue(handlePos));
             }
         }
+        
+        [Rpc(SendTo.Server)]
+        private void SetValueRpc(float newValue) {
+            _value.Value = SnapValue(newValue);
+            handle.localPosition = Vector3.forward * CalculateHandlePosition(_value.Value);
+            onValueChanged.Invoke(_value.Value);
+        }
 
+        private float SnapValue(float realValue) {
+            if (!snapToValues) {
+                return realValue;
+            }
+            
+            foreach (float snapValue in snapValues) {
+                if (Mathf.Abs(realValue - snapValue) < snapRange) {
+                    return snapValue;
+                }
+            }
+
+            if (!allowLiminalValues) {
+                return _value.Value;
+            }
+
+            return realValue;
+        }
+        
         private float CalculateValue(float handlePosition) {
             return Mathf.InverseLerp(minHandlePosition, maxHandlePosition, handlePosition);
         }
 
         private float CalculateHandlePosition(float value) {
             return Mathf.Lerp(minHandlePosition, maxHandlePosition, value);
-        }
-        
-        [Rpc(SendTo.Server)]
-        private void SetValueRpc(float newValue) {
-            handle.localPosition = Vector3.forward * CalculateHandlePosition(newValue);
-            _value.Value = newValue;
-            onValueChanged.Invoke(newValue);
         }
 
         private Vector3 ProjectMouse() {
