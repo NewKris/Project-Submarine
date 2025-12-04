@@ -11,7 +11,7 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
         public float cameraDirection;
         [ReadOnly] public bool occupied;
 
-        private InterfaceHandle _grabbedHandle;
+        private InterfaceControl _activeControl;
         private InterfaceControl[] _controls;
 
         public void Activate() {
@@ -43,7 +43,6 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
         private void Awake() {
             enabled = false;
             _controls = GetComponentsInChildren<InterfaceControl>();
-            DeactivateControls();
         }
         
         private void OnDestroy() {
@@ -88,16 +87,17 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
 
         private void TryGrabHandle() {
             Ray ray = Camera.main.ScreenPointToRay(StationInputListener.MousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit) && hit.collider.TryGetComponent(out InterfaceHandle handle)) {
-                _grabbedHandle = handle;
-                _grabbedHandle.Grab();
+            if (Physics.Raycast(ray, out RaycastHit hit)) {
+                InterfaceControl control = hit.collider.GetComponentInParent<InterfaceControl>();
+                _activeControl = control;
+                _activeControl?.OnHandleStart();
             }
         }
 
         private void ReleaseHandle() {
-            if (_grabbedHandle) {
-                _grabbedHandle.Release();
-                _grabbedHandle = null;
+            if (_activeControl) {
+                _activeControl?.OnHandleStop();
+                _activeControl = null;
             }
         }
     }

@@ -101,7 +101,6 @@ GameObject:
   - component: {fileID: 6334773394617114860}
   - component: {fileID: 7156109803152775342}
   - component: {fileID: 2087811748569685514}
-  - component: {fileID: 2372704406909370189}
   - component: {fileID: 1573249422755135741}
   m_Layer: 6
   m_Name: Handle
@@ -202,19 +201,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2372704406909370189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7576521639901480832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b30443c12e249ed8a08a505e9dcb4eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Player.Stations.Interface.InterfaceHandle
-  interfaceControl: {fileID: 428342955003198422}
 --- !u!114 &1573249422755135741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1683726924
+  GlobalObjectIdHash: 2909180394
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1

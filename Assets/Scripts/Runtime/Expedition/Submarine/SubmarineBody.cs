@@ -20,7 +20,8 @@ namespace WereHorse.Runtime.Expedition.Submarine {
         
         private void FixedUpdate() {
             DoOnServer(() => {
-                rigidBody.AddForce(transform.forward * (Thrust * thrustAcceleration), ForceMode.Acceleration);
+                float convertedThrust = Mathf.Lerp(-1, 1, Thrust);
+                rigidBody.AddForce(transform.forward * (convertedThrust * thrustAcceleration), ForceMode.Acceleration);
                 rigidBody.AddForce(transform.up * (Lift * liftAcceleration), ForceMode.Acceleration);
                 
                 Transform activeThruster = Yaw < 0 ? rightThruster : leftThruster;

@@ -4245,9 +4245,41 @@ PrefabInstance:
       value: 1683726924
       objectReference: {fileID: 0}
     - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: snapRange
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: defaultValue
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: snapToValues
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: allowLiminalValues
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: snapValues.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: 'snapValues.Array.data[1]'
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: 'snapValues.Array.data[2]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1465881504}
+    - target: {fileID: 4566726597523951885, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7179097692212064811, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.379

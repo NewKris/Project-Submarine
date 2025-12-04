@@ -34,9 +34,14 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
         }
 
         private void Start() {
+            DoOnServer(() => {
+                SetValueRpc(defaultValue);
+            });
+            
             DoOnAll(() => {
                 _handlePlane = new Plane(transform.up, transform.position);
                 handle.localPosition = Vector3.forward * CalculateHandlePosition(_value.Value);
+                enabled = false;
             });
         }
 
