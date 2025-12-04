@@ -40,7 +40,8 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
             
             DoOnAll(() => {
                 _handlePlane = new Plane(transform.up, transform.position);
-                handle.localPosition = Vector3.forward * CalculateHandlePosition(_value.Value);
+                SetHandleTransform(defaultValue, defaultValue);
+                _value.OnValueChanged += SetHandleTransform;
                 enabled = false;
             });
         }
@@ -72,12 +73,10 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
         private void SetValueRpc(float newValue) {
             _value.Value = newValue;
             onValueChanged.Invoke(newValue);
-            SetHandleTransformRpc(newValue);
         }
 
-        [Rpc(SendTo.Everyone)]
-        private void SetHandleTransformRpc(float sliderValue) {
-            handle.localPosition = Vector3.forward * CalculateHandlePosition(sliderValue);
+        private void SetHandleTransform(float oldValue, float newValue) {
+            handle.localPosition = Vector3.forward * CalculateHandlePosition(newValue);
         }
 
         private float SnapValue(float realValue) {
