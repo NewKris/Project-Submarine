@@ -23,38 +23,8 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
         
         private readonly NetworkVariable<float> _value = new ();
 
-        [Rpc(SendTo.Server)]
-        protected void SetValueRpc(float newValue) {
-            _value.Value = newValue;
-            onValueChanged.Invoke(newValue);
-        }
-        
-        protected float SnapValue(float realValue) {
-            if (!snapToValues) {
-                return realValue;
-            }
-            
-            foreach (float snapValue in snapValues) {
-                if (Mathf.Abs(realValue - snapValue) < snapRange) {
-                    return snapValue;
-                }
-            }
-
-            if (!allowLiminalValues) {
-                return _value.Value;
-            }
-
-            return realValue;
-        }
-
         protected abstract void SetHandleTransform(float newValue);
         protected abstract float IntegrateTransform();
-        
-        private void OnValidate() {
-            if (handle) {
-                SetHandleTransform(defaultValue);
-            }
-        }
         
         protected virtual void Start() {
             DoOnServer(() => {
@@ -66,6 +36,16 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
                 _value.OnValueChanged += (_, newVal) => SetHandleTransform(newVal);
                 enabled = false;
             });
+        }
+        
+        protected float CalculateTransformAmount(float value) {
+            return Mathf.Lerp(minTransform, maxTransform, value);
+        }
+        
+        private void OnValidate() {
+            if (handle) {
+                SetHandleTransform(defaultValue);
+            }
         }
         
         private void Update() {
@@ -81,8 +61,28 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
             return Mathf.InverseLerp(minTransform, maxTransform, transformAmount);
         }
 
-        protected float CalculateTransformAmount(float value) {
-            return Mathf.Lerp(minTransform, maxTransform, value);
+        [Rpc(SendTo.Server)]
+        private void SetValueRpc(float newValue) {
+            _value.Value = newValue;
+            onValueChanged.Invoke(newValue);
+        }
+        
+        private float SnapValue(float realValue) {
+            if (!snapToValues) {
+                return realValue;
+            }
+            
+            foreach (float snapValue in snapValues) {
+                if (Mathf.Abs(realValue - snapValue) < snapRange) {
+                    return snapValue;
+                }
+            }
+
+            if (!allowLiminalValues) {
+                return _value.Value;
+            }
+
+            return realValue;
         }
     }
 }
