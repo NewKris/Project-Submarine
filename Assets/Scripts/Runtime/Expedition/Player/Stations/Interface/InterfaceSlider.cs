@@ -55,15 +55,19 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
                 Vector3 currentDrag = ProjectMouse();
                 Vector3 pos = currentDrag - _offsetDrag;
                 float handlePos = Mathf.Clamp(pos.z, minHandlePosition, maxHandlePosition);
-                SetValueRpc(CalculateValue(handlePos));
+                
+                float newValue = CalculateValue(handlePos);
+                newValue = SnapValue(newValue);
+                
+                SetValueRpc(newValue);
             }
         }
         
         [Rpc(SendTo.Server)]
         private void SetValueRpc(float newValue) {
-            _value.Value = SnapValue(newValue);
-            handle.localPosition = Vector3.forward * CalculateHandlePosition(_value.Value);
-            onValueChanged.Invoke(_value.Value);
+            _value.Value = newValue;
+            handle.localPosition = Vector3.forward * CalculateHandlePosition(newValue);
+            onValueChanged.Invoke(newValue);
         }
 
         private float SnapValue(float realValue) {
