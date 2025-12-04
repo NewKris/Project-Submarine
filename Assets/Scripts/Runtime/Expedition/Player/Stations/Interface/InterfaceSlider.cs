@@ -71,8 +71,13 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
         [Rpc(SendTo.Server)]
         private void SetValueRpc(float newValue) {
             _value.Value = newValue;
-            handle.localPosition = Vector3.forward * CalculateHandlePosition(newValue);
             onValueChanged.Invoke(newValue);
+            SetHandleTransformRpc(newValue);
+        }
+
+        [Rpc(SendTo.Everyone)]
+        private void SetHandleTransformRpc(float sliderValue) {
+            handle.localPosition = Vector3.forward * CalculateHandlePosition(sliderValue);
         }
 
         private float SnapValue(float realValue) {

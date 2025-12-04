@@ -4273,9 +4273,33 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1465881504}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_Thrust
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WereHorse.Runtime.Expedition.Submarine.SubmarineBody, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4566726597523951885, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
