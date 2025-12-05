@@ -24,8 +24,8 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
             _handlePlane = new Plane(transform.up, transform.position);
         }
 
-        protected override void SetHandleTransform(float newValue) {
-            handle.localPosition = Vector3.forward * CalculateTransformAmount(newValue);
+        protected override void SetHandleTransform(float offset) {
+            handle.localPosition = Vector3.forward * offset;
         }
 
         protected override float IntegrateTransform() {

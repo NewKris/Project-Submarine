@@ -21,9 +21,9 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
 
         protected bool isDragging;
         
-        private readonly NetworkVariable<float> _value = new ();
+        private readonly NetworkVariable<float> _value = new();
 
-        protected abstract void SetHandleTransform(float newValue);
+        protected abstract void SetHandleTransform(float amount);
         protected abstract float IntegrateTransform();
         
         protected virtual void Start() {
@@ -32,19 +32,15 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
             });
             
             DoOnAll(() => {
-                SetHandleTransform(defaultValue);
-                _value.OnValueChanged += (_, newVal) => SetHandleTransform(newVal);
+                SetHandleTransform(CalculateTransformAmount(defaultValue));
+                _value.OnValueChanged += (_, newVal) => SetHandleTransform(CalculateTransformAmount(newVal));
                 enabled = false;
             });
         }
         
-        protected float CalculateTransformAmount(float value) {
-            return Mathf.Lerp(minTransform, maxTransform, value);
-        }
-        
         private void OnValidate() {
             if (handle) {
-                SetHandleTransform(defaultValue);
+                SetHandleTransform(CalculateTransformAmount(defaultValue));
             }
         }
         
@@ -83,6 +79,10 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
             }
 
             return realValue;
+        }
+        
+        private float CalculateTransformAmount(float value) {
+            return Mathf.Lerp(minTransform, maxTransform, value);
         }
     }
 }

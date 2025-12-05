@@ -18,8 +18,7 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
             isDragging = false;
         }
 
-        protected override void SetHandleTransform(float newValue) {
-            float rot = CalculateTransformAmount(newValue);
+        protected override void SetHandleTransform(float rot) {
             handle.localRotation = Quaternion.Euler(0, rot, 0);
         }
 
