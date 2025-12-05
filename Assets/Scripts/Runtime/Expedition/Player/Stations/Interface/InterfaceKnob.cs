@@ -7,9 +7,12 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
     public class InterfaceKnob : FloatControl {
         [Header("Knob Settings")]
         public float sensitivity;
+
+        private float _targetRot;
         
         public override void OnHandleStart() {
             isDragging = true;
+            _targetRot = handle.localRotation.eulerAngles.y;
         }
         public override void OnHandleStop() {
             isDragging = false;
@@ -22,8 +25,9 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
 
         protected override float IntegrateTransform() {
             float rot = StationInputListener.DeltaMouse.x * sensitivity;
-            float rotation = handle.localRotation.eulerAngles.y + rot;
-            return Mathf.Clamp(rotation, minTransform, maxTransform);
+            _targetRot += rot;
+            _targetRot = Mathf.Clamp(_targetRot, minTransform, maxTransform);
+            return _targetRot;
         }
     }
 }
