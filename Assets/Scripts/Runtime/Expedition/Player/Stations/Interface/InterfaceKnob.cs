@@ -27,6 +27,7 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
             float rot = StationInputListener.DeltaMouse.x * sensitivity;
             _targetRot += rot;
             _targetRot = Mathf.Clamp(_targetRot, minTransform, maxTransform);
+            
             return _targetRot;
         }
     }
