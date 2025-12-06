@@ -7,14 +7,10 @@ namespace WereHorse.Runtime.Expedition.Submarine {
     public class SubmarineBody : NetworkBehaviourExtended {
         public Rigidbody rigidBody;
         
-        [Header("Thrust")]
-        public float thrustAcceleration;
+        [Header("Acceleration")]
         public float deadZone;
-        
-        [Header("Lift")]
+        public float thrustAcceleration;
         public float liftAcceleration;
-        
-        [Header("Yaw")]
         public float rotationAcceleration;
         
         [Header("Thrusters")]
@@ -55,19 +51,35 @@ namespace WereHorse.Runtime.Expedition.Submarine {
         private void FixedUpdate() {
             DoOnServer(() => {
                 rigidBody.AddForce(transform.forward * CalculateThrustForce(), ForceMode.Acceleration);
-                rigidBody.AddForce(transform.up * (Lift * liftAcceleration), ForceMode.Acceleration);
+                rigidBody.AddForce(transform.up * CalculateLiftForce(), ForceMode.Acceleration);
                 
-                Transform activeThruster = Yaw < 0 ? rightThruster : leftThruster;
+                Transform activeThruster = Yaw < 0.5f ? rightThruster : leftThruster;
                 rigidBody.AddForceAtPosition(
-                    activeThruster.forward * Mathf.Abs(Yaw * rotationAcceleration), 
+                    activeThruster.forward * CalculateYawForce(), 
                     activeThruster.position, 
                     ForceMode.Acceleration
                 );
             });
         }
 
+        private float CalculateYawForce() {
+            float yaw = Mathf.Abs(Yaw - 0.5f) * 2;
+
+            if (yaw < deadZone) {
+                yaw = 0;
+            }
+
+            return yaw * rotationAcceleration;
+        }
+
+        private float CalculateLiftForce() {
+            float lift = Mathf.Lerp(-1, 1, Lift);
+            return lift * liftAcceleration;
+        }
+
         private float CalculateThrustForce() {
             float thrust = Mathf.Lerp(-1, 3f, Thrust);
+            
             if (Mathf.Abs(thrust) < deadZone) {
                 thrust = 0;
             }
