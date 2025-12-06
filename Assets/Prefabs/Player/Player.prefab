@@ -685,7 +685,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2220427040155270144}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: cf2cc8e0322733f40b55e158c0de8c5d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -698,9 +698,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3
-  m_Height: 2
+  m_Height: 1.75
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.875, z: 0}
 --- !u!1 &2317795756286891949
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,15 +1467,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Gameplay.PlayerCamera
   followPosition: {fileID: 3824219899190038014}
-  sensitivity: 0.6
+  sensitivity: 0.3
   yawPivot: {fileID: 3408232359921863134}
   maxRotateSpeed: 1
   pitchScale: 1
   minPitch: -60
   maxPitch: 60
-  pitchDamping: 0.05
+  pitchDamping: 0
   yawScale: 1
-  yawDamping: 0.05
+  yawDamping: 0
 --- !u!114 &4924301477608468507
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -73,7 +73,6 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
         private void Update() {
             if (!_characterLocked) {
-                Fall();
                 Look();
             }
         }
@@ -82,6 +81,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             _underWater = transform.position.y > waterLevel;
 
             if (!_characterLocked) {
+                Fall();
                 Move();
             }
         }
