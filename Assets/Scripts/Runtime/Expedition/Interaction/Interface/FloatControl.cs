@@ -35,8 +35,13 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
             });
             
             DoOnAll(() => {
-                SetHandleTransform(CalculateTransformAmount(defaultValue));
-                _value.OnValueChanged += (_, newVal) => SetHandleTransform(CalculateTransformAmount(newVal));
+                _value.OnValueChanged += (_, newVal) => {
+                    SetHandleTransform(CalculateTransformAmount(newVal));
+                    onValueChanged.Invoke(newVal);
+                };
+                
+                SetHandleTransform(CalculateTransformAmount(_value.Value));
+                onValueChanged.Invoke(_value.Value);
             });
         }
         
@@ -62,7 +67,6 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
         [Rpc(SendTo.Server)]
         private void SetValueRpc(float newValue) {
             _value.Value = newValue;
-            onValueChanged.Invoke(newValue);
         }
         
         private float SnapValue(float realValue) {

@@ -20,10 +20,37 @@ namespace WereHorse.Runtime.Expedition.Submarine {
         [Header("Thrusters")]
         public Transform leftThruster;
         public Transform rightThruster;
+
+        private float _thrust;
+        private float _yaw;
+        private float _lift;
+
+        public float Thrust {
+            get => _thrust;
+            set {
+                if (IsServer) {
+                    _thrust = value;
+                }
+            }
+        }
         
-        public float Thrust { get; set; }
-        public float Yaw { get; set; }
-        public float Lift { get; set; }
+        public float Yaw {
+            get => _yaw;
+            set {
+                if (IsServer) {
+                    _yaw = value;
+                }
+            }
+        }
+        
+        public float Lift {
+            get => _lift;
+            set {
+                if (IsServer) {
+                    _lift = value;
+                }
+            }
+        }
         
         private void FixedUpdate() {
             DoOnServer(() => {
