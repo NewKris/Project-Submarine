@@ -12,6 +12,9 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
         public Transform handle;
         public float onTransform;
         public float offTransform;
+        
+        [Header("Indicators")] 
+        public BoolIndicator[] indicators;
 
         private readonly NetworkVariable<bool> _value = new();
 
@@ -34,6 +37,7 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
                     onValueChanged.Invoke(newVal);
                 };
                 
+                HookIndicatorListeners();
                 SetHandleTransform(CalculateTransformAmount(_value.Value));
                 onValueChanged.Invoke(_value.Value);
             });
@@ -52,6 +56,12 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
         
         private float CalculateTransformAmount(bool value) {
             return value ? onTransform : offTransform;
+        }
+        
+        private void HookIndicatorListeners() {
+            foreach (BoolIndicator boolIndicator in indicators) {
+                onValueChanged.AddListener(boolIndicator.UpdateValue);
+            }
         }
     }
 }

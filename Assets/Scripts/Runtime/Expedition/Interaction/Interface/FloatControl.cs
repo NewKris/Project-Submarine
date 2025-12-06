@@ -18,6 +18,9 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
         public float snapRange;
         public bool allowLiminalValues;
 
+        [Header("Indicators")] 
+        public FloatIndicator[] indicators;
+
         protected bool isDragging;
         
         private readonly NetworkVariable<float> _value = new();
@@ -40,6 +43,7 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
                     onValueChanged.Invoke(newVal);
                 };
                 
+                HookIndicatorListeners();
                 SetHandleTransform(CalculateTransformAmount(_value.Value));
                 onValueChanged.Invoke(_value.Value);
             });
@@ -89,6 +93,12 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
         
         private float CalculateTransformAmount(float value) {
             return Mathf.Lerp(minTransform, maxTransform, value);
+        }
+
+        private void HookIndicatorListeners() {
+            foreach (FloatIndicator floatIndicator in indicators) {
+                onValueChanged.AddListener(floatIndicator.UpdateValue);
+            }
         }
     }
 }
