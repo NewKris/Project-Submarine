@@ -6,8 +6,15 @@ using WereHorse.Runtime.Common;
 namespace WereHorse.Runtime.Expedition.Submarine {
     public class SubmarineBody : NetworkBehaviourExtended {
         public Rigidbody rigidBody;
+        
+        [Header("Thrust")]
         public float thrustAcceleration;
+        public float deadZone;
+        
+        [Header("Lift")]
         public float liftAcceleration;
+        
+        [Header("Yaw")]
         public float rotationAcceleration;
         
         [Header("Thrusters")]
@@ -20,8 +27,7 @@ namespace WereHorse.Runtime.Expedition.Submarine {
         
         private void FixedUpdate() {
             DoOnServer(() => {
-                float convertedThrust = Mathf.Lerp(-1, 1, Thrust);
-                rigidBody.AddForce(transform.forward * (convertedThrust * thrustAcceleration), ForceMode.Acceleration);
+                rigidBody.AddForce(transform.forward * CalculateThrustForce(), ForceMode.Acceleration);
                 rigidBody.AddForce(transform.up * (Lift * liftAcceleration), ForceMode.Acceleration);
                 
                 Transform activeThruster = Yaw < 0 ? rightThruster : leftThruster;
@@ -31,6 +37,15 @@ namespace WereHorse.Runtime.Expedition.Submarine {
                     ForceMode.Acceleration
                 );
             });
+        }
+
+        private float CalculateThrustForce() {
+            float thrust = Mathf.Lerp(-1, 3f, Thrust);
+            if (Mathf.Abs(thrust) < deadZone) {
+                thrust = 0;
+            }
+
+            return thrust * thrustAcceleration;
         }
     }
 }

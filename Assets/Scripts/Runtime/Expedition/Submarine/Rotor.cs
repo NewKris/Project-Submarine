@@ -6,14 +6,15 @@ namespace WereHorse.Runtime.Expedition.Submarine {
         public SubmarineBody submarineBody;
         public float rotationSpeed;
         public float acceleration;
+        public AnimationCurve curve;
 
         private float _torque;
         private float _targetTorque;
         
         private void Update() {
-            /*_targetTorque = submarineBody.Accelerating ? rotationSpeed : 0;
+            _targetTorque = curve.Evaluate(submarineBody.Thrust) * rotationSpeed;
             _torque = Mathf.MoveTowards(_torque, _targetTorque, acceleration * Time.deltaTime);
-            transform.Rotate(Vector3.forward * (_torque * Time.deltaTime), Space.Self);*/
+            transform.Rotate(Vector3.forward * (_torque * Time.deltaTime), Space.Self);
         }
     }
 }

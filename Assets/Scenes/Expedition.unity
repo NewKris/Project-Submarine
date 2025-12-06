@@ -3479,6 +3479,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   rigidBody: {fileID: 1465881502}
   thrustAcceleration: 20
+  deadZone: 0.1
   liftAcceleration: 20
   rotationAcceleration: 0.5
   leftThruster: {fileID: 372362111}
@@ -4609,6 +4610,39 @@ MonoBehaviour:
   submarineBody: {fileID: 1465881504}
   rotationSpeed: 2000
   acceleration: 1000
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.25
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.25
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.41923445
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1953432735
 GameObject:
   m_ObjectHideFlags: 0
@@ -4788,11 +4822,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: snapRange
-      value: 0.1
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: defaultValue
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: snapToValues
@@ -4804,14 +4838,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: snapValues.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: 'snapValues.Array.data[1]'
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: 'snapValues.Array.data[2]'
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: 'snapValues.Array.data[3]'
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: 'snapValues.Array.data[4]'
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 428342955003198422, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
@@ -4844,15 +4886,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4566726597523951885, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4566726597523951885, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4566726597523951885, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.085
       objectReference: {fileID: 0}
     - target: {fileID: 7179097692212064811, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4896,7 +4938,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8511636662655851183, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: m_Name
-      value: Slider
+      value: Thrust Control
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
