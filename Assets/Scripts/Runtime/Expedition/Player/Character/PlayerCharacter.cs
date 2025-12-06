@@ -4,6 +4,7 @@ using UnityEngine;
 using WereHorse.Runtime.Common;
 using WereHorse.Runtime.Expedition.Hud;
 using WereHorse.Runtime.Expedition.Interaction;
+using WereHorse.Runtime.Expedition.Interaction.Interface;
 using WereHorse.Runtime.Expedition.Player.Stations;
 using WereHorse.Runtime.Utility.Extensions;
 
@@ -30,7 +31,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public GroundChecker groundChecker;
 
         private bool _underWater;
-        private bool _usingStation;
+        private bool _characterLocked;
         private float _gravity;
         private float _jumpForce;
         private Vector3 _previousPosition;
@@ -40,11 +41,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
         public void PossessStation(Station station) {
             _currentStation = station;
-            _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-            _usingStation = true;
-            hud.gameObject.SetActive(false);
-            SetCursorLock(false);
-            
+            SetPlayerLock(true);
             StickToStation();
         }
         
@@ -57,44 +54,25 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         }
 
         private void Start() {
-            DoOnNonOwners(() => {
-                enabled = false;
-                playerCamera.gameObject.SetActive(false);
-                interactionController.gameObject.SetActive(false);
-                hud.gameObject.SetActive(false);
-            });
+            DoOnNonOwners(DisableNonOwnedCharacter);
             
             DoOnOwner(() => {
-                _rigidbody = GetComponent<Rigidbody>();
-                
                 thirdPersonModel.gameObject.layer = LayerMask.NameToLayer("Owner Hidden");
-
-                PlayerInputListener.OnInteract += interactionController.TryInteract;
-                PlayerInputListener.OnJump += Jump;
-                PlayerInputListener.OnExit += DePossessStation;
-                
-                PauseManager.OnPauseStateChanged += SetPauseState;
-
-                float t = jumpTime * 0.5f;
-                _gravity = (-2 * jumpHeight) / (t * t);
-                _jumpForce = (2 * jumpHeight) / t;
-
+                _rigidbody = GetComponent<Rigidbody>();
                 ownedCharacter = this;
+
+                SubscribeListeners();
+                CalculateJumpValues();
+                SetPlayerLock(false);
             });
-            
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void OnDisable() {
-            DoOnOwner(() => {
-                PlayerInputListener.OnInteract -= interactionController.TryInteract;
-                PlayerInputListener.OnJump -= Jump;
-                PauseManager.OnPauseStateChanged -= SetPauseState;
-            });
+            DoOnOwner(DisposeListeners);
         }
 
         private void Update() {
-            if (!_usingStation) {
+            if (!_characterLocked) {
                 Fall();
                 Look();
             }
@@ -103,7 +81,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         private void FixedUpdate() {
             _underWater = transform.position.y > waterLevel;
 
-            if (!_usingStation) {
+            if (!_characterLocked) {
                 Move();
             }
         }
@@ -166,6 +144,10 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         private void SetPauseState(bool isPaused) {
             PlayerInputListener.SetActive(!isPaused);
             Cursor.lockState = isPaused ? CursorLockMode.None : _lockMode;
+
+            if (!isPaused && !_currentStation) {
+                SetPlayerLock(false);
+            }
         }
         
         private void DePossessStation() {
@@ -173,15 +155,63 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 _currentStation = null;
             }
             
-            _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-            _usingStation = false;
-            SetCursorLock(true);
-            hud.gameObject.SetActive(true);
+            SetPlayerLock(false);
         }
 
-        private void SetCursorLock(bool locked) {
-            _lockMode = locked ?  CursorLockMode.Locked : CursorLockMode.None;
+        private void GrabHandle() {
+            if (interactionController.TryGrabHandle(out InterfaceControl control)) {
+                if (control.LockPlayer()) {
+                    SetPlayerLock(true);
+                }
+            }
+        }
+
+        private void ReleaseHandle() {
+            interactionController.TryReleaseHandle();
+
+            if (!_currentStation) {
+                SetPlayerLock(false);
+            }
+        }
+        
+        private void SetPlayerLock(bool locked) {
+            _characterLocked = locked;
+            hud.gameObject.SetActive(!locked);
+            _rigidbody.constraints = locked ? RigidbodyConstraints.FreezeAll : RigidbodyConstraints.FreezeRotation;
+            
+            _lockMode = locked ?  CursorLockMode.None : CursorLockMode.Locked;
             Cursor.lockState = _lockMode;
+        }
+
+        private void SubscribeListeners() {
+            PlayerInputListener.OnInteract += interactionController.TryInteract;
+            PlayerInputListener.OnJump += Jump;
+            PlayerInputListener.OnExit += DePossessStation;
+            PlayerInputListener.OnGrab += GrabHandle;
+            PlayerInputListener.OnRelease += ReleaseHandle;
+            PauseManager.OnPauseStateChanged += SetPauseState;
+        }
+
+        private void DisposeListeners() {
+            PlayerInputListener.OnInteract -= interactionController.TryInteract;
+            PlayerInputListener.OnJump -= Jump;
+            PlayerInputListener.OnExit -= DePossessStation;
+            PlayerInputListener.OnGrab -= GrabHandle;
+            PlayerInputListener.OnRelease -= ReleaseHandle;
+            PauseManager.OnPauseStateChanged -= SetPauseState;
+        }
+        
+        private void CalculateJumpValues() {
+            float t = jumpTime * 0.5f;
+            _gravity = (-2 * jumpHeight) / (t * t);
+            _jumpForce = (2 * jumpHeight) / t;
+        }
+
+        private void DisableNonOwnedCharacter() {
+            enabled = false;
+            playerCamera.gameObject.SetActive(false);
+            interactionController.gameObject.SetActive(false);
+            hud.gameObject.SetActive(false);
         }
     }
 }

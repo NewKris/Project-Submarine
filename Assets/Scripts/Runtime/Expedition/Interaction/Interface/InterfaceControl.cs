@@ -2,12 +2,8 @@ using WereHorse.Runtime.Common;
 
 namespace WereHorse.Runtime.Expedition.Interaction.Interface {
     public abstract class InterfaceControl : NetworkBehaviourExtended {
-        public void Activate() {
-            enabled = true;
-        }
-
-        public void Deactivate() {
-            enabled = false;
+        public virtual bool LockPlayer() {
+            return false;
         }
         
         public abstract void OnHandleStart();

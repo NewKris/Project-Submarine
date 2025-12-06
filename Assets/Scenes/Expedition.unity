@@ -593,37 +593,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1572470793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &180026463
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 180026464}
-  m_Layer: 0
-  m_Name: Pivot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &180026464
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180026463}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.36, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1803838379}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &209667399
 GameObject:
   m_ObjectHideFlags: 0
@@ -2177,6 +2146,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 424183346}
     m_Modifications:
+    - target: {fileID: 184175951758202753, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 212788627221606782, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 13631175
@@ -2229,9 +2202,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7576521639901480832, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8511636662655851183, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
       propertyPath: m_Name
       value: Slider
+      objectReference: {fileID: 0}
+    - target: {fileID: 8511636662655851183, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4322,7 +4303,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1803838379}
-  - component: {fileID: 1803838380}
   m_Layer: 0
   m_Name: Everything Panel
   m_TagString: Untagged
@@ -4344,25 +4324,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1953432736}
-  - {fileID: 180026464}
   - {fileID: 424183346}
   m_Father: {fileID: 543721507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1803838380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1803838378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 699f5d478ed64557abb0abd7c0bb758d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Player.Stations.Station
-  stationPivot: {fileID: 180026464}
-  cameraDirection: 0
-  occupied: 0
 --- !u!1 &1829455922
 GameObject:
   m_ObjectHideFlags: 0
@@ -4654,8 +4618,6 @@ GameObject:
   - component: {fileID: 1953432736}
   - component: {fileID: 1953432739}
   - component: {fileID: 1953432738}
-  - component: {fileID: 1953432737}
-  - component: {fileID: 1953432740}
   m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
@@ -4678,27 +4640,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1803838379}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1953432737
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953432735}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1953432738
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4755,19 +4696,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953432735}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1953432740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953432735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3c60ff1061245cfa21b135b80af93d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Player.Stations.StationInteractable
-  station: {fileID: 1803838380}
 --- !u!1 &1973051052
 GameObject:
   m_ObjectHideFlags: 0

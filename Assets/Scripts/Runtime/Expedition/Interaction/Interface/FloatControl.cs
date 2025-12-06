@@ -22,6 +22,10 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
         
         private readonly NetworkVariable<float> _value = new();
 
+        public override bool LockPlayer() {
+            return true;
+        }
+        
         protected abstract void SetHandleTransform(float amount);
         protected abstract float IntegrateTransform();
         
@@ -33,7 +37,6 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
             DoOnAll(() => {
                 SetHandleTransform(CalculateTransformAmount(defaultValue));
                 _value.OnValueChanged += (_, newVal) => SetHandleTransform(CalculateTransformAmount(newVal));
-                enabled = false;
             });
         }
         

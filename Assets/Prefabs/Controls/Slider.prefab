@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8757332781606405898}
   - component: {fileID: 5435472346838016062}
   - component: {fileID: 2904997571315367217}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 6334773394617114860}
   - component: {fileID: 7156109803152775342}
   - component: {fileID: 2087811748569685514}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.5, y: 2, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8511636662655851183
 GameObject:
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 7179097692212064811}
   - component: {fileID: 212788627221606782}
   - component: {fileID: 428342955003198422}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
