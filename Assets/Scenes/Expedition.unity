@@ -5003,7 +5003,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   rigidBody: {fileID: 1465881502}
   deadZone: 0.01
-  thrustAcceleration: 20
+  thrustAcceleration: 10
   liftAcceleration: 20
   rotationAcceleration: 0.5
   leftThruster: {fileID: 372362111}
