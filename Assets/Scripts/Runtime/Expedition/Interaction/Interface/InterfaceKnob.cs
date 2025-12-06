@@ -1,9 +1,6 @@
-using System;
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
+namespace WereHorse.Runtime.Expedition.Interaction.Interface {
     public class InterfaceKnob : FloatControl {
         [Header("Knob Settings")]
         public float sensitivity;
@@ -23,7 +20,7 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
         }
 
         protected override float IntegrateTransform() {
-            float rot = StationInputListener.DeltaMouse.x * sensitivity;
+            float rot = PlayerInputListener.Look.x * sensitivity;
             _targetRot += rot;
             _targetRot = Mathf.Clamp(_targetRot, minTransform, maxTransform);
             

@@ -1,11 +1,6 @@
-using System;
-using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using WereHorse.Runtime.Utility;
 
-namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
+namespace WereHorse.Runtime.Expedition.Interaction.Interface {
     public class InterfaceSlider : FloatControl {
         private Vector3 _offsetDrag;
         private Plane _handlePlane;
@@ -35,7 +30,7 @@ namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
         }
 
         private Vector3 ProjectMouse() {
-            Ray ray = Camera.main.ScreenPointToRay(StationInputListener.MousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(PlayerInputListener.MousePosition);
             _handlePlane.Raycast(ray, out float enter);
             return transform.InverseTransformPoint(ray.GetPoint(enter));
         }

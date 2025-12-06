@@ -1,6 +1,6 @@
 using WereHorse.Runtime.Common;
 
-namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
+namespace WereHorse.Runtime.Expedition.Interaction.Interface {
     public abstract class InterfaceControl : NetworkBehaviourExtended {
         public void Activate() {
             enabled = true;

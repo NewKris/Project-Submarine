@@ -78,6 +78,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Exit Seat",
+                    "type": "Button",
+                    "id": "d192acd0-4160-414b-8fbd-d1881de11188",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse Position",
+                    "type": "Value",
+                    "id": "c7084abc-d16e-4ba5-8194-c2c73d5efd6c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Grab",
+                    "type": "Button",
+                    "id": "178f74a1-7a59-4826-aa74-08a1d6ca259b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -267,65 +294,21 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Station",
-            "id": "3d3ffcd4-2ce3-4cab-b963-3a0c79107b8e",
-            "actions": [
-                {
-                    "name": "Exit",
-                    "type": "Button",
-                    "id": "02a8fa32-e9f4-432a-9e76-63dcab455523",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
-                {
-                    "name": "Mouse Position",
-                    "type": "Value",
-                    "id": "f418c401-ba29-4101-b33d-b4693b63af8b",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Grab",
-                    "type": "Button",
-                    "id": "86c73658-7b32-42e6-ba36-9fe90c474f78",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Delta Mouse",
-                    "type": "Value",
-                    "id": "f403fe35-7b49-40b5-8799-99a902cc740c",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                }
-            ],
-            "bindings": [
                 {
                     "name": "",
-                    "id": "6f0c7b1b-6a38-496a-bbdb-00416404b1d3",
+                    "id": "ec3c3f1c-3960-4fc3-a731-1175c7d9c1f4",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Exit",
+                    "action": "Exit Seat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "b038d325-7ef9-44e2-9e7f-3acca5c0d623",
+                    "id": "ecfe52ee-0082-4f64-97ca-5ab3a17ca81c",
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
@@ -336,23 +319,12 @@
                 },
                 {
                     "name": "",
-                    "id": "2ce747a4-5f4d-43a1-acc6-9b1e37954cad",
+                    "id": "67cf3fcd-3ac2-4fc5-8aa0-0b0419211aed",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Grab",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "87358c14-3f26-4b27-9d14-2adf896e7c9b",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Delta Mouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

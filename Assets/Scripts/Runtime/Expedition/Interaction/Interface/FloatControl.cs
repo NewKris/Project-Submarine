@@ -1,9 +1,8 @@
-using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace WereHorse.Runtime.Expedition.Player.Stations.Interface {
+namespace WereHorse.Runtime.Expedition.Interaction.Interface {
     public abstract class FloatControl : InterfaceControl {
         [Range(0, 1)] public float defaultValue;
         public UnityEvent<float> onValueChanged;

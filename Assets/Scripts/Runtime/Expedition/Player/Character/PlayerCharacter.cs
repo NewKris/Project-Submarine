@@ -36,29 +36,16 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         private Vector3 _previousPosition;
         private Rigidbody _rigidbody;
         private Station _currentStation;
+        private CursorLockMode _lockMode = CursorLockMode.Locked;
 
         public void PossessStation(Station station) {
             _currentStation = station;
-            _currentStation.Activate();
-            
             _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             _usingStation = true;
             hud.gameObject.SetActive(false);
-            CharacterInputListener.SetActive(false);
+            SetCursorLock(false);
             
             StickToStation();
-        }
-        
-        public void DePossessStation() {
-            if (_currentStation) {
-                _currentStation.Deactivate();
-                _currentStation = null;
-            }
-            
-            _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-            _usingStation = false;
-            hud.gameObject.SetActive(true);
-            CharacterInputListener.SetActive(true);
         }
         
         public void SetPositionAndRotation(Vector3 position, Quaternion rotation) {
@@ -82,8 +69,10 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 
                 thirdPersonModel.gameObject.layer = LayerMask.NameToLayer("Owner Hidden");
 
-                CharacterInputListener.OnInteract += interactionController.TryInteract;
-                CharacterInputListener.OnJump += Jump;
+                PlayerInputListener.OnInteract += interactionController.TryInteract;
+                PlayerInputListener.OnJump += Jump;
+                PlayerInputListener.OnExit += DePossessStation;
+                
                 PauseManager.OnPauseStateChanged += SetPauseState;
 
                 float t = jumpTime * 0.5f;
@@ -98,8 +87,8 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
         private void OnDisable() {
             DoOnOwner(() => {
-                CharacterInputListener.OnInteract -= interactionController.TryInteract;
-                CharacterInputListener.OnJump -= Jump;
+                PlayerInputListener.OnInteract -= interactionController.TryInteract;
+                PlayerInputListener.OnJump -= Jump;
                 PauseManager.OnPauseStateChanged -= SetPauseState;
             });
         }
@@ -142,15 +131,15 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
         private void Move() {
             thirdPersonAnimator.Swimming = _underWater;
-            thirdPersonAnimator.MovementInput = CharacterInputListener.Move;
-            thirdPersonAnimator.Moving = CharacterInputListener.Move != Vector2.zero;
+            thirdPersonAnimator.MovementInput = PlayerInputListener.Move;
+            thirdPersonAnimator.Moving = PlayerInputListener.Move != Vector2.zero;
 
             Vector3 currentVel = (_rigidbody.position - _previousPosition) / Time.fixedDeltaTime;
-            Vector3 targetVel = transform.rotation * CharacterInputListener.Move.ProjectOnGround();
+            Vector3 targetVel = transform.rotation * PlayerInputListener.Move.ProjectOnGround();
             Vector3 vel;
             
             if (_underWater) {
-                targetVel.y = CharacterInputListener.Lift;
+                targetVel.y = PlayerInputListener.Lift;
                 targetVel = targetVel.normalized * maxSwimSpeed;
                 vel = Vector3.MoveTowards(
                     currentVel, 
@@ -170,15 +159,29 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         }
 
         private void Look() {
-            playerCamera.Look(CharacterInputListener.Look);
+            playerCamera.Look(PlayerInputListener.Look);
             transform.rotation = yawPivot.rotation;
         }
 
         private void SetPauseState(bool isPaused) {
-            if (!_usingStation) {
-                CharacterInputListener.SetActive(!isPaused);
-                Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
+            PlayerInputListener.SetActive(!isPaused);
+            Cursor.lockState = isPaused ? CursorLockMode.None : _lockMode;
+        }
+        
+        private void DePossessStation() {
+            if (_currentStation) {
+                _currentStation = null;
             }
+            
+            _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+            _usingStation = false;
+            SetCursorLock(true);
+            hud.gameObject.SetActive(true);
+        }
+
+        private void SetCursorLock(bool locked) {
+            _lockMode = locked ?  CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.lockState = _lockMode;
         }
     }
 }
