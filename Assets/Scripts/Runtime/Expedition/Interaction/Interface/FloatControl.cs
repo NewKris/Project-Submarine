@@ -13,7 +13,6 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
         public float maxTransform;
         
         [Header("Snapping")] 
-        public bool snapToValues;
         public float[] snapValues;
         public float snapRange;
         public bool allowLiminalValues;
@@ -23,6 +22,7 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
 
         protected bool isDragging;
         
+        public bool ToggleSnapping { get; set; }
         private readonly NetworkVariable<float> _value = new();
 
         public override bool LockPlayer() {
@@ -74,7 +74,7 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
         }
         
         private float SnapValue(float realValue) {
-            if (!snapToValues) {
+            if (!ToggleSnapping) {
                 return realValue;
             }
             
