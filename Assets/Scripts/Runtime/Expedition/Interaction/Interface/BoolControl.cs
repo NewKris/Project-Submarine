@@ -6,6 +6,7 @@ using UnityEngine.Events;
 namespace WereHorse.Runtime.Expedition.Interaction.Interface {
     public abstract class BoolControl : InterfaceControl {
         public bool defaultValue;
+        public bool binaryState = true;
         public UnityEvent<bool> onValueChanged;
 
         [Header("Transform")] 
@@ -18,7 +19,9 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
 
         private readonly NetworkVariable<bool> _value = new();
 
-        public override void OnHandleStart() { }
+        public override void OnHandleStart() {
+            SetHandleTransform(onTransform);
+        }
 
         public override void OnHandleStop() {
             SetValueRpc(!_value.Value);
@@ -55,7 +58,7 @@ namespace WereHorse.Runtime.Expedition.Interaction.Interface {
         }
         
         private float CalculateTransformAmount(bool value) {
-            return value ? onTransform : offTransform;
+            return value && binaryState ? onTransform : offTransform;
         }
         
         private void HookIndicatorListeners() {
