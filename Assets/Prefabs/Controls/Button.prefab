@@ -274,10 +274,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Player.Stations.Interface.InterfaceButton
   ShowTopMostFoldoutHeaderGroup: 1
   defaultValue: 0
+  binaryState: 1
+  canInteractDefault: 1
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
   handle: {fileID: 5138299979609664118}
   onTransform: 0.02
   offTransform: 0.04
-  pressedTransform: 0.01
+  indicators: []
+  interactableIndicator: {fileID: 0}

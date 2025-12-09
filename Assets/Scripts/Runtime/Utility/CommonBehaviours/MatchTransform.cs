@@ -13,8 +13,10 @@ namespace WereHorse.Runtime.Utility.CommonBehaviours {
         }
 
         private void Update() {
-            transform.position = target.position;
-            transform.rotation = target.rotation;
+            if (target) {
+                transform.position = target.position;
+                transform.rotation = target.rotation;
+            }
         }
     }
 }

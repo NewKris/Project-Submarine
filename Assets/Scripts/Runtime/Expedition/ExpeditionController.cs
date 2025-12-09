@@ -13,6 +13,11 @@ namespace WereHorse.Runtime.Expedition {
         public Transform[] spawnPoints;
         public ServerManager serverManager;
 
+        [Rpc(SendTo.Server)]
+        public void ExtractRpc() {
+            ReturnToLobby();
+        }
+        
         public void ReturnToLobby() {
             if (IsHost) {
                 NetworkManager.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
@@ -32,10 +37,6 @@ namespace WereHorse.Runtime.Expedition {
             DoOnAll(() => {
                 SpawnCharacterRpc(NetworkManager.LocalClientId);
             });
-        }
-
-        private void ShutDownServer() {
-            
         }
 
         [Rpc(SendTo.Server)]

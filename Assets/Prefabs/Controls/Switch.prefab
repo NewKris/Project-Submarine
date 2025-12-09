@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3166857668
+  GlobalObjectIdHash: 836801226
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -274,10 +274,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Player.Stations.Interface.InterfaceSwitch
   ShowTopMostFoldoutHeaderGroup: 1
   defaultValue: 0
+  binaryState: 1
+  canInteractDefault: 1
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
   handle: {fileID: 2469127624423464823}
   onTransform: -30
   offTransform: 30
-  pressedTransform: -30
+  indicators: []
+  interactableIndicator: {fileID: 0}
