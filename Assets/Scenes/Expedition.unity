@@ -5741,7 +5741,7 @@ MonoBehaviour:
   snap: 1
   snapValues:
   - 0.5
-  snapRange: 0.01
+  snapRange: 0.05
   allowLiminalValues: 1
   indicators: []
   sensitivity: 1
