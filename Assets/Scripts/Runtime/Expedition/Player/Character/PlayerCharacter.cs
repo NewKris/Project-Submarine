@@ -13,9 +13,6 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public static PlayerCharacter ownedCharacter;
         
         public float maxMoveSpeed;
-        public float maxSwimSpeed;
-        public float maxSwimAcceleration;
-        public float waterLevel;
         
         [Header("Jumping")]
         public float jumpHeight;
@@ -30,11 +27,9 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public CharacterAnimator thirdPersonAnimator;
         public GroundChecker groundChecker;
 
-        private bool _underWater;
         private bool _characterLocked;
         private float _gravity;
         private float _jumpForce;
-        private Vector3 _previousPosition;
         private Rigidbody _rigidbody;
         private Station _currentStation;
         private CursorLockMode _lockMode = CursorLockMode.Locked;
@@ -47,7 +42,6 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         
         public void SetPositionAndRotation(Vector3 position, Quaternion rotation) {
             _rigidbody.position = position;
-            _previousPosition = position;
             playerCamera.SetYaw(rotation.eulerAngles.y);
             GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
             GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
@@ -78,8 +72,6 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         }
 
         private void FixedUpdate() {
-            _underWater = transform.position.y > waterLevel;
-
             if (!_characterLocked) {
                 Fall();
                 Move();
@@ -95,44 +87,25 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         }
 
         private void Fall() {
-            if (!_underWater) {
-                _rigidbody.AddForce(Vector3.up * _gravity, ForceMode.Acceleration);
-            }
+            _rigidbody.AddForce(Vector3.up * _gravity, ForceMode.Acceleration);
         }
         
         private void Jump() {
-            if (!_underWater && groundChecker.Evaluate()) {
+            if (groundChecker.Evaluate()) {
                 float delta = _jumpForce - _rigidbody.linearVelocity.y;
                 _rigidbody.AddForce(Vector3.up * delta, ForceMode.VelocityChange);
             }
         }
 
         private void Move() {
-            thirdPersonAnimator.Swimming = _underWater;
-            thirdPersonAnimator.MovementInput = PlayerInputListener.Move;
-            thirdPersonAnimator.Moving = PlayerInputListener.Move != Vector2.zero;
+            thirdPersonAnimator.SetMoving(PlayerInputListener.Move != Vector2.zero);
+            thirdPersonAnimator.SetMoveDirection(PlayerInputListener.Move);
 
-            Vector3 currentVel = (_rigidbody.position - _previousPosition) / Time.fixedDeltaTime;
             Vector3 targetVel = transform.rotation * PlayerInputListener.Move.ProjectOnGround();
-            Vector3 vel;
-            
-            if (_underWater) {
-                targetVel.y = PlayerInputListener.Lift;
-                targetVel = targetVel.normalized * maxSwimSpeed;
-                vel = Vector3.MoveTowards(
-                    currentVel, 
-                    targetVel, 
-                    maxSwimAcceleration * Time.fixedDeltaTime
-                );
-            }
-            else {
-                targetVel = targetVel.normalized * maxMoveSpeed;
-                targetVel.y = _rigidbody.linearVelocity.y;
-                vel = targetVel;
-            }
+            targetVel = targetVel.normalized * maxMoveSpeed;
+            targetVel.y = _rigidbody.linearVelocity.y;
 
-            Vector3 delta = vel - _rigidbody.linearVelocity;
-            _previousPosition = _rigidbody.position;
+            Vector3 delta = targetVel - _rigidbody.linearVelocity;
             _rigidbody.AddForce(delta, ForceMode.VelocityChange);
         }
 
