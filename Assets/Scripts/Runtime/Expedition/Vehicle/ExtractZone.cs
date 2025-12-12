@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace WereHorse.Runtime.Expedition.Submarine {
+namespace WereHorse.Runtime.Expedition.Vehicle {
     public class ExtractZone : MonoBehaviour {
         public UnityEvent<bool> onOverlapChanged;
 
