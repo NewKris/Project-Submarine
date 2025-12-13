@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WereHorse.Runtime.Common;
 using WereHorse.Runtime.Utility;
 
 namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
@@ -13,8 +14,8 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
         public float maxSpringPitch;
         public float maxSpringRoll;
         public float maxRotateSpeed;
-        public List<int> leftSprings;
-        public List<int> rightSprings;
+        public int[] leftSprings;
+        public int[] rightSprings;
         
         [Header("Friction")]
         [Range(0, 1)] public float friction;
@@ -27,10 +28,24 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
         public LayerMask groundMask;
 
         private bool[] _springGrounded;
+        private float _rotate;
+        private Vector2 _movement;
         private Vector3[] _springVelocities;
         private RaycastHit[] _springHits;
         private Quaternion[] _springRots;
 
+        public void SetDrive(float drive) {
+            _movement.y = Mathf.Lerp(-1, 1, drive);
+        }
+
+        public void SetStrafe(float strafe) {
+            _movement.x = Mathf.Lerp(-1, 1, strafe);
+        }
+
+        public void SetTurn(float turn) {
+            _rotate = Mathf.Lerp(-1, 1, turn);
+        }
+        
         private void Start() {
             _springGrounded = new bool[springs.Length];
             _springVelocities = new Vector3[springs.Length];
@@ -50,7 +65,7 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
         }
 
         private void CalculateSpringRotations() {
-            float targetRoll = -maxSpringRoll * VehicleInputListener.Move.x;
+            float targetRoll = -maxSpringRoll * _movement.x;
             float targetLeftPitch = CalculateLeftPitch();
             float targetRightPitch = CalculateRightPitch();
             
@@ -64,14 +79,14 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
         }
 
         private float CalculateRightPitch() {
-            float rightPitchOffset = -VehicleInputListener.Rotate;
-            float rightPitchAmount = Mathf.Clamp(VehicleInputListener.Move.y + rightPitchOffset, -1, 1);
+            float rightPitchOffset = -_rotate;
+            float rightPitchAmount = Mathf.Clamp(_movement.y + rightPitchOffset, -1, 1);
             return maxSpringPitch * rightPitchAmount;
         }
 
         private float CalculateLeftPitch() {
-            float leftPitchOffset = VehicleInputListener.Rotate;
-            float leftPitchAmount = Mathf.Clamp(VehicleInputListener.Move.y + leftPitchOffset, -1, 1);
+            float leftPitchOffset = _rotate;
+            float leftPitchAmount = Mathf.Clamp(_movement.y + leftPitchOffset, -1, 1);
             return maxSpringPitch * leftPitchAmount;
         }
 
@@ -154,6 +169,10 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
         }
         
         private void OnDrawGizmos() {
+            if (springs == null) {
+                return;
+            }
+            
             foreach (Transform spring in springs) {
                 HandlesProxy.DrawRay(spring.position, -spring.up * length, 3, false, Color.red);
                 HandlesProxy.DrawSphere(spring.position - spring.up * restLength, 0.1f, false, Color.green);

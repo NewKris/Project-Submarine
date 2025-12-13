@@ -24,7 +24,7 @@ namespace WereHorse.Runtime.Common {
         }
 
         protected void DoOnServer(Action callback) {
-            if (NetworkInitialized && (IsServer || IsHost)) {
+            if (!NetworkInitialized || (IsServer || IsHost)) {
                 callback();
             }
         }
