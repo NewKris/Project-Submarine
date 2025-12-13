@@ -27,25 +27,20 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
         public float damping;
         public LayerMask groundMask;
 
+        [Header("Test")] 
+        [Range(0, 1)] public float drive;
+        [Range(0, 1)] public float strafe;
+        [Range(0, 1)] public float turn;
+
         private bool[] _springGrounded;
-        private float _rotate;
-        private Vector2 _movement;
         private Vector3[] _springVelocities;
         private RaycastHit[] _springHits;
         private Quaternion[] _springRots;
-
-        public void SetDrive(float drive) {
-            _movement.y = Mathf.Lerp(-1, 1, drive);
-        }
-
-        public void SetStrafe(float strafe) {
-            _movement.x = Mathf.Lerp(-1, 1, strafe);
-        }
-
-        public void SetTurn(float turn) {
-            _rotate = Mathf.Lerp(-1, 1, turn);
-        }
         
+        private float Drive => Mathf.Lerp(-1, 1, drive);
+        private float Strafe => Mathf.Lerp(-1, 1, strafe);
+        private float Turn => Mathf.Lerp(-1, 1, turn);
+
         private void Start() {
             _springGrounded = new bool[springs.Length];
             _springVelocities = new Vector3[springs.Length];
@@ -65,7 +60,7 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
         }
 
         private void CalculateSpringRotations() {
-            float targetRoll = -maxSpringRoll * _movement.x;
+            float targetRoll = -maxSpringRoll * Strafe;
             float targetLeftPitch = CalculateLeftPitch();
             float targetRightPitch = CalculateRightPitch();
             
@@ -79,14 +74,14 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
         }
 
         private float CalculateRightPitch() {
-            float rightPitchOffset = -_rotate;
-            float rightPitchAmount = Mathf.Clamp(_movement.y + rightPitchOffset, -1, 1);
+            float rightPitchOffset = -Turn;
+            float rightPitchAmount = Mathf.Clamp(Drive + rightPitchOffset, -1, 1);
             return maxSpringPitch * rightPitchAmount;
         }
 
         private float CalculateLeftPitch() {
-            float leftPitchOffset = _rotate;
-            float leftPitchAmount = Mathf.Clamp(_movement.y + leftPitchOffset, -1, 1);
+            float leftPitchOffset = Turn;
+            float leftPitchAmount = Mathf.Clamp(Drive + leftPitchOffset, -1, 1);
             return maxSpringPitch * leftPitchAmount;
         }
 
@@ -117,10 +112,10 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
                 rigidBody.AddForceAtPosition(
                     force,
                     springs[i].position,
-                    ForceMode.Acceleration
+                    ForceMode.Force
                 );
                 
-                _springVelocities[i] += force * Time.fixedDeltaTime;
+                _springVelocities[i] += force * Time.fixedDeltaTime / rigidBody.mass;
             });
         }
 
@@ -131,10 +126,10 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
                 rigidBody.AddForceAtPosition(
                     force,
                     springs[i].position,
-                    ForceMode.Acceleration
+                    ForceMode.Force
                 );
 
-                _springVelocities[i] += force * Time.fixedDeltaTime;
+                _springVelocities[i] += force * Time.fixedDeltaTime / rigidBody.mass;
             });
         }
 
