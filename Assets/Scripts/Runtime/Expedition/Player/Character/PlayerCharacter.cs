@@ -5,6 +5,7 @@ using WereHorse.Runtime.Common;
 using WereHorse.Runtime.Expedition.Hud;
 using WereHorse.Runtime.Expedition.Interaction;
 using WereHorse.Runtime.Expedition.Interaction.Interface;
+using WereHorse.Runtime.Expedition.Inventory;
 using WereHorse.Runtime.Expedition.Player.Stations;
 using WereHorse.Runtime.Utility.Extensions;
 
@@ -19,6 +20,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public float jumpTime;
 
         [Header("References")] 
+        public Transform itemPin;
         public Transform yawPivot;
         public PlayerCamera playerCamera;
         public InteractionController interactionController;
@@ -32,9 +34,20 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         private float _jumpForce;
         private Rigidbody _rigidbody;
         private Station _currentStation;
+        private ItemObject _heldItem;
         private CursorLockMode _lockMode = CursorLockMode.Locked;
 
+        public void PickUpItem(ItemObject item) {
+            _heldItem = item;
+            thirdPersonAnimator.SetIsCarrying(true);
+            item.PickUp(itemPin, NetworkManager.LocalClientId);
+        }
+        
         public void PossessStation(Station station) {
+            if (_heldItem) {
+                return;
+            }
+            
             _currentStation = station;
             SetPlayerLock(true);
             StickToStation();
@@ -124,10 +137,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         }
         
         private void DePossessStation() {
-            if (_currentStation) {
-                _currentStation = null;
-            }
-            
+            _currentStation = null;
             SetPlayerLock(false);
         }
 
@@ -156,19 +166,37 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             Cursor.lockState = _lockMode;
         }
 
+        private void TryInteract() {
+            if (!_characterLocked) {
+                interactionController.TryInteract();
+            }
+        }
+
+        private void TryCancel() {
+            if (_currentStation) {
+                DePossessStation();
+            }
+
+            if (_heldItem) {
+                thirdPersonAnimator.SetIsCarrying(false);
+                _heldItem.Drop();
+                _heldItem = null;
+            }
+        }
+
         private void SubscribeListeners() {
-            PlayerInputListener.OnInteract += interactionController.TryInteract;
+            PlayerInputListener.OnInteract += TryInteract;
             PlayerInputListener.OnJump += Jump;
-            PlayerInputListener.OnExit += DePossessStation;
+            PlayerInputListener.OnExit += TryCancel;
             PlayerInputListener.OnGrab += GrabHandle;
             PlayerInputListener.OnRelease += ReleaseHandle;
             PauseManager.OnPauseStateChanged += SetPauseState;
         }
 
         private void DisposeListeners() {
-            PlayerInputListener.OnInteract -= interactionController.TryInteract;
+            PlayerInputListener.OnInteract -= TryInteract;
             PlayerInputListener.OnJump -= Jump;
-            PlayerInputListener.OnExit -= DePossessStation;
+            PlayerInputListener.OnExit -= TryCancel;
             PlayerInputListener.OnGrab -= GrabHandle;
             PlayerInputListener.OnRelease -= ReleaseHandle;
             PauseManager.OnPauseStateChanged -= SetPauseState;

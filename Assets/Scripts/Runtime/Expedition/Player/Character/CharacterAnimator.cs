@@ -19,6 +19,12 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             }
         }
 
+        public void SetIsCarrying(bool value) {
+            if (IsOwner) {
+                Animator.SetLayerWeight(1, value ? 1 : 0);
+            }
+        }
+
         protected override bool OnIsServerAuthoritative() {
             return false;
         }

@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using WereHorse.Runtime.Common;
 using WereHorse.Runtime.Expedition.Player.Character;
+using WereHorse.Runtime.Expedition.Tasks;
 
 namespace WereHorse.Runtime.Expedition {
     public class ExpeditionController : NetworkBehaviourExtended {
+        public ExpeditionTaskManager expeditionTaskManager;
         public GameObject playerCharacterPrefab;
         public Transform[] spawnPoints;
         public ServerManager serverManager;
@@ -36,6 +38,10 @@ namespace WereHorse.Runtime.Expedition {
         private void Start() {
             DoOnAll(() => {
                 SpawnCharacterRpc(NetworkManager.LocalClientId);
+            });
+            
+            DoOnServer(() => {
+                //expeditionTaskManager.GenerateTasks();
             });
         }
 
