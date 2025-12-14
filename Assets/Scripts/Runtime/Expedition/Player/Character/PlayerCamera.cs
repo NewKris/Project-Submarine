@@ -7,6 +7,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public Transform followPosition;
         [Range(0, 1)] public float sensitivity;
         public Transform yawPivot;
+        public Transform pitchPivot;
         
         [Header("Tuning")]
         public float maxRotateSpeed;
@@ -31,7 +32,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
         public void SetPitch(float pitch) {
             _pitch = new DampedAngle(pitch);
-            transform.localRotation = Quaternion.Euler(pitch, 0, 0);
+            pitchPivot.localRotation = Quaternion.Euler(pitch, 0, 0);
         }
         
         public void Look(Vector2 deltaMouse) {
@@ -42,7 +43,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             _yaw.Target %= 360f;
             
             yawPivot.rotation = Quaternion.Euler(0, _yaw.Tick(yawDamping), 0);
-            transform.localRotation = Quaternion.Euler(_pitch.Tick(pitchDamping), 0, 0);
+            pitchPivot.localRotation = Quaternion.Euler(_pitch.Tick(pitchDamping), 0, 0);
         }
 
         private void Awake() {
@@ -50,7 +51,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             _yaw = new DampedAngle(0);
             
             yawPivot.rotation = Quaternion.Euler(0, _yaw.Current, 0);
-            transform.localRotation = Quaternion.Euler(_pitch.Current, 0, 0);
+            pitchPivot.localRotation = Quaternion.Euler(_pitch.Current, 0, 0);
         }
 
         private void Update() {
