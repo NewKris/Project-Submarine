@@ -2,21 +2,33 @@ using Unity.Netcode;
 using UnityEngine;
 using WereHorse.Runtime.Common;
 using WereHorse.Runtime.Expedition.Interaction;
+using WereHorse.Runtime.Expedition.Player.Character;
 using WereHorse.Runtime.Utility.Attributes;
 
 namespace WereHorse.Runtime.Expedition.Inventory {
     public class ItemObject : NetworkBehaviourExtended {
-        [ReadOnly] public Transform pin;
+        private Transform _pin;
 
-        public void PickUp(Transform hand, ulong owner) {
-            pin = hand;
-            SetOwnerRpc(owner);
+        [Rpc(SendTo.Server)]
+        public void PickUpRpc(ulong byPlayer) {
+            PlayerCharacter playerCharacter = ExpeditionController.GetPlayerCharacter(byPlayer)
+                .GetComponentInChildren<PlayerCharacter>();
+            
+            Pin(playerCharacter.itemHand);
+        }
+        
+        [Rpc(SendTo.Server)]
+        public void DropItemRpc() {
+            UnPin();
+        }
+        
+        public void Pin(Transform pinTo) {
+            _pin = pinTo;
             SetPinMode(true);
         }
 
-        public void Drop() {
-            pin = null;
-            SetOwnerRpc(0);
+        public void UnPin() {
+            _pin = null;
             SetPinMode(false);
         }
 
@@ -25,14 +37,9 @@ namespace WereHorse.Runtime.Expedition.Inventory {
         }
 
         private void Update() {
-            if (pin) {
-                transform.SetPositionAndRotation(pin.position, pin.rotation);
+            if (_pin) {
+                transform.SetPositionAndRotation(_pin.position, _pin.rotation);
             }
-        }
-
-        [Rpc(SendTo.Server)]
-        private void SetOwnerRpc(ulong ownerId) {
-            GetComponent<NetworkObject>().ChangeOwnership(ownerId);
         }
 
         private void SetPinMode(bool isPinned) {

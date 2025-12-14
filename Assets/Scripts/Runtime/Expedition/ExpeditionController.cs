@@ -1,20 +1,20 @@
-using System;
-using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using WereHorse.Runtime.Common;
-using WereHorse.Runtime.Expedition.Player.Character;
-using WereHorse.Runtime.Expedition.Tasks;
 
 namespace WereHorse.Runtime.Expedition {
     public class ExpeditionController : NetworkBehaviourExtended {
-        public ExpeditionTaskManager expeditionTaskManager;
         public GameObject playerCharacterPrefab;
         public Transform[] spawnPoints;
         public ServerManager serverManager;
 
+        public static NetworkObject GetPlayerCharacter(ulong playerId) {
+            return NetworkManager.Singleton.SpawnManager.PlayerObjects
+                .FirstOrDefault(x => x.OwnerClientId == playerId);
+        }
+        
         [Rpc(SendTo.Server)]
         public void ExtractRpc() {
             ReturnToLobby();
@@ -39,10 +39,6 @@ namespace WereHorse.Runtime.Expedition {
             DoOnAll(() => {
                 SpawnCharacterRpc(NetworkManager.LocalClientId);
             });
-            
-            DoOnServer(() => {
-                //expeditionTaskManager.GenerateTasks();
-            });
         }
 
         [Rpc(SendTo.Server)]
@@ -59,7 +55,7 @@ namespace WereHorse.Runtime.Expedition {
                 isPlayerObject: true,
                 position: spawn.position,
                 rotation: spawn.rotation
-            ).GetComponentInChildren<PlayerCharacter>();
+            );
         }
 
         private int GetClientIndex(ulong clientId) {

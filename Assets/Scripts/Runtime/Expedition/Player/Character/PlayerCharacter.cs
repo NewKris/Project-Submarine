@@ -20,7 +20,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public float jumpTime;
 
         [Header("References")] 
-        public Transform itemPin;
+        public Transform itemHand;
         public Transform yawPivot;
         public PlayerCamera playerCamera;
         public InteractionController interactionController;
@@ -40,7 +40,10 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public void PickUpItem(ItemObject item) {
             _heldItem = item;
             thirdPersonAnimator.SetIsCarrying(true);
-            item.PickUp(itemPin, NetworkManager.LocalClientId);
+            item.gameObject.layer = LayerMask.NameToLayer("Owner Hidden");
+            // Show Item Proxy Here
+            
+            _heldItem.PickUpRpc(NetworkManager.LocalClientId);
         }
         
         public void PossessStation(Station station) {
@@ -179,7 +182,8 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
             if (_heldItem) {
                 thirdPersonAnimator.SetIsCarrying(false);
-                _heldItem.Drop();
+                _heldItem.gameObject.layer = LayerMask.NameToLayer("Interaction");
+                _heldItem.DropItemRpc();
                 _heldItem = null;
             }
         }
