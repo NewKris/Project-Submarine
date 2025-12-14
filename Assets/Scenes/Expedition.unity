@@ -449,6 +449,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3065259854252271668, guid: 09428920839215f48a54e3978f14860f, type: 3}
+      propertyPath: maxSpringPitch
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3134791684484193002, guid: 09428920839215f48a54e3978f14860f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1122,8 +1126,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9.56, y: 4.9266233, z: 12.654899}
-  m_Center: {x: 0, y: -0.029950619, z: 0.03905344}
+  m_Size: {x: 9.56, y: 5.738184, z: 12.654899}
+  m_Center: {x: 0, y: -0.43573093, z: 0.03905344}
 --- !u!1 &212374716
 GameObject:
   m_ObjectHideFlags: 0
