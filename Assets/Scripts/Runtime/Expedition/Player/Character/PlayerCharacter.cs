@@ -40,8 +40,6 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public void PickUpItem(ItemObject item) {
             _heldItem = item;
             thirdPersonAnimator.SetIsCarrying(true);
-            item.gameObject.layer = LayerMask.NameToLayer("Owner Hidden");
-            // Show Item Proxy Here
             
             _heldItem.PickUpRpc(NetworkManager.LocalClientId);
         }
@@ -182,7 +180,6 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
             if (_heldItem) {
                 thirdPersonAnimator.SetIsCarrying(false);
-                _heldItem.gameObject.layer = LayerMask.NameToLayer("Interaction");
                 _heldItem.DropItemRpc();
                 _heldItem = null;
             }
