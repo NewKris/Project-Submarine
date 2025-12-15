@@ -4442,6 +4442,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7179097692212064811, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
   m_PrefabInstance: {fileID: 1109316540}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1116150248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1116150249}
+  - component: {fileID: 1116150250}
+  m_Layer: 0
+  m_Name: Shelf Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1116150249
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116150248}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1116150250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116150248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c00f1c35bc8049719e9df64faa3db13e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Inventory.ShelfManager
 --- !u!1 &1133861935
 GameObject:
   m_ObjectHideFlags: 0
@@ -6708,6 +6752,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 33174348919676966, guid: c0aba22e488ce3c4887c1a819ac174d8, type: 3}
   m_PrefabInstance: {fileID: 1898829007}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1899355708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1899355709}
+  m_Layer: 6
+  m_Name: pin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1899355709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899355708}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.64, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097830802}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1953432735
 GameObject:
   m_ObjectHideFlags: 0
@@ -7157,6 +7232,7 @@ GameObject:
   - component: {fileID: 2097830805}
   - component: {fileID: 2097830804}
   - component: {fileID: 2097830803}
+  - component: {fileID: 2097830806}
   m_Layer: 6
   m_Name: shelf
   m_TagString: Untagged
@@ -7176,7 +7252,8 @@ Transform:
   m_LocalPosition: {x: 0.605, y: 0, z: 0}
   m_LocalScale: {x: 0.21334, y: 0.21334, z: 0.21334}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1899355709}
   m_Father: {fileID: 718908071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2097830803
@@ -7256,6 +7333,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097830801}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2097830806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097830801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27b9628049c14882a56ad5b6e5bd05e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Inventory.ItemShelf
+  pin: {fileID: 1899355709}
 --- !u!1001 &2122888876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8298,6 +8388,7 @@ SceneRoots:
   - {fileID: 212374717}
   - {fileID: 8237885244290386175}
   - {fileID: 472196183}
+  - {fileID: 1116150249}
   - {fileID: 1133861936}
   - {fileID: 901421114}
   - {fileID: 1886904888}

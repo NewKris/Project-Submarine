@@ -8,6 +8,12 @@ using WereHorse.Runtime.Utility.Attributes;
 namespace WereHorse.Runtime.Expedition.Inventory {
     public class ItemObject : NetworkBehaviourExtended {
         private Transform _pin;
+
+        [Rpc(SendTo.Server)]
+        public void PlaceOnShelfRpc(int shelfIndex) {
+            Pin(ShelfManager.GetShelf(shelfIndex).pin);
+            ToggleColliderRpc(true);
+        }
         
         [Rpc(SendTo.Server)]
         public void PickUpRpc(ulong byPlayer) {
@@ -15,11 +21,13 @@ namespace WereHorse.Runtime.Expedition.Inventory {
                 .GetComponentInChildren<PlayerCharacter>();
             
             Pin(playerCharacter.itemHand);
+            ToggleColliderRpc(false);
         }
         
         [Rpc(SendTo.Server)]
         public void DropItemRpc() {
             UnPin();
+            ToggleColliderRpc(true);
         }
         
         private void Pin(Transform pin) {
@@ -46,7 +54,6 @@ namespace WereHorse.Runtime.Expedition.Inventory {
             GetComponent<Rigidbody>().useGravity = !isPinned;
             GetComponent<Rigidbody>().constraints = isPinned ? RigidbodyConstraints.FreezeAll : RigidbodyConstraints.None;
             GetComponent<Interactable>().enabled = !isPinned;
-            ToggleColliderRpc(!isPinned);
             enabled = isPinned;
         }
 

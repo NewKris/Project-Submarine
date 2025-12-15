@@ -136,6 +136,14 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
 
         #region Inventory
 
+        private void PlaceItemOnShelf(ItemShelf shelf) {
+            if (_heldItem) {
+                thirdPersonAnimator.SetIsCarrying(false);
+                _heldItem.PlaceOnShelfRpc(ShelfManager.GetIndex(shelf));
+                _heldItem = null;
+            }
+        }
+        
         private void PickUpItem(ItemObject item) {
             _heldItem = item;
             thirdPersonAnimator.SetIsCarrying(true);
@@ -237,6 +245,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             PlayerInputListener.OnExit += DropItem;
 
             ItemPickup.OnInteracted += PickUpItem;
+            ItemShelf.OnInteracted += PlaceItemOnShelf;
             Portal.OnInteracted += SetPositionAndRotation;
             StationInteractable.OnInteracted += PossessStation;
         }
@@ -252,6 +261,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             PlayerInputListener.OnExit -= DropItem;
             
             ItemPickup.OnInteracted -= PickUpItem;
+            ItemShelf.OnInteracted -= PlaceItemOnShelf;
             Portal.OnInteracted -= SetPositionAndRotation;
             StationInteractable.OnInteracted -= PossessStation;
         }
