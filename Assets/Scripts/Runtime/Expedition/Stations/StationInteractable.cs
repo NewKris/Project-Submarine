@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using WereHorse.Runtime.Expedition.Interaction;
-using WereHorse.Runtime.Expedition.Player.Character;
 
-namespace WereHorse.Runtime.Expedition.Player.Stations {
+namespace WereHorse.Runtime.Expedition.Stations {
     public class StationInteractable : Interactable {
+        public static event Action<Station>  OnInteracted; 
+        
         public Station station;
         
         public override void Interact() {
@@ -12,9 +14,7 @@ namespace WereHorse.Runtime.Expedition.Player.Stations {
                 return;
             }
             
-            if (!station.occupied) {
-                PlayerCharacter.ownedCharacter.PossessStation(station);
-            }
+            OnInteracted?.Invoke(station);
         }
     }
 }

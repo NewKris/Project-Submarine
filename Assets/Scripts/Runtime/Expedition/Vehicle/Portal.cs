@@ -1,14 +1,16 @@
+using System;
 using UnityEngine;
 using WereHorse.Runtime.Expedition.Interaction;
-using WereHorse.Runtime.Expedition.Player.Character;
 using WereHorse.Runtime.Utility;
 
-namespace WereHorse.Runtime.Expedition.Player {
+namespace WereHorse.Runtime.Expedition.Vehicle {
     public class Portal : Interactable {
+        public static event Action<Vector3, Quaternion> OnInteracted;
+        
         public Transform toPoint;
         
         public override void Interact() {
-            PlayerCharacter.ownedCharacter.SetPositionAndRotation(toPoint.position, toPoint.rotation);
+            OnInteracted?.Invoke(toPoint.position, toPoint.rotation);
         }
 
         private void OnDrawGizmos() {

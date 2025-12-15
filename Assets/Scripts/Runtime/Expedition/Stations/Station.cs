@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
-using WereHorse.Runtime.Expedition.Player.Character;
 using WereHorse.Runtime.Utility;
 using WereHorse.Runtime.Utility.Attributes;
 
-namespace WereHorse.Runtime.Expedition.Player.Stations {
+namespace WereHorse.Runtime.Expedition.Stations {
     public class Station : MonoBehaviour {
         public Transform stationPivot;
         public float cameraDirection;
