@@ -1,4 +1,6 @@
+using System;
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 using WereHorse.Runtime.Common;
 using WereHorse.Runtime.Expedition.Interaction;
@@ -8,6 +10,10 @@ using WereHorse.Runtime.Utility.Extensions;
 
 namespace WereHorse.Runtime.Expedition.Inventory {
     [RequireComponent(typeof(ItemPickup))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(NetworkObject))]
+    [RequireComponent(typeof(NetworkTransform))]
+    [RequireComponent(typeof(NetworkRigidbody))]
     public class ItemObject : NetworkBehaviourExtended {
         public int itemId;
         public ItemShelf shelf;
@@ -39,7 +45,20 @@ namespace WereHorse.Runtime.Expedition.Inventory {
             UnPin();
             ToggleColliderRpc(true);
         }
-        
+
+        private void Reset() {
+            GetComponent<NetworkRigidbody>().UseRigidBodyForMotion = true;
+            
+            NetworkTransform networkTransform = GetComponent<NetworkTransform>();
+            networkTransform.SyncScaleX = false;
+            networkTransform.SyncScaleY = false;
+            networkTransform.SyncScaleZ = false;
+            networkTransform.PositionInterpolationType = NetworkTransform.InterpolationTypes.Lerp;
+            networkTransform.RotationInterpolationType = NetworkTransform.InterpolationTypes.Lerp;
+            
+            gameObject.layer = LayerMask.NameToLayer("Interaction");
+        }
+
         private void Pin(Transform pin) {
             _pin = pin;
             SetPinMode(true);
