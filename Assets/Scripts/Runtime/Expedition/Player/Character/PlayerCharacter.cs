@@ -137,7 +137,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         #region Inventory
 
         private void PlaceItemOnShelf(ItemShelf shelf) {
-            if (_heldItem) {
+            if (_heldItem && shelf.CanHoldItem(_heldItem)) {
                 thirdPersonAnimator.SetIsCarrying(false);
                 _heldItem.PlaceOnShelfRpc(ShelfManager.GetIndex(shelf));
                 _heldItem = null;

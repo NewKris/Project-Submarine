@@ -4,19 +4,28 @@ using WereHorse.Runtime.Common;
 using WereHorse.Runtime.Expedition.Interaction;
 using WereHorse.Runtime.Expedition.Player.Character;
 using WereHorse.Runtime.Utility.Attributes;
+using WereHorse.Runtime.Utility.Extensions;
 
 namespace WereHorse.Runtime.Expedition.Inventory {
+    [RequireComponent(typeof(ItemPickup))]
     public class ItemObject : NetworkBehaviourExtended {
+        public int itemId;
+        public ItemShelf shelf;
+        
         private Transform _pin;
 
         [Rpc(SendTo.Server)]
         public void PlaceOnShelfRpc(int shelfIndex) {
-            Pin(ShelfManager.GetShelf(shelfIndex).pin);
+            shelf = ShelfManager.GetShelf(shelfIndex);
+            shelf.currentItem = this;
+            Pin(shelf.pin);
             ToggleColliderRpc(true);
         }
         
         [Rpc(SendTo.Server)]
         public void PickUpRpc(ulong byPlayer) {
+            RemoveFromShelf();
+            
             PlayerCharacter playerCharacter = ExpeditionController.GetPlayerCharacter(byPlayer)
                 .GetComponentInChildren<PlayerCharacter>();
             
@@ -26,6 +35,7 @@ namespace WereHorse.Runtime.Expedition.Inventory {
         
         [Rpc(SendTo.Server)]
         public void DropItemRpc() {
+            RemoveFromShelf();
             UnPin();
             ToggleColliderRpc(true);
         }
@@ -41,7 +51,15 @@ namespace WereHorse.Runtime.Expedition.Inventory {
         }
 
         private void Start() {
-            enabled = false;
+            DoOnServer(() => {
+                if (shelf) {
+                    shelf.currentItem = this;
+                    Pin(shelf.pin);
+                }
+                else {
+                    UnPin();
+                }
+            });
         }
 
         private void Update() {
@@ -59,7 +77,18 @@ namespace WereHorse.Runtime.Expedition.Inventory {
 
         [Rpc(SendTo.Everyone)]
         private void ToggleColliderRpc(bool canCollide) {
-            GetComponent<Collider>().enabled = canCollide;
+            ToggleColliders(canCollide);
+        }
+
+        private void ToggleColliders(bool canCollide) {
+            GetComponentsInChildren<Collider>().ForEach(c => c.enabled = canCollide);
+        }
+
+        private void RemoveFromShelf() {
+            if (shelf) {
+                shelf.currentItem = null;
+                shelf = null;
+            }
         }
     }
 }
