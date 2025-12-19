@@ -1397,6 +1397,7 @@ MonoBehaviour:
   - {fileID: 1097274237}
   - {fileID: 35545682}
   serverManager: {fileID: 212374720}
+  taskManager: {fileID: 647692983}
 --- !u!114 &212374720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1870,6 +1871,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &372680987
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 372680988}
+  - component: {fileID: 372680989}
+  m_Layer: 0
+  m_Name: Safe Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &372680988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372680987}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -34.1, z: 0}
+  m_LocalScale: {x: 28.776997, y: 18.87991, z: 36.624454}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 647692984}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &372680989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372680987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4757e03e90c149c986ed3f52b11d5ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.AreaOverlap
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1001 &408609776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3028,6 +3076,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346135656a614ef1854d6356eda84086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Submarine.LightIndicator
+--- !u!1 &647692982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 647692984}
+  - component: {fileID: 647692983}
+  m_Layer: 0
+  m_Name: Task Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &647692983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647692982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d99fed2e42e4073b18fb3b8cbd778cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.ExpeditionTaskManager
+  objectives:
+  - {fileID: 728197097022556209}
+  - {fileID: 3342031622410509421}
+  - {fileID: 8324401013217039060}
+  itemCheckArea: {fileID: 372680989}
+--- !u!4 &647692984
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647692982}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 372680988}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &676671606 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7179097692212064811, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
@@ -7877,6 +7975,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+--- !u!114 &728197097022556209 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1729810433910804805, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+  m_PrefabInstance: {fileID: 728197097022556208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749a75116fca4862a978c040bd783e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Inventory.ItemObject
 --- !u!1 &850523537607496319
 GameObject:
   m_ObjectHideFlags: 0
@@ -8495,6 +8604,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
+--- !u!114 &3342031622410509421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7905946996376638200, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
+  m_PrefabInstance: {fileID: 3342031622410509420}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749a75116fca4862a978c040bd783e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Inventory.ItemObject
 --- !u!4 &3662757212257327320
 Transform:
   m_ObjectHideFlags: 0
@@ -9192,6 +9312,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 032ebc555ed1ba94c928c1890bc1dc2f, type: 3}
+--- !u!114 &8324401013217039060 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3028142212904460422, guid: 032ebc555ed1ba94c928c1890bc1dc2f, type: 3}
+  m_PrefabInstance: {fileID: 8324401013217039059}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749a75116fca4862a978c040bd783e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Inventory.ItemObject
 --- !u!1 &8355083227449614908
 GameObject:
   m_ObjectHideFlags: 0
@@ -9674,6 +9805,7 @@ SceneRoots:
   - {fileID: 8237885244290386175}
   - {fileID: 472196183}
   - {fileID: 1116150249}
+  - {fileID: 647692984}
   - {fileID: 1133861936}
   - {fileID: 901421114}
   - {fileID: 1886904888}

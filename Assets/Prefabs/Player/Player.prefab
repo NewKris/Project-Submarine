@@ -1505,7 +1505,7 @@ MonoBehaviour:
   range: 2
   interactionMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4160
   prompt: {fileID: 5657626109174491786}
 --- !u!1 &4187802424161983131
 GameObject:

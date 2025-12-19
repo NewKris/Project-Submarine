@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5142867511973614526}
   - component: {fileID: 3621191896102491727}
   - component: {fileID: 5206490416843573671}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 3028142212904460422}
   - component: {fileID: 7950787670171328795}
   - component: {fileID: 2849838951524219347}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Drill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 36283284
+  GlobalObjectIdHash: 2618751602
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -279,6 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Inventory.ItemObject
   ShowTopMostFoldoutHeaderGroup: 1
   itemId: 0
+  shelf: {fileID: 0}
 --- !u!114 &7950787670171328795
 MonoBehaviour:
   m_ObjectHideFlags: 0

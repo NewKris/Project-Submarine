@@ -56,7 +56,7 @@ namespace WereHorse.Runtime.Expedition.Inventory {
             networkTransform.PositionInterpolationType = NetworkTransform.InterpolationTypes.Lerp;
             networkTransform.RotationInterpolationType = NetworkTransform.InterpolationTypes.Lerp;
             
-            gameObject.layer = LayerMask.NameToLayer("Interaction");
+            gameObject.layer = LayerMask.NameToLayer("Item");
         }
 
         private void Pin(Transform pin) {

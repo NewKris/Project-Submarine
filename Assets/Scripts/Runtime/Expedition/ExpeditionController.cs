@@ -4,6 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using WereHorse.Runtime.Common;
+using WereHorse.Runtime.Expedition.Tasks;
 using WereHorse.Runtime.Utility;
 
 namespace WereHorse.Runtime.Expedition {
@@ -11,6 +12,7 @@ namespace WereHorse.Runtime.Expedition {
         public GameObject playerCharacterPrefab;
         public Transform[] spawnPoints;
         public ServerManager serverManager;
+        public ExpeditionTaskManager taskManager;
 
         public static NetworkObject GetPlayerCharacter(ulong playerId) {
             return NetworkManager.Singleton.SpawnManager.PlayerObjects
@@ -19,6 +21,7 @@ namespace WereHorse.Runtime.Expedition {
         
         [Rpc(SendTo.Server)]
         public void ExtractRpc() {
+            Debug.Log($"Total Points: {taskManager.TallyPoints()}");
             ReturnToLobby();
         }
         
