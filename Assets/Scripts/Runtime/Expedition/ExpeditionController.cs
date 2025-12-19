@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using WereHorse.Runtime.Common;
+using WereHorse.Runtime.Utility;
 
 namespace WereHorse.Runtime.Expedition {
     public class ExpeditionController : NetworkBehaviourExtended {
@@ -70,6 +72,13 @@ namespace WereHorse.Runtime.Expedition {
             }
 
             return 0;
+        }
+
+        private void OnDrawGizmos() {
+            foreach (Transform spawnPoint in spawnPoints) {
+                HandlesProxy.DrawDisc(spawnPoint.position, spawnPoint.up, 0.5f, false, Color.yellow);
+                HandlesProxy.DrawRay(spawnPoint.position, spawnPoint.forward, 3, false, Color.red);
+            }
         }
     }
 }

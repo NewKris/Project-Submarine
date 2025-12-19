@@ -18,5 +18,9 @@ namespace WereHorse.Runtime.Expedition.Inventory {
         public override void Interact() {
             OnInteracted?.Invoke(this);
         }
+
+        private void Reset() {
+            gameObject.layer = LayerMask.NameToLayer("Interaction");
+        }
     }
 }

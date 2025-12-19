@@ -19,5 +19,9 @@ namespace WereHorse.Runtime.Expedition.Vehicle {
                 HandlesProxy.DrawDisc(toPoint.position, Vector3.up, 0.5f, true, Color.red, 3);
             }
         }
+
+        private void Reset() {
+            gameObject.layer = LayerMask.NameToLayer("Interaction");
+        }
     }
 }
