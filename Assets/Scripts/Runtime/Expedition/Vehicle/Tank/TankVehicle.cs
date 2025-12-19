@@ -10,12 +10,14 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
         public Rigidbody rigidBody;
         public Transform[] springs;
 
-        [Header("Drive")]
-        public float maxSpringPitch;
-        public float maxSpringRoll;
+        [Header("Drive")] 
+        public float acceleration;
+        public float maxDriveSpeed;
+        public float maxStrafeSpeed;
+
+        [Header("Rotate")] 
+        public float torqueAcceleration;
         public float maxRotateSpeed;
-        public int[] leftSprings;
-        public int[] rightSprings;
         
         [Header("Friction")]
         [Range(0, 1)] public float friction;
@@ -35,7 +37,6 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
         private bool[] _springGrounded;
         private Vector3[] _springVelocities;
         private RaycastHit[] _springHits;
-        private Quaternion[] _springRots;
         
         private float Drive => Mathf.Lerp(-1, 1, drive);
         private float Strafe => Mathf.Lerp(-1, 1, strafe);
@@ -45,7 +46,6 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
             _springGrounded = new bool[springs.Length];
             _springVelocities = new Vector3[springs.Length];
             _springHits = new RaycastHit[springs.Length];
-            _springRots = new Quaternion[springs.Length];
         }
 
         private void FixedUpdate() {
@@ -55,42 +55,24 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
             ApplySuspensionForces();
             ApplyFrictionForces();
             
-            CalculateSpringRotations();
-            LerpSpringRotations();
+            ApplyTurning();
+            ApplyDriveVelocity();
         }
 
-        private void CalculateSpringRotations() {
-            float targetRoll = -maxSpringRoll * Strafe;
-            float targetLeftPitch = CalculateLeftPitch();
-            float targetRightPitch = CalculateRightPitch();
+        private void ApplyDriveVelocity() {
+            Vector3 targetVelocity = new Vector3(maxStrafeSpeed * Strafe, 0, maxDriveSpeed * Drive);
+            targetVelocity = transform.rotation * targetVelocity;
             
-            ForEachLeftSpring(i => {
-                _springRots[i] = Quaternion.Euler(targetLeftPitch, 0, targetRoll);
-            });
-            
-            ForEachRightSpring(i => {
-                _springRots[i] = Quaternion.Euler(targetRightPitch, 0, targetRoll);
-            });
+            Vector3 delta =  targetVelocity - rigidBody.linearVelocity;
+            rigidBody.AddForce(delta * acceleration, ForceMode.Acceleration);
         }
 
-        private float CalculateRightPitch() {
-            float rightPitchOffset = -Turn;
-            float rightPitchAmount = Mathf.Clamp(Drive + rightPitchOffset, -1, 1);
-            return maxSpringPitch * rightPitchAmount;
-        }
+        private void ApplyTurning() {
+            Vector3 targetTorque = new Vector3(0, maxRotateSpeed * Turn, 0);
+            targetTorque = transform.rotation * targetTorque;
 
-        private float CalculateLeftPitch() {
-            float leftPitchOffset = Turn;
-            float leftPitchAmount = Mathf.Clamp(Drive + leftPitchOffset, -1, 1);
-            return maxSpringPitch * leftPitchAmount;
-        }
-
-        private void LerpSpringRotations() {
-            float maxDelta = maxRotateSpeed * Time.fixedDeltaTime;
-            
-            ForEachSpring(i => {
-                springs[i].localRotation = Quaternion.RotateTowards(springs[i].localRotation, _springRots[i], maxDelta);
-            });
+            Vector3 delta = targetTorque - rigidBody.angularVelocity;
+            rigidBody.AddTorque(delta * torqueAcceleration, ForceMode.Acceleration);
         }
         
         private void CacheSpringVelocities() {
@@ -171,18 +153,6 @@ namespace WereHorse.Runtime.Expedition.Vehicle.Tank {
             foreach (Transform spring in springs) {
                 HandlesProxy.DrawRay(spring.position, -spring.up * length, 3, false, Color.red);
                 HandlesProxy.DrawSphere(spring.position - spring.up * restLength, 0.1f, false, Color.green);
-            }
-        }
-
-        private void ForEachLeftSpring(Action<int> callback) {
-            foreach (int leftSpring in leftSprings) {
-                callback(leftSpring);
-            }
-        }
-        
-        private void ForEachRightSpring(Action<int> callback) {
-            foreach (int rightSpring in rightSprings) {
-                callback(rightSpring);
             }
         }
 

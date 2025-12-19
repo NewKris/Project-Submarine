@@ -450,8 +450,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3065259854252271668, guid: 09428920839215f48a54e3978f14860f, type: 3}
+      propertyPath: acceleration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065259854252271668, guid: 09428920839215f48a54e3978f14860f, type: 3}
+      propertyPath: maxDriveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065259854252271668, guid: 09428920839215f48a54e3978f14860f, type: 3}
+      propertyPath: maxRotateSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065259854252271668, guid: 09428920839215f48a54e3978f14860f, type: 3}
       propertyPath: maxSpringPitch
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065259854252271668, guid: 09428920839215f48a54e3978f14860f, type: 3}
+      propertyPath: maxStrafeSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065259854252271668, guid: 09428920839215f48a54e3978f14860f, type: 3}
+      propertyPath: torqueAcceleration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3134791684484193002, guid: 09428920839215f48a54e3978f14860f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -508,6 +528,10 @@ PrefabInstance:
     - target: {fileID: 8645007664097355957, guid: 09428920839215f48a54e3978f14860f, type: 3}
       propertyPath: m_AngularDamping
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9003902946381312377, guid: 09428920839215f48a54e3978f14860f, type: 3}
+      propertyPath: m_TagString
+      value: Submarine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
