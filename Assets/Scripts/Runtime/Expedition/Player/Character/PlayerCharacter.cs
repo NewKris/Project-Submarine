@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 using WereHorse.Runtime.Common;
 using WereHorse.Runtime.Expedition.Hud;
@@ -146,9 +147,8 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         
         private void PickUpItem(ItemObject item) {
             _heldItem = item;
-            thirdPersonAnimator.SetIsCarrying(true);
-                    
             _heldItem.PickUpRpc(NetworkManager.LocalClientId);
+            thirdPersonAnimator.SetIsCarrying(true);
         }
 
         private void DropItem() {
@@ -158,6 +158,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 _heldItem = null;
             }
         }
+
         #endregion
 
         #region Stations
