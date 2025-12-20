@@ -2028,6 +2028,52 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &411946922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 411946923}
+  - component: {fileID: 411946924}
+  m_Layer: 0
+  m_Name: Spawn 1 (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &411946923
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411946922}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.89, y: 3.57, z: -36.37}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 647692984}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &411946924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411946922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af812ffac70e41d1a9955ee9a0b8bdb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.TaskSpawn
+  radius: 4.62
+  offset: 2
 --- !u!1 &424183345
 GameObject:
   m_ObjectHideFlags: 0
@@ -2472,7 +2518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8695039658155999155, guid: 4fccccd28a7d8044aa8508de9c0b0ff8, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ExtractRpc
+      value: Extract
       objectReference: {fileID: 0}
     - target: {fileID: 8695039658155999155, guid: 4fccccd28a7d8044aa8508de9c0b0ff8, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -3105,10 +3151,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d99fed2e42e4073b18fb3b8cbd778cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.ExpeditionTaskManager
-  objectives:
-  - {fileID: 728197097022556209}
-  - {fileID: 3342031622410509421}
-  - {fileID: 8324401013217039060}
+  possibleObjectives:
+  - {fileID: 520638199736537077, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+  - {fileID: 8935068074143419010, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
+  spawnPoints:
+  - {fileID: 1097626024}
+  - {fileID: 1815550569}
+  - {fileID: 1240762281}
+  - {fileID: 411946924}
+  objectiveCount: 4
+  maxDuplicateObjectives: 4
   itemCheckArea: {fileID: 372680989}
 --- !u!4 &647692984
 Transform:
@@ -3124,6 +3176,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 372680988}
+  - {fileID: 1097626023}
+  - {fileID: 1815550568}
+  - {fileID: 1240762280}
+  - {fileID: 411946923}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &676671606 stripped
@@ -4143,6 +4199,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7179097692212064811, guid: 49f403b18122c754fb6f29ddd940c9dd, type: 3}
   m_PrefabInstance: {fileID: 1035485334}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1050113543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1050113544}
+  m_Layer: 0
+  m_Name: ========================= (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1050113544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050113543}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1066089698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4330,6 +4417,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1572470793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1097626022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1097626023}
+  - component: {fileID: 1097626024}
+  m_Layer: 0
+  m_Name: Spawn 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1097626023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097626022}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -18.38, y: 3.57, z: 10.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 647692984}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1097626024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097626022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af812ffac70e41d1a9955ee9a0b8bdb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.TaskSpawn
+  radius: 4.62
+  offset: 2
 --- !u!1001 &1104499693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5137,6 +5270,52 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &1240762279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1240762280}
+  - component: {fileID: 1240762281}
+  m_Layer: 0
+  m_Name: Spawn 1 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1240762280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240762279}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 26.66, y: 3.57, z: -36.37}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 647692984}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1240762281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240762279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af812ffac70e41d1a9955ee9a0b8bdb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.TaskSpawn
+  radius: 4.62
+  offset: 2
 --- !u!1 &1255439749
 GameObject:
   m_ObjectHideFlags: 0
@@ -6648,6 +6827,52 @@ Transform:
   - {fileID: 5414892345107130619}
   m_Father: {fileID: 8672639692821980326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1815550567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1815550568}
+  - component: {fileID: 1815550569}
+  m_Layer: 0
+  m_Name: Spawn 1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1815550568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815550567}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.47, y: 3.57, z: 10.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 647692984}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1815550569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815550567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af812ffac70e41d1a9955ee9a0b8bdb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.TaskSpawn
+  radius: 4.62
+  offset: 2
 --- !u!1001 &1842951332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7910,82 +8135,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1001 &728197097022556208
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 520638199736537077, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: m_Name
-      value: Egg
-      objectReference: {fileID: 0}
-    - target: {fileID: 650110314909563041, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 3642199791
-      objectReference: {fileID: 0}
-    - target: {fileID: 4985072929925503252, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: bd9aa465d385e424ebe1c0abac47ffd9, type: 2}
-    - target: {fileID: 8473848468871741250, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 8473848468871741250, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.616
-      objectReference: {fileID: 0}
-    - target: {fileID: 8473848468871741250, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.51
-      objectReference: {fileID: 0}
-    - target: {fileID: 8473848468871741250, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8473848468871741250, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8473848468871741250, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8473848468871741250, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8473848468871741250, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8473848468871741250, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8473848468871741250, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
---- !u!114 &728197097022556209 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1729810433910804805, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-  m_PrefabInstance: {fileID: 728197097022556208}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 749a75116fca4862a978c040bd783e37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Inventory.ItemObject
 --- !u!1 &850523537607496319
 GameObject:
   m_ObjectHideFlags: 0
@@ -8539,82 +8688,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1001 &3342031622410509420
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2250142259951071449, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 2200433314
-      objectReference: {fileID: 0}
-    - target: {fileID: 3643759249797836159, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: bd9aa465d385e424ebe1c0abac47ffd9, type: 2}
-    - target: {fileID: 8017976095447283391, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.34800002
-      objectReference: {fileID: 0}
-    - target: {fileID: 8017976095447283391, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.616
-      objectReference: {fileID: 0}
-    - target: {fileID: 8017976095447283391, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.51
-      objectReference: {fileID: 0}
-    - target: {fileID: 8017976095447283391, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8017976095447283391, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8017976095447283391, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8017976095447283391, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8017976095447283391, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8017976095447283391, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8017976095447283391, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8935068074143419010, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-      propertyPath: m_Name
-      value: Skull
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
---- !u!114 &3342031622410509421 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7905946996376638200, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
-  m_PrefabInstance: {fileID: 3342031622410509420}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 749a75116fca4862a978c040bd783e37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Inventory.ItemObject
 --- !u!4 &3662757212257327320
 Transform:
   m_ObjectHideFlags: 0
@@ -9312,17 +9385,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 032ebc555ed1ba94c928c1890bc1dc2f, type: 3}
---- !u!114 &8324401013217039060 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3028142212904460422, guid: 032ebc555ed1ba94c928c1890bc1dc2f, type: 3}
-  m_PrefabInstance: {fileID: 8324401013217039059}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 749a75116fca4862a978c040bd783e37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Inventory.ItemObject
 --- !u!1 &8355083227449614908
 GameObject:
   m_ObjectHideFlags: 0
@@ -9796,8 +9858,6 @@ SceneRoots:
   - {fileID: 543721507}
   - {fileID: 573194389}
   - {fileID: 8324401013217039059}
-  - {fileID: 728197097022556208}
-  - {fileID: 3342031622410509420}
   - {fileID: 98113362}
   - {fileID: 871342943}
   - {fileID: 14311198}
@@ -9810,3 +9870,4 @@ SceneRoots:
   - {fileID: 901421114}
   - {fileID: 1886904888}
   - {fileID: 1082106569}
+  - {fileID: 1050113544}

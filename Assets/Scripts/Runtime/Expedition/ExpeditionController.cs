@@ -19,10 +19,11 @@ namespace WereHorse.Runtime.Expedition {
                 .FirstOrDefault(x => x.OwnerClientId == playerId);
         }
         
-        [Rpc(SendTo.Server)]
-        public void ExtractRpc() {
-            Debug.Log($"Total Points: {taskManager.TallyPoints()}");
-            ReturnToLobby();
+        public void Extract() {
+            DoOnServer(() => {
+                Debug.Log($"Total Points: {taskManager.TallyPoints()}");
+                //ReturnToLobby();
+            });
         }
         
         public void ReturnToLobby() {
@@ -41,6 +42,10 @@ namespace WereHorse.Runtime.Expedition {
         }
         
         private void Start() {
+            DoOnServer(() => {
+                taskManager.SpawnObjectives();
+            });
+            
             DoOnAll(() => {
                 SpawnCharacterRpc(NetworkManager.LocalClientId);
             });
