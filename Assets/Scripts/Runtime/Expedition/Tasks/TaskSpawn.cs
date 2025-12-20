@@ -9,10 +9,12 @@ namespace WereHorse.Runtime.Expedition.Tasks {
         public float offset;
 
         public Vector3 GetRandomPoint() {
-            Vector3 rand = Random.insideUnitCircle * radius;
-            Ray ray = new Ray(transform.TransformPoint(rand), Vector3.down);
+            Vector2 rand = Random.insideUnitCircle * radius;
+            Vector3 point = transform.TransformPoint(new Vector3(rand.x, 0, rand.y));
             
+            Ray ray = new Ray(point, Vector3.down);
             Physics.Raycast(ray, out RaycastHit hit);
+            
             return hit.point + Vector3.up * offset;
         }
         

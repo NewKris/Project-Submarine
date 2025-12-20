@@ -31,6 +31,9 @@ namespace WereHorse.Runtime.Expedition.Tasks {
                     rotation: Quaternion.identity
                 );
                 
+                Debug.Log(spawn);
+                instance.GetComponent<Rigidbody>().position = spawn;
+                
                 _objectives.Add(instance.gameObject);
             }
         }
