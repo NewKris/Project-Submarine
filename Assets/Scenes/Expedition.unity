@@ -2054,7 +2054,7 @@ Transform:
   m_GameObject: {fileID: 411946922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.89, y: 3.57, z: -36.37}
+  m_LocalPosition: {x: -39.1, y: 3.57, z: -353.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2072,7 +2072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af812ffac70e41d1a9955ee9a0b8bdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.TaskSpawn
-  radius: 4.62
+  radius: 92.77
   offset: 2
 --- !u!1 &424183345
 GameObject:
@@ -3159,7 +3159,7 @@ MonoBehaviour:
   - {fileID: 1815550569}
   - {fileID: 1240762281}
   - {fileID: 411946924}
-  objectiveCount: 4
+  objectiveCount: 3
   maxDuplicateObjectives: 4
   itemCheckArea: {fileID: 372680989}
 --- !u!4 &647692984
@@ -3180,6 +3180,7 @@ Transform:
   - {fileID: 1815550568}
   - {fileID: 1240762280}
   - {fileID: 411946923}
+  - {fileID: 1201268247}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &676671606 stripped
@@ -4443,7 +4444,7 @@ Transform:
   m_GameObject: {fileID: 1097626022}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.38, y: 3.57, z: 10.75}
+  m_LocalPosition: {x: -321, y: 3.57, z: 306}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4461,7 +4462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af812ffac70e41d1a9955ee9a0b8bdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.TaskSpawn
-  radius: 4.62
+  radius: 47.38
   offset: 2
 --- !u!1001 &1104499693
 PrefabInstance:
@@ -4972,6 +4973,52 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &1201268246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1201268247}
+  - component: {fileID: 1201268248}
+  m_Layer: 0
+  m_Name: Spawn 1 (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1201268247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201268246}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -296.1, y: 3.57, z: -30}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 647692984}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1201268248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201268246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af812ffac70e41d1a9955ee9a0b8bdb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.TaskSpawn
+  radius: 132.5
+  offset: 2
 --- !u!1 &1208958257
 GameObject:
   m_ObjectHideFlags: 0
@@ -5296,7 +5343,7 @@ Transform:
   m_GameObject: {fileID: 1240762279}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.66, y: 3.57, z: -36.37}
+  m_LocalPosition: {x: 235, y: 3.57, z: 197}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5314,7 +5361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af812ffac70e41d1a9955ee9a0b8bdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.TaskSpawn
-  radius: 4.62
+  radius: 165.2
   offset: 2
 --- !u!1 &1255439749
 GameObject:
@@ -6853,7 +6900,7 @@ Transform:
   m_GameObject: {fileID: 1815550567}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.47, y: 3.57, z: 10.75}
+  m_LocalPosition: {x: 338, y: 3.57, z: -325}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6871,7 +6918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af812ffac70e41d1a9955ee9a0b8bdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.TaskSpawn
-  radius: 4.62
+  radius: 116.51
   offset: 2
 --- !u!1001 &1842951332
 PrefabInstance:
