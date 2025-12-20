@@ -21,7 +21,8 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
         public float jumpHeight;
         public float jumpTime;
 
-        [Header("References")] 
+        [Header("References")]
+        public ProxyItemHolder proxyItemHolder;
         public Transform itemHand;
         public Transform yawPivot;
         public PlayerCamera playerCamera;
@@ -142,6 +143,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 thirdPersonAnimator.SetIsCarrying(false);
                 _heldItem.PlaceOnShelfRpc(ShelfManager.GetIndex(shelf));
                 _heldItem = null;
+                proxyItemHolder.HideProxyRpc();
             }
         }
         
@@ -149,6 +151,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
             _heldItem = item;
             _heldItem.PickUpRpc(NetworkManager.LocalClientId);
             thirdPersonAnimator.SetIsCarrying(true);
+            proxyItemHolder.ShowProxyRpc(item.itemId);
         }
 
         private void DropItem() {
@@ -156,6 +159,7 @@ namespace WereHorse.Runtime.Expedition.Player.Character {
                 thirdPersonAnimator.SetIsCarrying(false);
                 _heldItem.DropItemRpc();
                 _heldItem = null;
+                proxyItemHolder.HideProxyRpc();
             }
         }
 

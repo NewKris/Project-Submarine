@@ -832,6 +832,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &186481389
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2504466247375397202, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1373138295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2504466247375397202, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3822857843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373965555404542140, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373965555404542140, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -30.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373965555404542140, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.6006308
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373965555404542140, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373965555404542140, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373965555404542140, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373965555404542140, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373965555404542140, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373965555404542140, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373965555404542140, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640735007817612026, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+      propertyPath: m_Name
+      value: Egg
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
 --- !u!1001 &204705193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2903,8 +2968,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WereHorse.Runtime.Expedition.Tasks.ExpeditionTaskManager
   possibleObjectives:
-  - {fileID: 520638199736537077, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
-  - {fileID: 8935068074143419010, guid: 76bf1553ef19c3a4cab0def52b404371, type: 3}
+  - {fileID: 7640735007817612026, guid: 9a1b27992d7ad0549abf2a63829dc473, type: 3}
+  - {fileID: 2029451264770481260, guid: d2166c607433eda46a2f9952205ac1e6, type: 3}
   spawnPoints:
   - {fileID: 1097626024}
   - {fileID: 1815550569}
@@ -9271,3 +9336,4 @@ SceneRoots:
   - {fileID: 1886904888}
   - {fileID: 1082106569}
   - {fileID: 1050113544}
+  - {fileID: 186481389}

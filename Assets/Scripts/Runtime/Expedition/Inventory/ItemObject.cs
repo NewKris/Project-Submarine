@@ -25,7 +25,7 @@ namespace WereHorse.Runtime.Expedition.Inventory {
             shelf = ShelfManager.GetShelf(shelfIndex);
             shelf.currentItem = this;
             Pin(shelf.pin);
-            ToggleColliderRpc(true);
+            TogglePhysicalRpc(true);
         }
         
         [Rpc(SendTo.Server)]
@@ -36,14 +36,14 @@ namespace WereHorse.Runtime.Expedition.Inventory {
                 .GetComponentInChildren<PlayerCharacter>();
             
             Pin(playerCharacter.itemHand);
-            ToggleColliderRpc(false);
+            TogglePhysicalRpc(false);
         }
         
         [Rpc(SendTo.Server)]
         public void DropItemRpc() {
             RemoveFromShelf();
             UnPin();
-            ToggleColliderRpc(true);
+            TogglePhysicalRpc(true);
         }
 
         private void Reset() {
@@ -95,10 +95,15 @@ namespace WereHorse.Runtime.Expedition.Inventory {
         }
 
         [Rpc(SendTo.Everyone)]
-        private void ToggleColliderRpc(bool canCollide) {
-            ToggleColliders(canCollide);
+        private void TogglePhysicalRpc(bool isPhysical) {
+            ToggleColliders(isPhysical);
+            ToggleVisible(isPhysical);
         }
 
+        private void ToggleVisible(bool isVisible) {
+            gameObject.layer = isVisible ? LayerMask.NameToLayer("Item") : LayerMask.NameToLayer("Owner Hidden");
+        }
+        
         private void ToggleColliders(bool canCollide) {
             GetComponentsInChildren<Collider>().ForEach(c => c.enabled = canCollide);
         }
